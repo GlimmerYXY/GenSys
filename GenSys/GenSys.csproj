@@ -233,6 +233,7 @@
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\gensysContext.cs" />
     <Compile Include="Models\mAlarm.cs" />
+    <Compile Include="Models\Site.cs" />
     <Compile Include="Models\SysDept.cs" />
     <Compile Include="Models\SysDict.cs" />
     <Compile Include="Models\SysLoginLog.cs" />

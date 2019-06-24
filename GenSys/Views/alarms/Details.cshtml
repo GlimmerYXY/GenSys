@@ -1,0 +1,90 @@
+﻿@model GenSys.Models.alarm
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>alarm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.device_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.device_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.p2p_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.p2p_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.token)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.token)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.algorithm_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.algorithm_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.timestamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timestamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.appendix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.appendix)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

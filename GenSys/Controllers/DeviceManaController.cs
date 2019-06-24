@@ -6,12 +6,18 @@ using System.Web.Mvc;
 
 namespace AspDotNetMVCBootstrapTable.Controllers
 {
-    public class EquipmentManaController : Controller
+    public class DeviceManaController : Controller
     {
-        // GET: EquipmentMana
+        // GET: DeviceManaController
         public ActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult GetSite()
+        {
+
+            return Json(null);
         }
     }
 }

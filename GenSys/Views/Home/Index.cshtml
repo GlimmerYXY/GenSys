@@ -8,17 +8,18 @@
 }
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-2">
         <div id="tree" style="width:150px"></div>
     </div>
-    <div class="col-md-12">
-        <div id="logout"><button type="button" onclick="logout()">reload</button></div><br>
-        <!--Control part-->
-        <div class="liveCenter" id="liveOcx"></div>
-    </div>
-    <div class="col-md-12">
-        <h2>ASP.NET MVC and Bootstrap Table Integration</h2>
-        <table id="table-javascript"></table>
+    <div class="col-md-10">
+        <div class="row">
+            <div id="logout"><button type="button" onclick="logout()">reload</button></div><br>
+            <!--Control part-->
+            <div class="liveCenter" id="liveOcx"></div>
+        </div>
+        <div class="row">
+            <table id="table-javascript"></table>
+        </div>
     </div>
 </div>
 
@@ -31,6 +32,8 @@
             dataSource: [{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }],
             imageUrlField: 'flagUrl'
         });
+        var node = tree.getNodeByText('磨溪');
+        tree.expand(node);
     </script>
 
     <script type="text/javascript" src="/Scripts/camera/LAB.min.js"></script>
@@ -57,51 +60,72 @@
     <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-en-US.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('#table-javascript').bootstrapTable({
-                method: 'get',
-                url: '/Home/GetData',
-                cache: false,
-                height: 400,
-                striped: true,
-                pagination: true,
-                pageSize: 50,
-                pageList: [10, 25, 50, 100, 200],
-                search: true,
-                showColumns: true,
-                showRefresh: true,
-                minimumCountColumns: 2,
-                clickToSelect: true,
-                columns: [{
-                    field: 'state',
-                    checkbox: true
-                }, {
-                    field: 'ID',
-                    title: 'Item ID',
-                    align: 'right',
-                    valign: 'bottom',
-                    sortable: true
-                }, {
-                    field: 'Name',
-                    title: 'Item Name',
-                    align: 'center',
-                    valign: 'middle',
-                    sortable: true
-                }, {
-                    field: 'Price',
-                    title: 'Item Price',
-                    align: 'left',
-                    valign: 'top',
-                    sortable: true
-                }, {
-                    field: 'operate',
-                    title: 'Item Operate',
-                    align: 'center',
-                    valign: 'middle',
-                    clickToSelect: false,
-                    formatter: operateFormatter,
-                    events: operateEvents
-                }]
-            });
+            //$('#table-javascript').bootstrapTable({
+            //    method: 'get',
+            //    url: '/Home/GetData',
+            //    cache: false,
+            //    height: 400,
+            //    striped: true,
+            //    pagination: true,
+            //    pageSize: 50,
+            //    pageList: [10, 25, 50, 100, 200],
+            //    search: true,
+            //    showColumns: true,
+            //    showRefresh: true,
+            //    minimumCountColumns: 2,
+            //    clickToSelect: true,
+            //    columns: [{
+            //        field: 'Id',
+            //        title: '序号',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        sortable: true
+            //    }, {
+            //        field: 'State',
+            //        title: '状态',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        sortable: true
+            //    }, {
+            //        field: 'Site',
+            //        title: '站点',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        sortable: true
+            //    }, {
+            //        field: 'Camera',
+            //        title: '摄像机名称/ID',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        sortable: true
+            //    }, {
+            //        field: 'Issue',
+            //        title: '事件类型',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        sortable: true
+            //    }, {
+            //        field: 'Time',
+            //        title: '报警时间',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        sortable: true
+            //    }, {
+            //        field: 'Video',
+            //        title: '事件录像',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        sortable: true
+            //    }, {
+            //        field: 'Confirm',
+            //        title: '确认',
+            //        align: 'center',
+            //        valign: 'middle',
+            //        clickToSelect: false,
+            //        formatter: operateFormatter,
+            //        events: operateEvents
+            //    }]
+            //});
 
         });
 

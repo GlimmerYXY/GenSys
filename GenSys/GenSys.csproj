@@ -318,11 +318,6 @@
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\DeviceMana\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\alarms\Create.cshtml" />
-    <Content Include="Views\alarms\Delete.cshtml" />
-    <Content Include="Views\alarms\Details.cshtml" />
-    <Content Include="Views\alarms\Edit.cshtml" />
-    <Content Include="Views\alarms\Index.cshtml" />
     <Content Include="Views\dev_dict\Create.cshtml" />
     <Content Include="Views\dev_dict\Delete.cshtml" />
     <Content Include="Views\dev_dict\Details.cshtml" />

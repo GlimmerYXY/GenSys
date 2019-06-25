@@ -61,11 +61,11 @@
 
 <form class="form-horizontal" role="form" method="post" >
     <div class="col-md-1">
-        <label style="width:90px;height:25px">或从文件导入</label>
+        <label style="width:90px;height:25px;min-width:90px">或从文件导入</label>
     </div>
     <div class="col-md-1">
-        <button type="button" onclick="chooseFile.click()"style="width:90px;height:25px">导入文件</button>
-        <input type="file" id="chooseFile" style="display:none">
+        <button type="button" onclick="chooseFile.click()"style="width:90px;height:25px;" >导入文件</button>
+        <input type="file" id="chooseFile" style="display:none;">
     </div>
     <div class="col-md-1">
         <div>
@@ -184,7 +184,8 @@
                     title: '注册日期',
                     align: 'center',
                     valign: 'middle',
-                    sortable: true
+                    sortable: true,
+                    formatter: TimeFormatter
                 }, {
                     field: 'Remove',
                     title: '删除',
@@ -199,7 +200,9 @@
         });
 
         function RemoveFormatter(value, row, index) {
-            if (value != "不可删除/修改") {
+            /*value = index;
+            return value;*/
+            if (row.role_id != "超级管理员") {
                 return [
                 ' <a class="remove" href="javascript:void(0)" title="Remove">',
                 '<i class="glyphicon glyphicon-remove-sign"></i>',
@@ -208,6 +211,15 @@
             }
             else {
                 return "不可删除/修改";
+            }
+        }
+
+        function TimeFormatter(timestamp) {
+            if (timestamp != null) {
+                var date = new Date(parseInt(timestamp.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                return date.getFullYear() + "-" + month + "-" + currentDate;
             }
         }
 

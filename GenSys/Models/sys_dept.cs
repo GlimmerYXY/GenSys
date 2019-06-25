@@ -12,16 +12,15 @@ namespace GenSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class sys_dept
     {
         public int id { get; set; }
-        public string ip { get; set; }
-        public int media_port { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string dev_type { get; set; }
-        public string dev_model { get; set; }
-        public string site { get; set; }
-        public string alias { get; set; }
+        public Nullable<int> num { get; set; }
+        public Nullable<int> pid { get; set; }
+        public string pids { get; set; }
+        public string abbreviation { get; set; }
+        public string fullname { get; set; }
+        public string tips { get; set; }
+        public Nullable<int> version { get; set; }
     }
 }

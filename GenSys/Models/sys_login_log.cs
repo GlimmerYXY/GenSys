@@ -12,16 +12,14 @@ namespace GenSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class sys_login_log
     {
         public int id { get; set; }
+        public string log_name { get; set; }
+        public Nullable<int> user_id { get; set; }
+        public Nullable<System.DateTime> createtime { get; set; }
+        public string succeed { get; set; }
+        public string message { get; set; }
         public string ip { get; set; }
-        public int media_port { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string dev_type { get; set; }
-        public string dev_model { get; set; }
-        public string site { get; set; }
-        public string alias { get; set; }
     }
 }

@@ -283,7 +283,6 @@
     <Compile Include="Models\DevDict.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\gensysContext.cs" />
-    <Compile Include="Models\mAlarm.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\SysDept.cs" />
     <Compile Include="Models\SysDict.cs" />
@@ -295,7 +294,6 @@
     <Compile Include="Models\SysUser.cs" />
     <Compile Include="Models\SysUserGuns.cs" />
     <Compile Include="Models\TokenGenerator.cs" />
-    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="MySQL\alarm.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

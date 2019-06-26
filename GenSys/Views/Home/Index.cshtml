@@ -60,72 +60,72 @@
     <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-en-US.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            //$('#table-javascript').bootstrapTable({
-            //    method: 'get',
-            //    url: '/Home/GetData',
-            //    cache: false,
-            //    height: 400,
-            //    striped: true,
-            //    pagination: true,
-            //    pageSize: 50,
-            //    pageList: [10, 25, 50, 100, 200],
-            //    search: true,
-            //    showColumns: true,
-            //    showRefresh: true,
-            //    minimumCountColumns: 2,
-            //    clickToSelect: true,
-            //    columns: [{
-            //        field: 'Id',
-            //        title: '序号',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        sortable: true
-            //    }, {
-            //        field: 'State',
-            //        title: '状态',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        sortable: true
-            //    }, {
-            //        field: 'Site',
-            //        title: '站点',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        sortable: true
-            //    }, {
-            //        field: 'Camera',
-            //        title: '摄像机名称/ID',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        sortable: true
-            //    }, {
-            //        field: 'Issue',
-            //        title: '事件类型',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        sortable: true
-            //    }, {
-            //        field: 'Time',
-            //        title: '报警时间',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        sortable: true
-            //    }, {
-            //        field: 'Video',
-            //        title: '事件录像',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        sortable: true
-            //    }, {
-            //        field: 'Confirm',
-            //        title: '确认',
-            //        align: 'center',
-            //        valign: 'middle',
-            //        clickToSelect: false,
-            //        formatter: operateFormatter,
-            //        events: operateEvents
-            //    }]
-            //});
+            $('#table-javascript').bootstrapTable({
+                method: 'get',
+                url: '/Home/GetData',
+                cache: false,
+                height: 400,
+                striped: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [10, 25, 50, 100, 200],
+                search: true,
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [{
+                    field: 'Id',
+                    title: '序号',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'State',
+                    title: '状态',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Site',
+                    title: '站点',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Camera',
+                    title: '摄像机名称/ID',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Issue',
+                    title: '事件类型',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Time',
+                    title: '报警时间',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Video',
+                    title: '事件录像',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Confirm',
+                    title: '确认',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: operateFormatter,
+                    events: operateEvents
+                }]
+            });
 
         });
 

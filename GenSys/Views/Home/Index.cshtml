@@ -1,6 +1,9 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
 @section css {
     <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
     <style type="text/css">
@@ -11,12 +14,41 @@
     <div class="col-md-2">
         <div id="tree" style="width:150px"></div>
     </div>
+
     <div class="col-md-10">
         <div class="row">
-            <div id="logout"><button type="button" onclick="logout()">reload</button></div><br>
-            <!--Control part-->
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios1" value="option1"> 1画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios2" value="option2"> 4画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option3"> 8画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="option4"> 8画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios5" value="option5"> 16画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios6" value="option6"> 25画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios7" value="option7"> 36画面
+            </label>
+        </div><br>
+
+        <div class="row">
+            @*<div id="logout">
+                <button type="button" class="btn btn-default" onclick="logout()">reload</button>
+            </div>
+            <br>*@
+
             <div class="liveCenter" id="liveOcx"></div>
         </div>
+
         <div class="row">
             <table id="table-javascript"></table>
         </div>

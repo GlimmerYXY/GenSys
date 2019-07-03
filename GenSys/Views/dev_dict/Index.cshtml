@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.type)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.model)
+            @Html.DisplayNameFor(model => model.settable)
         </th>
         <th></th>
     </tr>
@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.type)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.model)
+            @Html.DisplayFor(modelItem => item.settable)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

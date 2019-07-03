@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GenSys.Models;
@@ -36,7 +37,7 @@ namespace AspDotNetMVCBootstrapTable.Controllers
             return View();
         }
 
-        // POST: /DeviceMana/AddDevice
+        // POST: DeviceMana/AddDevice
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddDevice([Bind(Include = "site, dev_type, dev_model, alias, ip, media_port, username, password")] device device)
@@ -52,6 +53,40 @@ namespace AspDotNetMVCBootstrapTable.Controllers
             
             return View();
         }
-        
+
+        // GET: DeviceMana/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            device device = db.device.Find(id);
+            if (device == null)
+            {
+                return HttpNotFound();
+            }
+            return View(device);
+        }
+
+        // POST: DeviceMana/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            device device = db.device.Find(id);
+            db.device.Remove(device);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

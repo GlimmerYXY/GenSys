@@ -180,6 +180,9 @@
     <Compile Include="Models\sys_dict.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sys_link.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sys_login_log.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
@@ -326,6 +329,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Public\AlarmSnap\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

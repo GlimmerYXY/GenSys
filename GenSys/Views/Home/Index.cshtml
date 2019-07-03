@@ -1,14 +1,11 @@
-﻿@{
+﻿@model GenSys.Models.alarm
+
+@{
     ViewBag.Title = "Home Page";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-@section css {
-    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
-    <style type="text/css">
-    </style>
-}
 
 <div class="row">
     <div class="col-md-2">
@@ -43,19 +40,102 @@
         <div class="row">
             @*<div id="logout">
                 <button type="button" class="btn btn-default" onclick="logout()">reload</button>
-            </div>
-            <br>*@
+                <button type="button" class="btn btn-warning" title="Popover title"
+                        data-container="body" data-toggle="popover" data-placement="left"
+                        data-content="右侧的 Popover 中的一些内容">
+                    右侧的 Popover
+                </button>
+                <button type="button" class="btn btn-default" title="Popover title"
+                        data-container="body" data-html="true"
+                        data-toggle="popover" data-placement="right"
+                        data-content="<img src='https://b-ssl.duitang.com/uploads/item/201601/13/20160113153414_JcvW3.jpeg' class='img-rounded'>">
+                    显示
+                </button>
+                <a title="" aria-describedby="popover741762" data-original-title="Popover title" data-toggle="popover"
+                    data-content="<img src='D:\CSharp\Gensys\GenSys\Public/AlarmSnap/20190702_101038_1423532192865.jpg' class='img-rounded'>"
+                    data-placement="left" data-container="body" data-html="true">
+                    显示
+                </a>
+            </div>*@
+            <br>
 
             <div class="liveCenter" id="liveOcx"></div>
         </div>
 
+        <br>
         <div class="row">
-            <table id="table-javascript"></table>
+            @*<table id="table-javascript"></table>*@
+            <table class="table">
+                <tr>
+                    <th>序号</th>
+                    <th>状态</th>
+                    <th>站点</th>
+                    <th>摄像机名称/ID</th>
+                    <th>事件类型</th>
+                    <th>报警时间</th>
+                    <th>事件录像</th>
+                    <th>确认</th>
+                </tr>
+
+                @foreach (var item in ViewData["alarm"] as IEnumerable<GenSys.Models.alarm>)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.state)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.site)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.alias)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.algorithm_id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.datetime)
+                        </td>
+                        <td>
+
+                            <a title="Popover title"
+                               data-container="body" data-html="true"
+                               data-toggle="popover" data-placement="left"
+                               data-content="<img src='@Html.DisplayFor(modelItem => item.image)' class='img-rounded'>">
+                                显示
+                            </a>
+                        </td>
+                        <td>
+                            @Html.ActionLink("确认", "Edit", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
         </div>
     </div>
 </div>
 
+@section css {
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+}
+
 @section Scripts {
+    <script>
+        $(function () {
+            $(function () { $("[data-toggle='popover']").popover(); });
+        });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <script>
@@ -94,7 +174,7 @@
         $(function () {
             $('#table-javascript').bootstrapTable({
                 method: 'get',
-                url: '/Home/GetData',
+                url: '/Home/GetAlarm',
                 cache: false,
                 height: 400,
                 striped: true,

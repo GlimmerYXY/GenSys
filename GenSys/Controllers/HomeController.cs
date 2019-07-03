@@ -7,11 +7,15 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GenSys.Models;
+using System.Drawing;
 
-namespace AspDotNetMVCBootstrapTable.Controllers
+namespace GenSys.Controllers
 {
     public class HomeController : Controller
     {
+        private gensysEntities db = new gensysEntities();
+
         public JObject RecvRegister()
         {
             Request.InputStream.Position = 0;
@@ -47,32 +51,37 @@ namespace AspDotNetMVCBootstrapTable.Controllers
             }
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
         public JObject RecvAlarm()
         {
+            /* 获取报警信息 */
+            var ip = Request.UserHostAddress;
+
+            string deviceID = null;
+            string p2pID = null;
+            string token = null;
+            string algID = null;
+            long timestamp = 0;
+            string image = null;
+            string msg = null;
+            string appendix = null;
+
             Request.InputStream.Position = 0;
             using (StreamReader inputStream = new StreamReader(Request.InputStream))
             {
                 String str = inputStream.ReadToEnd();
                 JObject jo = (JObject)JsonConvert.DeserializeObject(str);
 
-                string deviceID = null;
-                string p2pID = null;
-                string token = null;
-                string algID = null;
-                string timestamp = null;
-                string image = null;
-                string msg = null;
-                string appendix = null;
-
                 try { deviceID = jo["deviceID"].ToString(); }
-                catch (Exception ex) { Console.WriteLine(ex.Message); }
+                catch(Exception ex) { Console.WriteLine(ex.Message); }
                 try { p2pID = jo["p2pID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { token = jo["token"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { algID = jo["algID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
-                try { timestamp = jo["timestamp"].ToString(); }
+                try { timestamp = long.Parse(jo["timestamp"].ToString()); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { image = jo["image"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -80,27 +89,99 @@ namespace AspDotNetMVCBootstrapTable.Controllers
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { appendix = jo["appendix"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
-
-                JObject postedJObject = new JObject();
-                if (token == null || token == "")
-                {
-                    postedJObject.Add("err", 411);
-                    postedJObject.Add("errMsg", "token错误");
-                }
-                else
-                {
-                    postedJObject.Add("err", 0);
-                    postedJObject.Add("errMsg", "ok");
-                }
-
-                return postedJObject;
             }
+
+            /* 存储报警 */
+            if (deviceID != null || p2pID != null)
+            {
+                //保存目录
+                string dir = "Public/AlarmSnap/";
+                //站点文件目录
+                string fileDir = HttpRuntime.AppDomainAppPath + dir;   // HttpContext.Current.Server.MapPath("~" + dir);
+                                                                       //文件名称
+                string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + timestamp.ToString() + ".jpg";
+                //保存文件所在站点位置
+                string filePath = Path.Combine(fileDir, fileName);
+
+                if (!Directory.Exists(fileDir))
+                    Directory.CreateDirectory(fileDir);
+
+                try
+                {
+                    if (image != null)  //保存报警截图
+                    {
+                        byte[] b = Convert.FromBase64String(image);
+                        MemoryStream ms = new MemoryStream(b);
+                        Bitmap bitmap = new Bitmap(ms);
+                        bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace + ex.Message);
+                }
+
+                try
+                {
+                    alarm alarm = new alarm();
+                    //alarm.id = db.alarm.Count() + 1;
+                    alarm.device_id = deviceID;
+                    alarm.p2p_id = p2pID;
+                    alarm.ip = ip;
+                    alarm.token = token;
+                    alarm.algorithm_id = algID;
+                    alarm.timestamp = timestamp;
+                    alarm.image = filePath;
+                    alarm.message = msg;
+                    alarm.appendix = appendix;
+
+                    alarm.state = "red";
+                    var query = from device in db.device
+                               where device.ip == ip
+                               select new
+                               { device.site, device.alias };
+                    var queryList = query.ToList();
+                    if(queryList.Count > 0)
+                    {
+                        alarm.site = queryList[0].site;  //tostring
+                        alarm.alias = queryList[0].alias;  //tostring
+                    }
+                    //alarm.type
+                    DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+                    TimeSpan toNow = new TimeSpan(timestamp);
+                    alarm.datetime = dtStart.Add(toNow);
+                    alarm.confirmed = 0;
+
+                    db.alarm.Add(alarm);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace + ex.Message);
+                }
+            }
+
+            /* 发送返回信息 */
+            JObject postedJObject = new JObject();
+            if (token == null || token == "")
+            {
+                postedJObject.Add("err", 411);
+                postedJObject.Add("errMsg", "token错误");
+            }
+            else
+            {
+                postedJObject.Add("err", 0);
+                postedJObject.Add("errMsg", "ok");
+            }
+            return postedJObject;
         }
         
         public ActionResult Index()
         {
+            ViewData["alarm"] = db.alarm.ToList();
             return View();
         }
+
 
         public ActionResult About()
         {

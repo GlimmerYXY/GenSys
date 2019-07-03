@@ -1,177 +1,276 @@
-﻿@{
+﻿@model GenSys.Models.device
+
+@{
     ViewBag.Title = "设备管理";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
 @section Scripts {
+    @*<script src="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-en-US.min.js"></script>*@
+
     <script src="~/Scripts/jquery.editable-select/jquery.editable-select.min.js" type="text/javascript"></script>
     <link href="~/Scripts/jquery.editable-select/jquery.editable-select.min.css" rel="stylesheet" type="text/css" />
-    <script>
-        $.get("/DeviceMana/GetData", function (data, status) {
-            var htm = "<option value='' selected='selected' disabled='disabled'>请选择/输入站点</option>"; 
-            for (var int = 0; int < data.length; int++) {
-                htm += "<option value='" + data[int].name + "'>" + data[int].Name + "</option>";
-            }
-            $('#site').html(htm);
-            $('#site').editableSelect({
-                effects: 'slide',
-                //可选参数default、fade 
-                filter: false // 不过滤，否则选中后其它选项消失
-            });
-        });
-        $.get("/DeviceMana/GetData", function (data, status) {
-            var htm = "<option value='' selected='selected' disabled='disabled'>请选择设备类型</option>";
-            for (var int = 0; int < data.length; int++) {
-                htm += "<option value='" + data[int].name + "'>" + data[int].Name + "</option>";
-            }
-            $('#dev_type').html(htm);
-            $('#dev_type').editableSelect({
-                effects: 'slide',
-                //可选参数default、fade 
-                filter: false // 不过滤，否则选中后其它选项消失
-            });
-        });
-        $.get("/DeviceMana/GetData", function (data, status) {
-            var htm = "<option value='' selected='selected' disabled='disabled'>请选择设备型号</option>";
-            for (var int = 0; int < data.length; int++) {
-                htm += "<option value='" + data[int].name + "'>" + data[int].Name + "</option>";
-            }
-            $('#dev_model').html(htm);
-            $('#dev_model').editableSelect({
-                effects: 'slide',
-                //可选参数default、fade 
-                filter: false // 不过滤，否则选中后其它选项消失
-            });
-        });
-        $('#table-javascript').bootstrapTable({
-            method: 'get',
-            url: '/DeviceMana/GetData',
-            cache: false,
-            height: 400,
-            striped: true,
-            pagination: true,
-            pageSize: 50,
-            pageList: [10, 25, 50, 100, 200],
-            search: true,
-            showColumns: true,
-            showRefresh: true,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            columns: [{
-                field: 'Id',
-                title: '序号',
-                align: 'center',
-                valign: 'middle',
-                sortable: true
-            }, {
-                field: 'Site',
-                title: '站点',
-                align: 'center',
-                valign: 'middle',
-                sortable: true
-            }, {
-                field: 'Dev_Type',
-                title: '设备类型',
-                align: 'center',
-                valign: 'middle',
-                sortable: true
-            }, {
-                field: 'Dev_Model',
-                title: '设备型号',
-                align: 'center',
-                valign: 'middle',
-                sortable: true
-            }, {
-                field: 'Alias',
-                title: '别名',
-                align: 'center',
-                valign: 'middle',
-                sortable: true
-            }, {
-                field: 'Ip',
-                title: 'IP',
-                align: 'center',
-                valign: 'middle',
-                sortable: true
-            }, {
-                field: 'Alg_Config',
-                title: '算法配置',
-                align: 'center',
-                valign: 'middle',
-                clickToSelect: false,
-                formatter: operateFormatter,
-                events: operateEvents
-            }, {
-                field: 'Delete',
-                title: '删除',
-                align: 'center',
-                valign: 'middle',
-                clickToSelect: false,
-                formatter: operateFormatter,
-                events: operateEvents
-            }]
-        });
-        
-        function operateFormatter(value, row, index) {
-            return [
-                '<a class="like" href="javascript:void(0)" title="Like">',
-                '<i class="glyphicon glyphicon-heart"></i>',
-                '</a>',
-                ' <a class="edit ml10" href="javascript:void(0)" title="Edit">',
-                '<i class="glyphicon glyphicon-edit"></i>',
-                '</a>',
-                ' <a class="remove ml10" href="javascript:void(0)" title="Remove">',
-                '<i class="glyphicon glyphicon-remove"></i>',
-                '</a>'
-            ].join('');
-        }
 
-        window.operateEvents = {
-            'click .like': function (e, value, row, index) {
-                alert('You click like icon, row: ' + JSON.stringify(row));
-                console.log(value, row, index);
-            },
-            'click .edit': function (e, value, row, index) {
-                alert('You click edit icon, row: ' + JSON.stringify(row));
-                console.log(value, row, index);
-            },
-            'click .remove': function (e, value, row, index) {
-                alert('You click remove icon, row: ' + JSON.stringify(row));
-                console.log(value, row, index);
-            }
-        };
+    <script>
+        $('#site').editableSelect({
+            effects: 'slide',
+            //可选参数default、fade
+            filter: false // 不过滤，否则选中后其它选项消失
+        });
+        $('#dev_type').editableSelect({
+            effects: 'slide',
+        });
+        $('#dev_model').editableSelect({
+            effects: 'slide',
+            filter: false
+        });
+
+        //$.get("/DeviceMana/GetSite", function (data, status) {
+        //    //console.log(status);
+        //    var htm = "<option value='' selected='selected' disabled='disabled'>请选择/输入站点</option>";
+        //    for (var int = 0; int < data.length; int++) {
+        //        htm += "<option value='" + data[int].name + "'>" + data[int].name + "</option>";
+        //    }
+        //    $('#site').html(htm);
+        //    $('#site').editableSelect({
+        //        effects: 'slide',
+        //        //可选参数default、fade
+        //        filter: false // 不过滤，否则选中后其它选项消失
+        //    });
+        //});
+
+        //$('#table-javascript').bootstrapTable({
+        //    method: 'get',
+        //    url: '/DeviceMana/GetData',
+        //    cache: false,
+        //    height: 400,
+        //    striped: true,
+        //    pagination: true,
+        //    pageSize: 50,
+        //    pageList: [10, 25, 50, 100, 200],
+        //    search: true,
+        //    showColumns: true,
+        //    showRefresh: true,
+        //    minimumCountColumns: 2,
+        //    clickToSelect: true,
+        //    columns: [{
+        //        field: 'Id',
+        //        title: '序号',
+        //        align: 'center',
+        //        valign: 'middle',
+        //        sortable: true
+        //    }, {
+        //        field: 'Site',
+        //        title: '站点',
+        //        align: 'center',
+        //        valign: 'middle',
+        //        sortable: true
+        //    }, {
+        //        field: 'Dev_Type',
+        //        title: '设备类型',
+        //        align: 'center',
+        //        valign: 'middle',
+        //        sortable: true
+        //    }, {
+        //        field: 'Dev_Model',
+        //        title: '设备型号',
+        //        align: 'center',
+        //        valign: 'middle',
+        //        sortable: true
+        //    }, {
+        //        field: 'Alias',
+        //        title: '别名',
+        //        align: 'center',
+        //        valign: 'middle',
+        //        sortable: true
+        //    }, {
+        //        field: 'Ip',
+        //        title: 'IP',
+        //        align: 'center',
+        //        valign: 'middle',
+        //        sortable: true
+        //        //}, {
+        //        //    field: 'Alg_Config',
+        //        //    title: '算法配置',
+        //        //    align: 'center',
+        //        //    valign: 'middle',
+        //        //    clickToSelect: false,
+        //        //    formatter: operateFormatter,
+        //        //    events: operateEvents
+        //        //}, {
+        //        //    field: 'Delete',
+        //        //    title: '删除',
+        //        //    align: 'center',
+        //        //    valign: 'middle',
+        //        //    clickToSelect: false,
+        //        //    formatter: operateFormatter,
+        //        //    events: operateEvents
+        //    }]
+        //});
+
+        //function operateFormatter(value, row, index) {
+        //    return [
+        //        '<a class="like" href="javascript:void(0)" title="Like">',
+        //        '<i class="glyphicon glyphicon-heart"></i>',
+        //        '</a>',
+        //        ' <a class="edit ml10" href="javascript:void(0)" title="Edit">',
+        //        '<i class="glyphicon glyphicon-edit"></i>',
+        //        '</a>',
+        //        ' <a class="remove ml10" href="javascript:void(0)" title="Remove">',
+        //        '<i class="glyphicon glyphicon-remove"></i>',
+        //        '</a>'
+        //    ].join('');
+        //}
+
+        //window.operateEvents = {
+        //    'click .like': function (e, value, row, index) {
+        //        alert('You click like icon, row: ' + JSON.stringify(row));
+        //        console.log(value, row, index);
+        //    },
+        //    'click .edit': function (e, value, row, index) {
+        //        alert('You click edit icon, row: ' + JSON.stringify(row));
+        //        console.log(value, row, index);
+        //    },
+        //    'click .remove': function (e, value, row, index) {
+        //        alert('You click remove icon, row: ' + JSON.stringify(row));
+        //        console.log(value, row, index);
+        //    }
+        //};
     </script>
 }
 
-    <form class="form-inline" role="form" action="" method="post" onsubmit="">
-        <div class="form-group">
-            <select id="site" class="form-control"></select>
-        </div>
-        <div class="form-group">
-            <select id="dev_type" class="form-control"></select>
-        </div>
-        <div class="form-group">
-            <select id="dev_model" class="form-control"></select>
-        </div>
-        <div class="form-group">
-            <input id="alias" class="form-control" type="text" placeholder="请输入别名">
-        </div>
-        <div class="form-group">
-            <input id="ip" class="form-control" type="text" placeholder="请输入IP">
-        </div>
-        <div class="form-group">
-            <input id="media_port" class="form-control" type="text" placeholder="请输入媒体端口号">
-        </div>
-        <div class="form-group">
-            <input id="username" class="form-control" type="text" placeholder="请输入登录名">
-        </div>
-        <div class="form-group">
-            <input id="password" class="form-control" type="text" placeholder="请输入密码">
-        </div>
-        <button type="submit" class="btn btn-default">提交</button>
-    </form>
+@using (Html.BeginForm("AddDevice", "DeviceMana"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="row">
-        <table id="table-javascript"></table>
+    <div class="form-inline">
+        <div class="form-group">
+            @*<select id="site" class="form-control"></select>*@
+            @Html.DropDownListFor(model => model.site, ViewData["siteList"] as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "site" })
+            @Html.ValidationMessageFor(model => model.site, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.dev_type, ViewData["dev_typeList"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "dev_type" })
+            @Html.ValidationMessageFor(model => model.dev_type, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.dev_model, ViewData["dev_modelList"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "dev_model" })
+            @Html.ValidationMessageFor(model => model.dev_model, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.alias, new { htmlAttributes = new { @class = "form-control", @id = "alias", placeholder = "请输入别名" } })
+            @Html.ValidationMessageFor(model => model.alias, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.ip, new { htmlAttributes = new { @class = "form-control", @id = "ip", placeholder = "请输入IP" } })
+            @Html.ValidationMessageFor(model => model.ip, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.media_port, new { htmlAttributes = new { @class = "form-control", @id = "media_port", placeholder = "请输入媒体端口号" } })
+            @Html.ValidationMessageFor(model => model.media_port, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @id = "username", placeholder = "请输入登录名" } })
+            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+        </div>
+        
+        <div class="form-group">
+            @Html.PasswordFor(model => model.password, new { @class = "form-control", @id = "password", placeholder = "请输入密码" })@*用htmlAttributes会显示MVC风格而不是bootstrap风格*@
+            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-default">提交</button>
+
     </div>
+ }
+
+@*<form class="form-inline" role="form" action="/DeviceMana/AddDevice" method="post" onsubmit="">
+
+</form>*@
+
+@*<div class="row">
+    <table id="table-javascript"></table>
+</div>*@
+
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>站点</th>
+        <th>设备类型</th>
+        <th>设备型号</th>
+        <th>别名</th>
+        <th>IP</th>
+        <th>算法配置</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewData["device"] as IEnumerable<GenSys.Models.device>)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.site)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dev_type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dev_model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.alias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ip)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+            <td>
+                @*@Html.ActionLink("删除", "Delete", new { id = item.id })*@
+                <!-- 按钮触发模态框 -->
+                <a data-toggle="modal" data-target="#myModal">删除</a>
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    删除设备
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                @Html.DisplayFor(modelItem => item.site)
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">
+                                    关闭
+                                </button>
+                                <button type="button" class="btn btn-warning">
+                                    确认删除
+                                </button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </td>
+        </tr>
+    }
+</table>

@@ -46,7 +46,7 @@ namespace GenSys.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,type,model")] dev_dict dev_dict)
+        public ActionResult Create([Bind(Include = "id,type,settable")] dev_dict dev_dict)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace GenSys.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,type,model")] dev_dict dev_dict)
+        public ActionResult Edit([Bind(Include = "id,type,settable")] dev_dict dev_dict)
         {
             if (ModelState.IsValid)
             {

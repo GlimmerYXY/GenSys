@@ -12,10 +12,12 @@ namespace GenSys.MySQL
     using System;
     using System.Collections.Generic;
     
-    public partial class dev_dict
+    public partial class sys_link
     {
         public int id { get; set; }
-        public string type { get; set; }
-        public string settable { get; set; }
+        public string site { get; set; }
+        public string ip { get; set; }
+        public string filename { get; set; }
+        public Nullable<System.DateTime> update_time { get; set; }
     }
 }

@@ -20,9 +20,15 @@ namespace GenSys.MySQL
         public string ip { get; set; }
         public string token { get; set; }
         public string algorithm_id { get; set; }
-        public Nullable<long> timestamp { get; set; }
+        public long timestamp { get; set; }
         public string image { get; set; }
         public string message { get; set; }
         public string appendix { get; set; }
+        public string state { get; set; }
+        public string site { get; set; }
+        public string alias { get; set; }
+        public string type { get; set; }
+        public Nullable<System.DateTime> datetime { get; set; }
+        public Nullable<int> confirmed { get; set; }
     }
 }

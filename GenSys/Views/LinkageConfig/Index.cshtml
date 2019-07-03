@@ -1,43 +1,41 @@
 ﻿@{
     ViewBag.Title = "联动配置";
 }
+<h2>@ViewBag.Title</h2>
+
+
 @section css {
-    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min2.css" rel="stylesheet" />
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
     <style type="text/css">
     </style>
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <h2>联动配置</h2>
-        <br />
-    </div>
-</div>
 
-<div class="row">
+@using (Html.BeginForm("Add", "LinkageConfig", FormMethod.Post, new { @class = "form-horizontal" }))
+{ 
     <div class="col-md-2">
-        <div class="form-group" >
-            <select class="site" style="min-width:190px;height:25px" >
-                <option>请选择站点...</option>
-                <option>磨溪</option>
-                <option>etc.</option>
-            </select>
-        </div>
+        <select class="choose" name="site" style="min-width:180px;height:25px" >
+            <option>请选择站点...</option>
+            <option>磨溪</option>
+            <option>etc.</option>
+        </select>
     </div>
     <div class="col-md-2">
-        <label for="fileinp">
-            <input type="button" id="btn" value="导入用户" style="width:190px;height:25px">
-            <input type="file" name="UserFile" id="fileinp">
-        </label>
+        <button type="button" onclick="chooseConfig.click()" style="width:180px;height:25px">选择联动规则文件</button>
+        <input type="file" id="chooseConfig" style="display:none" accept="*.config">
     </div>
     <div class="col-md-1">
         <div>
-            <button id="upload" style="height:25px" >上传</button>
+            <button id="upload" type="submit" style="height:25px" >提交</button>
         </div>
     </div>
-</div>
+}
+<br />
 <br />
 
+<div id="testdb">
+    @ViewBag.database
+</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -65,7 +63,7 @@
                 minimumCountColumns: 2,
                 clickToSelect: true,
                 columns: [{
-                    field: 'Num',
+                    field: 'id',
                     title: '序号',
                     align: 'center',
                     valign: 'middle',
@@ -93,7 +91,8 @@
                     title: '最后更新时间',
                     align: 'center',
                     valign: 'middle',
-                    sortable: true
+                    sortable: true,
+                    formatter: TimeFormatter
                 }, {
                     field: 'Remove',
                     title: '删除',
@@ -131,14 +130,41 @@
             ].join('');
         }
 
+        function TimeFormatter(timestamp) {
+            if (timestamp != null) {
+                var date = new Date(parseInt(timestamp.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth() ;
+                var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+                return date.getFullYear() + "-" + month + "-" + currentDate + " " + hour + ":" + minute + ":" + second;
+            }
+        }
+
         window.RemoveEvents = {
             'click .remove': function (e, value, row, index) {
-                alert('You click remove icon, row: ' + JSON.stringify(row));
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+                    $.ajax({
+                        url: "/LinkageConfig/Delete", /*使用ajax向后面传递参数，传递这一行的id*/
+                        type: "POST",
+                        data: { ID: row.id },
+                        traditional: true,
+                        success: function (msg) {
+                            if (msg == "1") {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
                 console.log(value, row, index);
             }
         };
 
-        window.ApplyEvents = {
+
+        //待确定应用·按钮对应哪个功能接口
+        window.ApplyEvents = {  
             'click .apply': function (e, value, row, index) {
                 alert('You click apply icon, row: ' + JSON.stringify(row));
                 console.log(value, row, index);

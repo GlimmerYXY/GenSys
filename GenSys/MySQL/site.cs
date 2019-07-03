@@ -12,10 +12,9 @@ namespace GenSys.MySQL
     using System;
     using System.Collections.Generic;
     
-    public partial class dev_dict
+    public partial class site
     {
         public int id { get; set; }
-        public string type { get; set; }
-        public string settable { get; set; }
+        public string name { get; set; }
     }
 }

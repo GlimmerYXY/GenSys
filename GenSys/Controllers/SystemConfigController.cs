@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GenSys.MySQL;
+using GenSys.Models;
 
 namespace AspDotNetMVCBootstrapTable.Controllers
 {
@@ -48,6 +49,18 @@ namespace AspDotNetMVCBootstrapTable.Controllers
             return Json(model.ToList(), JsonRequestBehavior.AllowGet);
 
         }
+
+        [HttpPost]
+        public PartialViewResult TestAajaLoginViewResult()
+        {
+            List<User> list = new List<User>();
+            for (int i = 0; i < 3; i++)
+            {
+                list.Add(new User { Id = i, Name = "名称_" + i });
+            }
+            return PartialView(list);
+        }
+
 
         // GET: SysConfig
         public ActionResult Index()

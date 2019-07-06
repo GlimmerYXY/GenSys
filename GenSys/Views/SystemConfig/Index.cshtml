@@ -207,8 +207,13 @@
     </div>
     <br />
 
+    
 }
 <br />
+
+<button id="btnOK" type="button" >点击加载部分页面</button>
+<div id="content">
+</div>
 
 
 @section Scripts {
@@ -301,6 +306,24 @@
             });
 
         });
+
+        $(function () {
+            $('#btnOK').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/SystemConfig/TestAajaLoginViewResult',
+                    data: {},
+                    datatype: "html",
+                    success: function (data) {
+                        $('#content').append(data);
+                    },
+                    error: function () {
+                        alert("处理失败!");
+                    }
+                });
+            });
+        });
+        
 
         function RemoveDeviceFormatter(value, row, index) {
             return [

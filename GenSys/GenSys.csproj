@@ -279,6 +279,66 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\alarm.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__EFMigrationsHistory.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\device.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dev_dict.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GensysModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GensysModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GensysModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GensysModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GensysModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\site.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_dept.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_dict.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_link.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_login_log.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_menu.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_operation_log.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_relation.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_role.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_user.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_user_guns.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TokenGenerator.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -292,6 +352,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\GensysModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GensysModel.edmx</DependentUpon>
+      <LastGenOutput>GensysModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\GensysModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GensysModel.edmx</DependentUpon>
+      <LastGenOutput>GensysModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\Bootstrap-Table-1.5.0\bootstrap-table.min.css" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\bootstrap-table.min.js" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\extensions\editable\bootstrap-table-editable.min.js" />
@@ -331,6 +401,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\GensysModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GensysModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\GensysModel.edmx.diagram">
+      <DependentUpon>GensysModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

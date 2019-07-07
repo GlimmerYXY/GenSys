@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GenSys.Models;
+using Newtonsoft.Json;
 
 namespace AspDotNetMVCBootstrapTable.Controllers
 {
@@ -33,7 +34,7 @@ namespace AspDotNetMVCBootstrapTable.Controllers
             dev_modelList.Insert(0, new SelectListItem { Text = "请选择/输入设备型号", Selected = true, Disabled = true });
             ViewData["dev_modelList"] = dev_modelList;
             
-            ViewData["device"] = db.device.ToList();
+            //ViewData["device"] = JsonConvert.SerializeObject(db.device.ToList());
             return View();
         }
 
@@ -48,33 +49,27 @@ namespace AspDotNetMVCBootstrapTable.Controllers
                 device.id = count + 1;
                 db.device.Add(device);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
-            
-            return View();
+            String test = "location.reload()";
+            return RedirectToAction("Index");//return Redirect("index");//return Json("fsdfds");// return JavaScript(test);
         }
 
-        // GET: DeviceMana/Delete/5
+        // POST: DeviceMana/Delete/5
+        [HttpPost]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             device device = db.device.Find(id);
             if (device == null)
             {
                 return HttpNotFound();
             }
-            return View(device);
-        }
 
-        // POST: DeviceMana/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            device device = db.device.Find(id);
             db.device.Remove(device);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -87,6 +82,11 @@ namespace AspDotNetMVCBootstrapTable.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult GetData()
+        {
+            return Json(db.device.ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

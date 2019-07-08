@@ -12,13 +12,9 @@ namespace GenSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_relation
+    public partial class C__EFMigrationsHistory
     {
-        public int id { get; set; }
-        public Nullable<long> menu_id { get; set; }
-        public Nullable<int> role_id { get; set; }
-    
-        public virtual sys_menu sys_menu { get; set; }
-        public virtual sys_role sys_role { get; set; }
+        public string MigrationId { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

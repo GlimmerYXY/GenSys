@@ -1,7 +1,175 @@
 ﻿@{
     ViewBag.Title = "联动配置";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>@ViewBag.Title</h2>
 
-<p>Use this area to provide additional information.</p>
+
+@section css {
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+}
+
+
+@using (Html.BeginForm("Add", "LinkageConfig", FormMethod.Post, new { @class = "form-horizontal" }))
+{ 
+    <div class="col-md-2">
+        <select class="choose" name="site" style="min-width:180px;height:25px" >
+            <option>请选择站点...</option>
+            <option>磨溪</option>
+            <option>etc.</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="button" onclick="chooseConfig.click()" style="width:180px;height:25px">选择联动规则文件</button>
+        <input type="file" id="chooseConfig" style="display:none" accept="*.config">
+    </div>
+    <div class="col-md-1">
+        <div>
+            <button id="upload" type="submit" style="height:25px" >提交</button>
+        </div>
+    </div>
+}
+<br />
+<br />
+
+<div id="testdb">
+    @ViewBag.database
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="table-javascript"></table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-en-US.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#table-javascript').bootstrapTable({
+                method: 'get',
+                url: '/LinkageConfig/GetData',
+                cache: false,
+                striped: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [10, 25, 50, 100],
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [{
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Site',
+                    title: '站点',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'ServerIP',
+                    title: '服务器IP',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'FileName',
+                    title: '规则文件名',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'UpdateTime',
+                    title: '最后更新时间',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: TimeFormatter
+                }, {
+                    field: 'Remove',
+                    title: '删除',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: RemoveFormatter,
+                    events: RemoveEvents
+                },{
+                    field: 'Apply',
+                    title: '应用',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: ApplyFormatter,
+                    events: ApplyEvents
+                }]
+            });
+
+        });
+
+        function RemoveFormatter(value, row, index) {
+            return [
+                ' <a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove-sign"></i>',
+                '</a>'
+            ].join('');
+        }
+
+        function ApplyFormatter(value, row, index) {
+            return [
+                '<a class="apply" href="javascript:void(0)" title="Apply">',
+                '<i class="glyphicon glyphicon-check"></i>',
+                '</a>'
+            ].join('');
+        }
+
+        function TimeFormatter(timestamp) {
+            if (timestamp != null) {
+                var date = new Date(parseInt(timestamp.replace("/Date(", "").replace(")/", ""), 10));
+                var month = date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth() ;
+                var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+                return date.getFullYear() + "-" + month + "-" + currentDate + " " + hour + ":" + minute + ":" + second;
+            }
+        }
+
+        window.RemoveEvents = {
+            'click .remove': function (e, value, row, index) {
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+                    $.ajax({
+                        url: "/LinkageConfig/Delete", /*使用ajax向后面传递参数，传递这一行的id*/
+                        type: "POST",
+                        data: { ID: row.id },
+                        traditional: true,
+                        success: function (msg) {
+                            if (msg == "1") {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+                console.log(value, row, index);
+            }
+        };
+
+
+        //待确定应用·按钮对应哪个功能接口
+        window.ApplyEvents = {  
+            'click .apply': function (e, value, row, index) {
+                alert('You click apply icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            }
+        };
+
+    </script>
+}

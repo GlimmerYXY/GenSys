@@ -4,7 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="gensysModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="gensysModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="varchar" MaxLength="95" Nullable="false" />
+          <Property Name="ProductVersion" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="alarm">
           <Key>
             <PropertyRef Name="id" />
@@ -191,7 +198,32 @@
           <Property Name="createtime" Type="datetime" Precision="0" />
           <Property Name="version" Type="int" />
         </EntityType>
+        <Association Name="菜单id">
+          <End Role="sys_menu" Type="Self.sys_menu" Multiplicity="0..1" />
+          <End Role="sys_relation" Type="Self.sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="角色id">
+          <End Role="sys_role" Type="Self.sys_role" Multiplicity="0..1" />
+          <End Role="sys_relation" Type="Self.sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="gensysModelStoreContainer">
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="alarm" EntityType="Self.alarm" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="dev_dict" EntityType="Self.dev_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="device" EntityType="Self.device" Schema="gensys" store:Type="Tables" />
@@ -206,16 +238,61 @@
           <EntitySet Name="sys_role" EntityType="Self.sys_role" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_user" EntityType="Self.sys_user" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_user_guns" EntityType="Self.sys_user_guns" Schema="gensys" store:Type="Tables" />
+          <AssociationSet Name="菜单id" Association="Self.菜单id">
+            <End Role="sys_menu" EntitySet="sys_menu" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
+          <AssociationSet Name="角色id" Association="Self.角色id">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="gensysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="95" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alarm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="device_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="p2p_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="algorithm_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="Int64" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="appendix" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="datetime" Type="DateTime" />
+          <Property Name="confirmed" Type="Int32" />
+        </EntityType>
+        <EntityType Name="dev_dict">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="settable" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="device">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="media_port" Type="Int32" Nullable="false" />
           <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
@@ -229,7 +306,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_dept">
@@ -249,12 +326,22 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="num" Type="Int32" />
           <Property Name="pid" Type="Int32" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="tips" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_link">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="filename" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="update_time" Type="DateTime" />
         </EntityType>
         <EntityType Name="sys_login_log">
           <Key>
@@ -285,6 +372,7 @@
           <Property Name="tips" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Int32" />
           <Property Name="isopen" Type="Int32" />
+          <NavigationProperty Name="sys_relation" Relationship="Self.菜单id" FromRole="sys_menu" ToRole="sys_relation" />
         </EntityType>
         <EntityType Name="sys_operation_log">
           <Key>
@@ -307,6 +395,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="menu_id" Type="Int64" />
           <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="sys_menu" Relationship="Self.菜单id" FromRole="sys_relation" ToRole="sys_menu" />
+          <NavigationProperty Name="sys_role" Relationship="Self.角色id" FromRole="sys_relation" ToRole="sys_role" />
         </EntityType>
         <EntityType Name="sys_role">
           <Key>
@@ -319,6 +409,7 @@
           <Property Name="dept_id" Type="Int32" />
           <Property Name="tips" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="version" Type="Int32" />
+          <NavigationProperty Name="sys_relation" Relationship="Self.角色id" FromRole="sys_role" ToRole="sys_relation" />
         </EntityType>
         <EntityType Name="sys_user">
           <Key>
@@ -358,11 +449,39 @@
           <Property Name="createtime" Type="DateTime" />
           <Property Name="version" Type="Int32" />
         </EntityType>
+        <Association Name="菜单id">
+          <End Role="sys_menu" Type="Self.sys_menu" Multiplicity="0..1" />
+          <End Role="sys_relation" Type="Self.sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="角色id">
+          <End Role="sys_role" Type="Self.sys_role" Multiplicity="0..1" />
+          <End Role="sys_relation" Type="Self.sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="gensysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
+          <EntitySet Name="alarm" EntityType="Self.alarm" />
+          <EntitySet Name="dev_dict" EntityType="Self.dev_dict" />
           <EntitySet Name="device" EntityType="Self.device" />
           <EntitySet Name="site" EntityType="Self.site" />
           <EntitySet Name="sys_dept" EntityType="Self.sys_dept" />
           <EntitySet Name="sys_dict" EntityType="Self.sys_dict" />
+          <EntitySet Name="sys_link" EntityType="Self.sys_link" />
           <EntitySet Name="sys_login_log" EntityType="Self.sys_login_log" />
           <EntitySet Name="sys_menu" EntityType="Self.sys_menu" />
           <EntitySet Name="sys_operation_log" EntityType="Self.sys_operation_log" />
@@ -370,55 +489,60 @@
           <EntitySet Name="sys_role" EntityType="Self.sys_role" />
           <EntitySet Name="sys_user" EntityType="Self.sys_user" />
           <EntitySet Name="sys_user_guns" EntityType="Self.sys_user_guns" />
-          <EntitySet Name="sys_link" EntityType="gensysModel.sys_link" />
-          <EntitySet Name="alarm" EntityType="gensysModel.alarm" />
-          <EntitySet Name="dev_dict" EntityType="gensysModel.dev_dict" />
+          <AssociationSet Name="菜单id" Association="Self.菜单id">
+            <End Role="sys_menu" EntitySet="sys_menu" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
+          <AssociationSet Name="角色id" Association="Self.角色id">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="sys_link">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="filename" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="update_time" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="alarm">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="device_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="p2p_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="algorithm_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="timestamp" Type="Int64" Nullable="false" />
-          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="message" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="appendix" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="datetime" Type="DateTime" />
-          <Property Name="confirmed" Type="Int32" />
-        </EntityType>
-        <EntityType Name="dev_dict">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="settable" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="gensysModelStoreContainer" CdmEntityContainer="gensysEntities">
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="gensysModel.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alarm">
+            <EntityTypeMapping TypeName="gensysModel.alarm">
+              <MappingFragment StoreEntitySet="alarm">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="device_id" ColumnName="device_id" />
+                <ScalarProperty Name="p2p_id" ColumnName="p2p_id" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="algorithm_id" ColumnName="algorithm_id" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="appendix" ColumnName="appendix" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="confirmed" ColumnName="confirmed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dev_dict">
+            <EntityTypeMapping TypeName="gensysModel.dev_dict">
+              <MappingFragment StoreEntitySet="dev_dict">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="settable" ColumnName="settable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="device">
             <EntityTypeMapping TypeName="gensysModel.device">
               <MappingFragment StoreEntitySet="device">
@@ -465,6 +589,17 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="tips" ColumnName="tips" />
                 <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_link">
+            <EntityTypeMapping TypeName="gensysModel.sys_link">
+              <MappingFragment StoreEntitySet="sys_link">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="update_time" ColumnName="update_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -574,48 +709,6 @@
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="createtime" ColumnName="createtime" />
                 <ScalarProperty Name="version" ColumnName="version" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_link">
-            <EntityTypeMapping TypeName="gensysModel.sys_link">
-              <MappingFragment StoreEntitySet="sys_link">
-                <ScalarProperty Name="update_time" ColumnName="update_time" />
-                <ScalarProperty Name="filename" ColumnName="filename" />
-                <ScalarProperty Name="ip" ColumnName="ip" />
-                <ScalarProperty Name="site" ColumnName="site" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="alarm">
-            <EntityTypeMapping TypeName="gensysModel.alarm">
-              <MappingFragment StoreEntitySet="alarm">
-                <ScalarProperty Name="confirmed" ColumnName="confirmed" />
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="alias" ColumnName="alias" />
-                <ScalarProperty Name="site" ColumnName="site" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="appendix" ColumnName="appendix" />
-                <ScalarProperty Name="message" ColumnName="message" />
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="algorithm_id" ColumnName="algorithm_id" />
-                <ScalarProperty Name="token" ColumnName="token" />
-                <ScalarProperty Name="ip" ColumnName="ip" />
-                <ScalarProperty Name="p2p_id" ColumnName="p2p_id" />
-                <ScalarProperty Name="device_id" ColumnName="device_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="dev_dict">
-            <EntityTypeMapping TypeName="gensysModel.dev_dict">
-              <MappingFragment StoreEntitySet="dev_dict">
-                <ScalarProperty Name="settable" ColumnName="settable" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

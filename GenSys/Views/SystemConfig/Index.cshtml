@@ -1,7 +1,363 @@
 ﻿@{
     ViewBag.Title = "系统配置";
+    
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+@section css {
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+}
 
-<p>Use this area to provide additional information.</p>
+<h2>@ViewBag.Title</h2>
+
+
+
+@using (Html.BeginForm("Apply", "SystemConfig", FormMethod.Post, new { @class = "form" }))
+{
+    
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+    
+    
+
+    <h4><b>用户信息</b></h4>
+    <div>
+        <label for="Name" style="width:90px;height:25px;min-width:90px;">系统名称</label>
+        <input type="text" name="Name" id="Name" size="18" maxlength="30" />
+    </div>
+    <br />
+    <div class="pull-left">
+        <label style="width:90px;height:25px;min-width:90px;">Logo</label>
+    </div>
+    <div class="pull-left">
+        <input type="file" id="logo" name="logo" >
+    </div>
+    <br />
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>界面选择</b></h4>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="OptionsUI" id="Alarmlist" value="option1" />报警列表
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="OptionsUI" id="Traditionalmonitor" value="option2" />传统监控
+        </label>
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>APP</b></h4>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="Appsupport" id="notsupport" value="option1" />不支持
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="Appsupport" id="support" value="option2" />支持
+        </label>
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>报警提示音</b></h4>
+    <div class="pull-left">
+        <label style="width:90px;height:25px;min-width:90px;">提示音</label>
+    </div>
+    <div class="pull-left">
+        <input type="file" id="beep" name="beep">
+    </div>
+    <br />
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>事件录像源</b></h4>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="GenBox" value="option1" />GenBox
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="GIC IPC TF" value="option2" />GIC IPC TF
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="GIC VTS" value="option3" />GIC VTS
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="HIK NVR" value="option4" />HIK NVR
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="Dahua NVR" value="option5" />Dahua NVR
+        </label>
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>功能模块</b></h4>
+    <div>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="SystemConfig" value="1" />系统配置
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="DeviceMana" value="1" />设备管理
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="LinkageConfig" value="1" />联动配置
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="Report" value="1" />报表
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="Log" value="1" />日志
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="UserMana" value="1" />用户管理
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="DigitalMap" value="1" />电子地图
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="Ticket" value="1" />工单
+        </label>
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>路径设置</b></h4>
+    <div>
+        <label for="PrtScPath" style="width:90px;height:25px;min-width:90px;">抓图路径</label>
+        <input type="text" name="PrtScPath" id="PrtScPath" size="18" style="width:300px" />
+    </div>
+    <div>
+        <label for="VideoPath" style="width:90px;height:25px;min-width:90px;">录像路径</label>
+        <input type="text" name="VideoPath" id="VideoPath" size="18" style="width:300px" />
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>设备类型</b></h4>
+    <div>
+        <label for="type" style="width:90px;height:25px;min-width:90px;">设备类型</label>
+        <input type="text" name="type" id="type" size="18" maxlength="30" />
+        <label for="settable" style="width:90px;height:25px;min-width:90px;">可否配置算法</label>
+        <select class="choose" name="settable" style="width:90px;height:25px">
+            <option>可配置</option>
+            <option>不可配置</option>
+        </select>
+        <button id="add" type="button" style="height:25px">添加</button>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <table id="dev_dict"></table>
+        </div>
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>页面权限管理</b></h4>
+    <div>
+        <label for="position" style="width:90px;height:25px;min-width:90px;">职务</label>
+        <input type="text" name="position" id="position" size="18" maxlength="30" />
+        <label class="checkbox-inline">
+            <input type="checkbox" id="Home" value="1" />主页
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="SystemConfig" value="1" />系统配置
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="DeviceMana" value="1" />设备管理
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="LinkageConfig" value="1" />联动配置
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="Report" value="1" />报表
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="Log" value="1" />日志
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="UserMana" value="1" />用户管理
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="DigitalMap" value="1" />电子地图
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="Ticket" value="1" />工单
+        </label>
+        <button id="upload" type="button" style="height:25px">添加</button>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <table id="permission"></table>
+        </div>
+    </div>
+    <br />
+
+    <div style="text-align:right">
+        <button id="apply" type="submit" style="width:100px;height:30px">应用</button>
+    </div>
+    <br />
+
+    
+}
+<br />
+
+<button id="btnOK" type="button" >点击加载部分页面</button>
+<div id="content">
+</div>
+
+
+@section Scripts {
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-en-US.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#dev_dict').bootstrapTable({
+                method: 'get',
+                url: '/SystemConfig/GetDevice',
+                cache: false,
+                striped: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [10, 25, 50, 100],
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [{
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'DeviceType',
+                    title: '设备类型',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Settable',
+                    title: '可否配置算法',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Remove',
+                    title: '删除',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: RemoveDeviceFormatter,
+                    events: RemoveDeviceEvents
+                }]
+            });
+
+        });
+
+        $(function () {
+            $('#permission').bootstrapTable({
+                method: 'get',
+                url: '/SystemConfig/GetPermission',
+                cache: false,
+                striped: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [10, 25, 50, 100],
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [{
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Position',
+                    title: '职务',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'AccessiblePage',
+                    title: '允许进入的页面',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Remove',
+                    title: '删除',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: RemovePermissionFormatter,
+                    events: RemovePermissionEvents
+                }]
+            });
+
+        });
+
+        $(function () {
+            $('#btnOK').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/SystemConfig/TestAajaLoginViewResult',
+                    data: {},
+                    datatype: "html",
+                    success: function (data) {
+                        $('#content').append(data);
+                    },
+                    error: function () {
+                        alert("处理失败!");
+                    }
+                });
+            });
+        });
+        
+
+        function RemoveDeviceFormatter(value, row, index) {
+            return [
+                ' <a class="remove" href="javascript:void(0)" title="Remove">删除',
+                '</a>'
+            ].join('');
+        }
+
+        window.RemoveDeviceEvents = {
+            'click .remove': function (e, value, row, index) {
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+                    
+                }
+                console.log(value, row, index);
+            }
+        };
+
+        function RemovePermissionFormatter(value, row, index) {
+            return [
+                ' <a class="remove" href="javascript:void(0)" title="Remove">删除',
+                '</a>'
+            ].join('');
+        }
+
+        window.RemovePermissionEvents = {
+            'click .remove': function (e, value, row, index) {
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+
+                }
+                console.log(value, row, index);
+            }
+        };
+
+    </script>
+}

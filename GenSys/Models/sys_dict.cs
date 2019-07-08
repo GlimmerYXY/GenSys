@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Collections.Generic;

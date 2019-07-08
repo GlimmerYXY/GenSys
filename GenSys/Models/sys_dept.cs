@@ -7,22 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class alarm
+    public partial class sys_dept
     {
         public int id { get; set; }
-        public string device_id { get; set; }
-        public string p2p_id { get; set; }
-        public string ip { get; set; }
-        public string token { get; set; }
-        public string algorithm_id { get; set; }
-        public Nullable<long> timestamp { get; set; }
-        public string image { get; set; }
-        public string message { get; set; }
-        public string appendix { get; set; }
+        public Nullable<int> num { get; set; }
+        public Nullable<int> pid { get; set; }
+        public string pids { get; set; }
+        public string abbreviation { get; set; }
+        public string fullname { get; set; }
+        public string tips { get; set; }
+        public Nullable<int> version { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Data.Entity;
@@ -25,11 +25,14 @@ namespace GenSys.MySQL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__EFMigrationsHistory> C__EFMigrationsHistory { get; set; }
         public virtual DbSet<alarm> alarm { get; set; }
         public virtual DbSet<dev_dict> dev_dict { get; set; }
         public virtual DbSet<device> device { get; set; }
+        public virtual DbSet<site> site { get; set; }
         public virtual DbSet<sys_dept> sys_dept { get; set; }
         public virtual DbSet<sys_dict> sys_dict { get; set; }
+        public virtual DbSet<sys_link> sys_link { get; set; }
         public virtual DbSet<sys_login_log> sys_login_log { get; set; }
         public virtual DbSet<sys_menu> sys_menu { get; set; }
         public virtual DbSet<sys_operation_log> sys_operation_log { get; set; }

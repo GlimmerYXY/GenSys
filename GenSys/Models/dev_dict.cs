@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,6 +16,6 @@ namespace GenSys.MySQL
     {
         public int id { get; set; }
         public string type { get; set; }
-        public string model { get; set; }
+        public string settable { get; set; }
     }
 }

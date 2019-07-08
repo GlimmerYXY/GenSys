@@ -7,13 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class sys_menu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public sys_menu()
+        {
+            this.sys_relation = new HashSet<sys_relation>();
+        }
+    
         public long id { get; set; }
         public string code { get; set; }
         public string pcode { get; set; }
@@ -27,5 +33,8 @@ namespace GenSys.MySQL
         public string tips { get; set; }
         public Nullable<int> status { get; set; }
         public Nullable<int> isopen { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sys_relation> sys_relation { get; set; }
     }
 }

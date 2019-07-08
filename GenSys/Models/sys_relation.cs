@@ -7,21 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_operation_log
+    public partial class sys_relation
     {
         public int id { get; set; }
-        public string log_type { get; set; }
-        public string log_name { get; set; }
-        public Nullable<int> user_id { get; set; }
-        public string class_name { get; set; }
-        public string method { get; set; }
-        public Nullable<System.DateTime> createtime { get; set; }
-        public string succeed { get; set; }
-        public string message { get; set; }
+        public Nullable<long> menu_id { get; set; }
+        public Nullable<int> role_id { get; set; }
+    
+        public virtual sys_menu sys_menu { get; set; }
+        public virtual sys_role sys_role { get; set; }
     }
 }

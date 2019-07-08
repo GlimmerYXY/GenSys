@@ -7,25 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_user
+    public partial class sys_user_guns
     {
         public int id { get; set; }
-        public string username { get; set; }
+        public string avatar { get; set; }
+        public string account { get; set; }
         public string password { get; set; }
         public string salt { get; set; }
-        public string role_id { get; set; }
         public string name { get; set; }
-        public string dept_id { get; set; }
-        public string position { get; set; }
-        public string qualification { get; set; }
-        public string id_number { get; set; }
-        public string phone_number { get; set; }
-        public string photo { get; set; }
-        public Nullable<System.DateTime> register_date { get; set; }
+        public Nullable<System.DateTime> birthday { get; set; }
+        public Nullable<int> sex { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string roleid { get; set; }
+        public Nullable<int> deptid { get; set; }
+        public Nullable<int> status { get; set; }
+        public Nullable<System.DateTime> createtime { get; set; }
+        public Nullable<int> version { get; set; }
     }
 }

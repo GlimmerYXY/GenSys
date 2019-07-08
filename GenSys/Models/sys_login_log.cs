@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenSys.MySQL
+namespace GenSys.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_role
+    public partial class sys_login_log
     {
         public int id { get; set; }
-        public Nullable<int> num { get; set; }
-        public Nullable<int> pid { get; set; }
-        public string name { get; set; }
-        public Nullable<int> dept_id { get; set; }
-        public string tips { get; set; }
-        public Nullable<int> version { get; set; }
+        public string log_name { get; set; }
+        public Nullable<int> user_id { get; set; }
+        public Nullable<System.DateTime> createtime { get; set; }
+        public string succeed { get; set; }
+        public string message { get; set; }
+        public string ip { get; set; }
     }
 }

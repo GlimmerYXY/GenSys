@@ -10,7 +10,7 @@
 }
 
 
-@using (Html.BeginForm("Index", "UserMana", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Add", "UserMana", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="col-md-1">
         <select class="choose" name="role_id" style="width:90px;height:25px">
@@ -46,7 +46,7 @@
     </div>
     <div class="col-md-1">
         <button type="button" onclick="chooseFile.click()"style="width:90px;height:25px">导入照片</button>
-        <input type="file" id="chooseFile" style="display:none">
+        <input type="file" id="chooseFile" style="display:none" accept="image/*">
     </div>
     <div class="col-md-1">
         <div>
@@ -59,12 +59,13 @@
 <br />
 <br />
 
-<form class="form-horizontal" role="form" method="post" >
+@using (Html.BeginForm("FileImport", "UserMana", FormMethod.Post, new { @class = "form-horizontal" }))
+{
     <div class="col-md-1">
         <label style="width:90px;height:25px;min-width:90px">或从文件导入</label>
     </div>
     <div class="col-md-1">
-        <button type="button" onclick="chooseFile.click()"style="width:90px;height:25px;" >导入文件</button>
+        <button type="button" onclick="chooseFile.click()" style="width:90px;height:25px;">导入文件</button>
         <input type="file" id="chooseFile" style="display:none;">
     </div>
     <div class="col-md-1">
@@ -72,7 +73,7 @@
             <button id="upload" style="height:25px">上传</button>
         </div>
     </div>
-</form>
+}
 <br />
 
 <div id="formcontent">
@@ -81,6 +82,10 @@
 
 <div id="testdb">
     @ViewBag.database
+</div>
+
+<div id="salt">
+    @ViewBag.salt
 </div>
 
 <div class="row">
@@ -131,13 +136,13 @@
                     align: 'center',
                     valign: 'middle',
                     sortable: true
-                }, {
+                }, /*{
                     field: 'salt',
                     title: 'MD5盐',
                     align: 'center',
                     valign: 'middle',
                     sortable: true
-                }, {
+                },*/ {
                     field: 'name',
                     title: '姓名',
                     align: 'center',
@@ -226,9 +231,25 @@
 
         window.RemoveEvents = {
             'click .remove': function (e, value, row, index) {
-                alert('You click remove icon, row: ' + JSON.stringify(row));
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+                    //window.location = "UserMana/Delete/";
+                    $.ajax({
+                        url: "/UserMana/Delete", /*使用ajax向后面传递参数，传递这一行的id*/
+                        type: "POST",
+                        data: { ID: row.id },
+                        traditional: true,
+                        success: function (msg) {
+                            if (msg == "1") {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
                 console.log(value, row, index);
+                
             }
+            
         };
 
     </script>

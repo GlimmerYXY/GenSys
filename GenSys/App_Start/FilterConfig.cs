@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace AspDotNetMVCBootstrapTable
+namespace GenSys
 {
     public class FilterConfig
     {

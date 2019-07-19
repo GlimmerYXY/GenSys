@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AspDotNetMVCBootstrapTable.Controllers
+namespace GenSys.Controllers
 {
     public class LogController : Controller
     {

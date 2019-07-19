@@ -1,4 +1,4 @@
-﻿using AspDotNetMVCBootstrapTable.Models;
+﻿using GenSys.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using GenSys.Models;
 using System.Drawing;
 
 namespace GenSys.Controllers
@@ -15,6 +14,7 @@ namespace GenSys.Controllers
     public class HomeController : Controller
     {
         private gensysEntities db = new gensysEntities();
+
 
         public JObject RecvRegister()
         {
@@ -26,12 +26,12 @@ namespace GenSys.Controllers
 
                 string deviceID = null;
                 string p2pID = null;
-                
+
                 try { deviceID = jo["deviceID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { p2pID = jo["p2pID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
-                
+
                 JObject postedJObject = new JObject();
                 if ((deviceID == null || deviceID == "") && (p2pID == null || p2pID == ""))
                 {
@@ -74,7 +74,7 @@ namespace GenSys.Controllers
                 JObject jo = (JObject)JsonConvert.DeserializeObject(str);
 
                 try { deviceID = jo["deviceID"].ToString(); }
-                catch(Exception ex) { Console.WriteLine(ex.Message); }
+                catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { p2pID = jo["p2pID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { token = jo["token"].ToString(); }
@@ -137,11 +137,11 @@ namespace GenSys.Controllers
 
                     alarm.state = "red";
                     var query = from device in db.device
-                               where device.ip == ip
-                               select new
-                               { device.site, device.alias };
+                                where device.ip == ip
+                                select new
+                                { device.site, device.alias };
                     var queryList = query.ToList();
-                    if(queryList.Count > 0)
+                    if (queryList.Count > 0)
                     {
                         alarm.site = queryList[0].site;  //tostring
                         alarm.alias = queryList[0].alias;  //tostring
@@ -175,13 +175,18 @@ namespace GenSys.Controllers
             }
             return postedJObject;
         }
-        
+
+
         public ActionResult Index()
         {
             ViewData["alarm"] = db.alarm.ToList();
             return View();
         }
 
+        public JsonResult GetAlarm()
+        {
+            return Json(db.alarm.ToList(), JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult About()
         {
@@ -233,6 +238,14 @@ namespace GenSys.Controllers
             return Json(products.ToList(), JsonRequestBehavior.AllowGet);
 
         }
-        
+
+
+        //public JsonResult GetTree()
+        //{//dataSource: [{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }]
+        //    List<Location> locations;
+        //    List<Models.DTO.Location> records;
+
+        //    return Json();
+        //}
     }
 }

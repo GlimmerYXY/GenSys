@@ -153,6 +153,7 @@
     <Compile Include="Models\device.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeviveTreeNode.cs" />
     <Compile Include="Models\dev_dict.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>

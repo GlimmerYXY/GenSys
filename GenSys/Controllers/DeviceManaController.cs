@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using GenSys.Models;
 using Newtonsoft.Json;
 
-namespace AspDotNetMVCBootstrapTable.Controllers
+namespace GenSys.Controllers
 {
     public class DeviceManaController : Controller
     {
@@ -22,8 +22,8 @@ namespace AspDotNetMVCBootstrapTable.Controllers
             siteList.Insert(0, new SelectListItem { Text = "请选择/输入站点", Selected = true, Disabled = true });
             ViewData["siteList"] = siteList;
 
-            var dev_type = from device in db.device
-                           select device.dev_type;
+            var dev_type = from dev_dict in db.dev_dict
+                           select dev_dict.type;
             List<SelectListItem> dev_typeList = new SelectList(dev_type.Distinct()).ToList();
             dev_typeList.Insert(0, new SelectListItem { Text = "请选择/输入设备类型",  Selected = true, Disabled = true });
             ViewData["dev_typeList"] = dev_typeList;

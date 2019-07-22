@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Drawing;
-
+ 
 namespace GenSys.Controllers
 {
     public class HomeController : Controller
@@ -240,12 +240,43 @@ namespace GenSys.Controllers
         }
 
 
-        //public JsonResult GetTree()
-        //{//dataSource: [{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }]
-        //    List<Location> locations;
-        //    List<Models.DTO.Location> records;
+        public JsonResult GetTree()
+        {//dataSource: [{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }]
+            List<device> raw;
+            List<DeviveTreeNode> records;
 
-        //    return Json();
-        //}
+            raw = db.device.ToList();
+            
+            records = raw.GroupBy(l => l.site).Select(l => l.Key).Select(l => new DeviveTreeNode
+            {
+                id = -1,
+                ip = null,
+                media_port = -1,
+                username = null,
+                password = null,
+                dev_type = null,
+                dev_model = null,
+                text = l,
+                children = GetChildren(raw, l)
+            }).ToList();
+
+            return Json(records, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<DeviveTreeNode> GetChildren(List<device> raw, string siteKey)
+        {
+            return raw.Where(l => l.site == siteKey).Select(l => new DeviveTreeNode
+            {
+                id = l.id,
+                ip = l.ip,
+                media_port = l.media_port,
+                username = l.username,
+                password = l.password,
+                dev_type = l.dev_type,
+                dev_model = l.dev_model,
+                text = l.alias,
+                children = null
+            }).ToList();
+        }
     }
 }

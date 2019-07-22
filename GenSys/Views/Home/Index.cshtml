@@ -1,7 +1,7 @@
 ﻿@model GenSys.Models.alarm
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "风格2 传统监控";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
@@ -27,13 +27,15 @@
         //    $(function () { $("[data-toggle='popover']").popover(); });
         //});
 
+
         var tree = $('#tree').tree({
-            primaryKey: 'id',
-            dataSource: [{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }],
-            imageUrlField: 'flagUrl'
+            //primaryKey: 'id',
+            dataSource: '/Home/GetTree'//[{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }],
+            //imageUrlField: 'flagUrl'
         });
-        var node = tree.getNodeByText('磨溪');
-        tree.expand(node);
+        //var node = tree.getNodeByText('磨溪');
+        //tree.expand(node);
+
 
         $LAB.script("/Scripts/camera/pluginVersion.js?version=" + (new Date).getTime())
             .wait(function () {
@@ -48,6 +50,7 @@
                             })
                     })
             })
+
 
         function operateFormatter(value, row, index) {
             return [

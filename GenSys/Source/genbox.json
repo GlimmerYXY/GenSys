@@ -1,0 +1,15 @@
+{
+	"genbox": {
+		"remote_server": {			
+			"count":"0",
+			"ip1":"",
+			"port1":""
+		},	
+		"onvif": {			
+			"enable":"1"
+		},	
+		"recorder": {			
+			"enable":"1"
+		}
+	}
+}

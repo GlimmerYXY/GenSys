@@ -16,6 +16,77 @@ namespace GenSys.Controllers
         private gensysEntities db = new gensysEntities();
 
 
+        public ActionResult About()
+        {
+            return View();
+        }
+        
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult test()
+        {
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Index()
+        {
+            ViewData["alarm"] = db.alarm.ToList();
+            return View();
+        }
+
+
+        /* 报警信息列表 */
+        public JsonResult GetAlarm()
+        {
+            return Json(db.alarm.ToList(), JsonRequestBehavior.AllowGet);
+        }
+ 
+
+        /* 树形菜单 */
+        public JsonResult GetTree()
+        {
+            List<device> raw;
+            List<DeviveTreeNode> records;
+
+            raw = db.device.ToList();
+            
+            records = raw.GroupBy(l => l.site).Select(l => l.Key).Select(l => new DeviveTreeNode
+            {
+                id = -1,
+                ip = null,
+                media_port = -1,
+                username = null,
+                password = null,
+                dev_type = null,
+                dev_model = null,
+                text = l,
+                children = GetChildren(raw, l)
+            }).ToList();
+
+            return Json(records, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<DeviveTreeNode> GetChildren(List<device> raw, string siteKey)
+        {
+            return raw.Where(l => l.site == siteKey).Select(l => new DeviveTreeNode
+            {
+                id = l.id,
+                ip = l.ip,
+                media_port = l.media_port,
+                username = l.username,
+                password = l.password,
+                dev_type = l.dev_type,
+                dev_model = l.dev_model,
+                text = l.alias,
+                children = null
+            }).ToList();
+        }
+
+
+        /* 相机报警接口 */
         public JObject RecvRegister()
         {
             Request.InputStream.Position = 0;
@@ -177,22 +248,7 @@ namespace GenSys.Controllers
         }
 
 
-        public ActionResult Index()
-        {
-            ViewData["alarm"] = db.alarm.ToList();
-            return View();
-        }
-
-        public JsonResult GetAlarm()
-        {
-            return Json(db.alarm.ToList(), JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult About()
-        {
-            return View();
-        }
-
+        /* 测试数据 */
         private class Product
         {
             public string Id { get; set; }
@@ -237,46 +293,6 @@ namespace GenSys.Controllers
 
             return Json(products.ToList(), JsonRequestBehavior.AllowGet);
 
-        }
-
-
-        public JsonResult GetTree()
-        {//dataSource: [{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }]
-            List<device> raw;
-            List<DeviveTreeNode> records;
-
-            raw = db.device.ToList();
-            
-            records = raw.GroupBy(l => l.site).Select(l => l.Key).Select(l => new DeviveTreeNode
-            {
-                id = -1,
-                ip = null,
-                media_port = -1,
-                username = null,
-                password = null,
-                dev_type = null,
-                dev_model = null,
-                text = l,
-                children = GetChildren(raw, l)
-            }).ToList();
-
-            return Json(records, JsonRequestBehavior.AllowGet);
-        }
-
-        private List<DeviveTreeNode> GetChildren(List<device> raw, string siteKey)
-        {
-            return raw.Where(l => l.site == siteKey).Select(l => new DeviveTreeNode
-            {
-                id = l.id,
-                ip = l.ip,
-                media_port = l.media_port,
-                username = l.username,
-                password = l.password,
-                dev_type = l.dev_type,
-                dev_model = l.dev_model,
-                text = l.alias,
-                children = null
-            }).ToList();
         }
     }
 }

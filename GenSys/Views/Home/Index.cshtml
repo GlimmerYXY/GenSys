@@ -29,12 +29,13 @@
 
 
         var tree = $('#tree').tree({
-            //primaryKey: 'id',
             dataSource: '/Home/GetTree'//[{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }],
-            //imageUrlField: 'flagUrl'
         });
-        //var node = tree.getNodeByText('磨溪');
-        //tree.expand(node);
+        tree.on('select', function (e, node, id) {
+            var data = tree.getDataById(id);
+            //alert('select is fired for node with id=' + id + '\t' + 'ip=' + data.ip + '\t' + 'media_port=' + data.media_port + '\t' + 'username=' + data.username + '\t' + 'password=' + data.password);
+            GensysLogin(data.ip, data.media_port, data.username, data.password);
+        });
 
 
         $LAB.script("/Scripts/camera/pluginVersion.js?version=" + (new Date).getTime())
@@ -123,6 +124,7 @@
         </div><br>
 
         <div class="row">
+            @*<button type="button" class="btn btn-default" onclick="GensysLogin('yuanxxn.vicp.net', 18915, 'admin', 'admin')">reload</button>*@
             @*<div id="logout">
                 <button type="button" class="btn btn-default" onclick="logout()">reload</button>
                 <button type="button" class="btn btn-warning" title="Popover title"
@@ -146,32 +148,29 @@
             <br>
 
             <div class="liveCenter" id="liveOcx"></div>
-        </div>
+        </div><br>
 
-        <br>
         <div class="row">
             @*<table id="table-javascript"></table>*@
 
-            <div class="row">
-                <table id="alarmTable" data-toggle="table" data-url="/Home/GetAlarm" data-method="get" data-silent="true" data-cache="false"
+            <table id="alarmTable" data-toggle="table" data-url="/Home/GetAlarm" data-method="get" data-silent="true" data-cache="false"
                        data-height="520" @*data-classes="table-bordered"*@ data-striped="true"
                        data-sortable="true" data-sort-name="id" data-sort-order="desc"
                        data-pagination="true" data-pageSize="20" data-pageList="[10, 25, 50, 100]"
                        data-search="true" data-show-columns="true" data-show-refresh="true">
-                    <thead>
-                        <tr>
-                            <th data-field="id" data-sortable="true">序号</th>
-                            <th data-field="state" data-sortable="true">状态</th>
-                            <th data-field="site" data-sortable="true">站点</th>
-                            <th data-field="alias" data-sortable="true">摄像机名称</th>
-                            <th data-field="algorithm_id" data-sortable="true">事件类型</th>
-                            <th data-field="datetime" data-sortable="true">报警时间</th>
-                            <th data-field="show_image" data-formatter="operateFormatter" data-events="operateEvents">事件录像</th>
-                            <th data-field="alg_config" data-formatter="operateFormatter" data-events="operateEvents">确认</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+                <thead>
+                    <tr>
+                        <th data-field="id" data-sortable="true">序号</th>
+                        <th data-field="state" data-sortable="true">状态</th>
+                        <th data-field="site" data-sortable="true">站点</th>
+                        <th data-field="alias" data-sortable="true">摄像机名称</th>
+                        <th data-field="algorithm_id" data-sortable="true">事件类型</th>
+                        <th data-field="datetime" data-sortable="true">报警时间</th>
+                        <th data-field="show_image" data-formatter="operateFormatter" data-events="operateEvents">事件录像</th>
+                        <th data-field="alg_config" data-formatter="operateFormatter" data-events="operateEvents">确认</th>
+                    </tr>
+                </thead>
+            </table>
 
             @*<table class="table">
                 <tr>

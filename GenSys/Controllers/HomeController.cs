@@ -26,9 +26,42 @@ namespace GenSys.Controllers
             return View();
         }
 
-        public ActionResult test()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel loginModel )//string username, string password
         {
-            return RedirectToAction("Index");
+            if (! ModelState.IsValid)
+            {
+                //用户输入服务端验证,此处处理验证不通过的提示代码 本例略过             
+                return View();
+            }
+
+            string result = loginModel.Login();
+
+            if(result == "验证通过！")
+                return RedirectToAction("Index");
+            else
+            {
+                Response.Write("<script>alert('" + result + "')</script>");
+                return View("Login");
+            }
+
+            //var un = from sys_user in db.sys_user
+            //         where sys_user.username == username
+            //         select sys_user.password;
+            //var ul = un.ToList();
+
+            //if(ul.Count == 0)
+            //{
+            //    return Content("该用户名不存在！");
+            //}
+            //else if(ul[0] == password)
+            //{
+            //    return RedirectToAction("Index");
+            //}
+            //else
+            //    return Content("密码错误！");
+
         }
 
         public ActionResult Index()

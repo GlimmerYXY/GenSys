@@ -1,23 +1,46 @@
-﻿@{
+﻿@model GenSys.Models.LoginModel
+
+@{
     ViewData["Title"] = "登录";
 }
 <h2>@ViewData["Title"]</h2>
 <hr />
 
-@using (Html.BeginForm("test", "Home"))
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
+        @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label" })
+        @Html.PasswordFor(model => model.password, new { @class = "form-control", @id = "password" })@*用htmlAttributes会显示MVC风格而不是bootstrap风格*@
+        @*@Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })*@
+        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+    </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.rememberme, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(model => model.rememberme, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.rememberme, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+    @*<div class="form-group">
         @Html.Label("用户名", htmlAttributes: new { @class = "control-label" })
         @Html.Editor("username", new { htmlAttributes = new { @class = "form-control" } })
     </div>
 
     <div class="form-group">
         @Html.Label("密码", htmlAttributes: new { @class = "control-label" })
-        @Html.Password("username", null, new { @class = "form-control" })@*用htmlAttributes会显示MVC风格而不是bootstrap风格*@
-    </div>
+        @Html.Password("password", null, new { @class = "form-control" })
+    </div>*@
 
     <div class="form-group">
         <input type="submit" value="登录" class="btn btn-default" />

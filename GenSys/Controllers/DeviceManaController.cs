@@ -17,7 +17,7 @@ namespace GenSys.Controllers
         public ActionResult Index()
         {
             var site = from device in db.device
-                           select device.site;
+                       select device.site;
             List<SelectListItem> siteList = new SelectList(site.Distinct()).ToList();
             siteList.Insert(0, new SelectListItem { Text = "请选择/输入站点", Selected = true, Disabled = true });
             ViewData["siteList"] = siteList;

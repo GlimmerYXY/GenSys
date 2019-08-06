@@ -100,7 +100,7 @@ $(function () {
 
     InitWeb();
 
-    AutoLogin();
+    //AutoLogin();
 
 });
 
@@ -157,13 +157,19 @@ function InitOcx() {
 }
 
 function AutoLogin() {
-
-    gVar.ip = "yuanxxn.vicp.net";
-    gVar.mediaport = 14275;
-    //gVar.ip = "192.168.1.192";
-    //gVar.mediaport = 9200;
+    gVar.ip = "yuanxxn.vicp.net";   //"192.168.1.192"  "yuanxxn.vicp.net"
+    gVar.mediaport = 18915;  //9200;
     gVar.user = "admin";
     gVar.passwd = "admin";
+
+    gDevice.id = gDevice.UserLogin().Data.DeviceID;
+}
+
+function GensysLogin(ip, mediaport, user, passwd) {
+    gVar.ip = ip;   
+    gVar.mediaport = mediaport;
+    gVar.user = user;
+    gVar.passwd = passwd;
 
     gDevice.id = gDevice.UserLogin().Data.DeviceID;
 }

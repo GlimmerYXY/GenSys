@@ -19,6 +19,12 @@
         <EntityTypeShape EntityType="gensysModel.sys_link" Width="1.5" PointX="9.375" PointY="10.75" />
         <EntityTypeShape EntityType="gensysModel.alarm" Width="1.5" PointX="0.5" PointY="0.75" />
         <EntityTypeShape EntityType="gensysModel.dev_dict" Width="1.5" PointX="2.625" PointY="0.75" />
+        <EntityTypeShape EntityType="gensysModel.linkage_algorithm" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="gensysModel.linkage_operation" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="gensysModel.linkage_position" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="gensysModel.sys_log" Width="1.5" PointX="5.375" PointY="11.75" />
+        <AssociationConnector Association="gensysModel.菜单id" />
+        <AssociationConnector Association="gensysModel.角色id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

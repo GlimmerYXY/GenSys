@@ -172,6 +172,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GensysModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\linkage_algorithm.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\linkage_operation.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\linkage_position.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\site.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
@@ -183,6 +192,9 @@
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sys_link.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_log.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sys_login_log.cs">

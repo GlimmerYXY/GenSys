@@ -12,18 +12,23 @@ namespace GenSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class alarm
     {
         public int id { get; set; }
+        public string device_id { get; set; }
+        public string p2p_id { get; set; }
         public string ip { get; set; }
-        public int media_port { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string dev_type { get; set; }
-        public string dev_model { get; set; }
+        public string token { get; set; }
+        public string algorithm_id { get; set; }
+        public long timestamp { get; set; }
+        public string image { get; set; }
+        public string message { get; set; }
+        public string appendix { get; set; }
+        public string state { get; set; }
         public string site { get; set; }
         public string alias { get; set; }
-        public string uuid { get; set; }
-        public string vedio_url { get; set; }
+        public string type { get; set; }
+        public Nullable<System.DateTime> datetime { get; set; }
+        public Nullable<int> confirmed { get; set; }
     }
 }

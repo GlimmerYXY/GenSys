@@ -14,6 +14,12 @@ namespace GenSys.Models
     
     public partial class sys_role
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public sys_role()
+        {
+            this.sys_relation = new HashSet<sys_relation>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> num { get; set; }
         public Nullable<int> pid { get; set; }
@@ -21,5 +27,8 @@ namespace GenSys.Models
         public Nullable<int> dept_id { get; set; }
         public string tips { get; set; }
         public Nullable<int> version { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sys_relation> sys_relation { get; set; }
     }
 }

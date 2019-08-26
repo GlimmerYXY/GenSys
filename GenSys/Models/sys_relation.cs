@@ -17,5 +17,8 @@ namespace GenSys.Models
         public int id { get; set; }
         public Nullable<long> menu_id { get; set; }
         public Nullable<int> role_id { get; set; }
+    
+        public virtual sys_menu sys_menu { get; set; }
+        public virtual sys_role sys_role { get; set; }
     }
 }

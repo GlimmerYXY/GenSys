@@ -39,5 +39,9 @@ namespace GenSys.Models
         public virtual DbSet<sys_link> sys_link { get; set; }
         public virtual DbSet<alarm> alarm { get; set; }
         public virtual DbSet<dev_dict> dev_dict { get; set; }
+        public virtual DbSet<linkage_algorithm> linkage_algorithm { get; set; }
+        public virtual DbSet<linkage_operation> linkage_operation { get; set; }
+        public virtual DbSet<linkage_position> linkage_position { get; set; }
+        public virtual DbSet<sys_log> sys_log { get; set; }
     }
 }

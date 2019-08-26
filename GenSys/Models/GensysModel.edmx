@@ -32,6 +32,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="type" Type="varchar" MaxLength="255" />
+          <Property Name="model" Type="varchar" MaxLength="255" />
           <Property Name="settable" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="device">
@@ -47,6 +48,29 @@
           <Property Name="dev_model" Type="varchar" MaxLength="255" />
           <Property Name="site" Type="varchar" MaxLength="255" />
           <Property Name="alias" Type="varchar" MaxLength="255" />
+          <Property Name="uuid" Type="varchar" MaxLength="255" />
+          <Property Name="vedio_url" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="linkage_algorithm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="linkage_operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="linkage_position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="number" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="site">
           <Key>
@@ -88,6 +112,21 @@
           <Property Name="ip" Type="varchar" MaxLength="255" />
           <Property Name="filename" Type="varchar" MaxLength="255" />
           <Property Name="update_time" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="sys_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="log_type" Type="varchar" MaxLength="255" />
+          <Property Name="log_name" Type="varchar" MaxLength="255" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="controller" Type="varchar" MaxLength="255" />
+          <Property Name="action" Type="varchar" MaxLength="255" />
+          <Property Name="createtime" Type="datetime" Precision="0" />
+          <Property Name="succeed" Type="varchar" MaxLength="255" />
+          <Property Name="message" Type="text" />
         </EntityType>
         <EntityType Name="sys_login_log">
           <Key>
@@ -191,14 +230,42 @@
           <Property Name="createtime" Type="datetime" Precision="0" />
           <Property Name="version" Type="int" />
         </EntityType>
+        <Association Name="菜单id">
+          <End Role="sys_menu" Type="Self.sys_menu" Multiplicity="0..1" />
+          <End Role="sys_relation" Type="Self.sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="角色id">
+          <End Role="sys_role" Type="Self.sys_role" Multiplicity="0..1" />
+          <End Role="sys_relation" Type="Self.sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="gensysModelStoreContainer">
           <EntitySet Name="alarm" EntityType="Self.alarm" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="dev_dict" EntityType="Self.dev_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="device" EntityType="Self.device" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_algorithm" EntityType="Self.linkage_algorithm" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_operation" EntityType="Self.linkage_operation" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_position" EntityType="Self.linkage_position" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="site" EntityType="Self.site" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_dept" EntityType="Self.sys_dept" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_dict" EntityType="Self.sys_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_link" EntityType="Self.sys_link" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="sys_log" EntityType="Self.sys_log" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_login_log" EntityType="Self.sys_login_log" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_menu" EntityType="Self.sys_menu" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_operation_log" EntityType="Self.sys_operation_log" Schema="gensys" store:Type="Tables" />
@@ -206,6 +273,14 @@
           <EntitySet Name="sys_role" EntityType="Self.sys_role" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_user" EntityType="Self.sys_user" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_user_guns" EntityType="Self.sys_user_guns" Schema="gensys" store:Type="Tables" />
+          <AssociationSet Name="菜单id" Association="Self.菜单id">
+            <End Role="sys_menu" EntitySet="sys_menu" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
+          <AssociationSet Name="角色id" Association="Self.角色id">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -224,6 +299,8 @@
           <Property Name="dev_model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uuid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="vedio_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="site">
           <Key>
@@ -285,6 +362,7 @@
           <Property Name="tips" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Int32" />
           <Property Name="isopen" Type="Int32" />
+          <NavigationProperty Name="sys_relation" Relationship="gensysModel.菜单id" FromRole="sys_menu" ToRole="sys_relation" />
         </EntityType>
         <EntityType Name="sys_operation_log">
           <Key>
@@ -307,6 +385,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="menu_id" Type="Int64" />
           <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="sys_menu" Relationship="gensysModel.菜单id" FromRole="sys_relation" ToRole="sys_menu" />
+          <NavigationProperty Name="sys_role" Relationship="gensysModel.角色id" FromRole="sys_relation" ToRole="sys_role" />
         </EntityType>
         <EntityType Name="sys_role">
           <Key>
@@ -319,6 +399,7 @@
           <Property Name="dept_id" Type="Int32" />
           <Property Name="tips" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="version" Type="Int32" />
+          <NavigationProperty Name="sys_relation" Relationship="gensysModel.角色id" FromRole="sys_role" ToRole="sys_relation" />
         </EntityType>
         <EntityType Name="sys_user">
           <Key>
@@ -373,6 +454,18 @@
           <EntitySet Name="sys_link" EntityType="gensysModel.sys_link" />
           <EntitySet Name="alarm" EntityType="gensysModel.alarm" />
           <EntitySet Name="dev_dict" EntityType="gensysModel.dev_dict" />
+          <EntitySet Name="linkage_algorithm" EntityType="gensysModel.linkage_algorithm" />
+          <EntitySet Name="linkage_operation" EntityType="gensysModel.linkage_operation" />
+          <EntitySet Name="linkage_position" EntityType="gensysModel.linkage_position" />
+          <EntitySet Name="sys_log" EntityType="gensysModel.sys_log" />
+          <AssociationSet Name="菜单id" Association="gensysModel.菜单id">
+            <End Role="sys_menu" EntitySet="sys_menu" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
+          <AssociationSet Name="角色id" Association="gensysModel.角色id">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sys_link">
           <Key>
@@ -412,7 +505,68 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="settable" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="linkage_algorithm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="log_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="log_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="controller" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createtime" Type="DateTime" />
+          <Property Name="succeed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="菜单id">
+          <End Type="gensysModel.sys_menu" Role="sys_menu" Multiplicity="0..1" />
+          <End Type="gensysModel.sys_relation" Role="sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="角色id">
+          <End Type="gensysModel.sys_role" Role="sys_role" Multiplicity="0..1" />
+          <End Type="gensysModel.sys_relation" Role="sys_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_relation">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -422,6 +576,8 @@
           <EntitySetMapping Name="device">
             <EntityTypeMapping TypeName="gensysModel.device">
               <MappingFragment StoreEntitySet="device">
+                <ScalarProperty Name="vedio_url" ColumnName="vedio_url" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ip" ColumnName="ip" />
                 <ScalarProperty Name="media_port" ColumnName="media_port" />
@@ -613,8 +769,49 @@
           <EntitySetMapping Name="dev_dict">
             <EntityTypeMapping TypeName="gensysModel.dev_dict">
               <MappingFragment StoreEntitySet="dev_dict">
+                <ScalarProperty Name="model" ColumnName="model" />
                 <ScalarProperty Name="settable" ColumnName="settable" />
                 <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_algorithm">
+            <EntityTypeMapping TypeName="gensysModel.linkage_algorithm">
+              <MappingFragment StoreEntitySet="linkage_algorithm">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_operation">
+            <EntityTypeMapping TypeName="gensysModel.linkage_operation">
+              <MappingFragment StoreEntitySet="linkage_operation">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_position">
+            <EntityTypeMapping TypeName="gensysModel.linkage_position">
+              <MappingFragment StoreEntitySet="linkage_position">
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_log">
+            <EntityTypeMapping TypeName="gensysModel.sys_log">
+              <MappingFragment StoreEntitySet="sys_log">
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="succeed" ColumnName="succeed" />
+                <ScalarProperty Name="createtime" ColumnName="createtime" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="log_name" ColumnName="log_name" />
+                <ScalarProperty Name="log_type" ColumnName="log_type" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

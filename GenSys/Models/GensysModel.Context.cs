@@ -43,5 +43,6 @@ namespace GenSys.Models
         public virtual DbSet<linkage_operation> linkage_operation { get; set; }
         public virtual DbSet<linkage_position> linkage_position { get; set; }
         public virtual DbSet<sys_log> sys_log { get; set; }
+        public virtual DbSet<linkage_event> linkage_event { get; set; }
     }
 }

@@ -25,6 +25,7 @@
         <EntityTypeShape EntityType="gensysModel.sys_log" Width="1.5" PointX="5.375" PointY="11.75" />
         <AssociationConnector Association="gensysModel.菜单id" />
         <AssociationConnector Association="gensysModel.角色id" />
+        <EntityTypeShape EntityType="gensysModel.linkage_event" Width="1.5" PointX="11.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

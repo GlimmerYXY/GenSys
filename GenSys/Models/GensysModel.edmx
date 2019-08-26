@@ -58,6 +58,13 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="linkage_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="linkage_operation">
           <Key>
             <PropertyRef Name="id" />
@@ -259,6 +266,7 @@
           <EntitySet Name="dev_dict" EntityType="Self.dev_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="device" EntityType="Self.device" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="linkage_algorithm" EntityType="Self.linkage_algorithm" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_event" EntityType="Self.linkage_event" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="linkage_operation" EntityType="Self.linkage_operation" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="linkage_position" EntityType="Self.linkage_position" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="site" EntityType="Self.site" Schema="gensys" store:Type="Tables" />
@@ -466,6 +474,7 @@
             <End Role="sys_role" EntitySet="sys_role" />
             <End Role="sys_relation" EntitySet="sys_relation" />
           </AssociationSet>
+          <EntitySet Name="linkage_event" EntityType="gensysModel.linkage_event" />
         </EntityContainer>
         <EntityType Name="sys_link">
           <Key>
@@ -567,6 +576,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="linkage_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -812,6 +828,14 @@
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="log_name" ColumnName="log_name" />
                 <ScalarProperty Name="log_type" ColumnName="log_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_event">
+            <EntityTypeMapping TypeName="gensysModel.linkage_event">
+              <MappingFragment StoreEntitySet="linkage_event">
+                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

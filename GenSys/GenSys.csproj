@@ -175,6 +175,9 @@
     <Compile Include="Models\linkage_algorithm.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\linkage_event.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\linkage_operation.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>

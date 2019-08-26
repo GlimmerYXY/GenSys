@@ -1,0 +1,51 @@
+{
+  "id": "",
+  "start_time": "",
+  "end_time": "",
+  "repeat": "1111100", //周一~五应用本配置
+  "event": "open", //开关门
+  "delay": "10", //事件发生后，延迟10秒执行以下命令序列
+
+  //命令序列
+  "sequence": {
+    "num": "4", //命令总数
+    "instruction": [  //有4条，数量由num决定。以下为示例，有4种操作类型
+      {
+        "uuid": "000000-0000-0000-000000000000", //相机的uuid
+        "operation": "active", //激活算法
+        "detail": "renshutongji" //算法id
+      },
+      {
+        "uuid": "000000-0000-0000-000000000001",
+        "operation": "deactive", //禁用算法
+        "detail": "ruqinyanhuo"
+      },
+      {
+        "uuid": "-1", //不针对相机算法，延时（sleep，不进行操作）
+        "operation": "delay",
+        "detail": "30" //时长，单位秒
+      },
+      {
+        "uuid": "000000-0000-0000-000000000002",
+        "operation": "position", //更改相机预置位
+        "detail": "1" //预置位编号
+      }
+    ]
+  }
+
+  //"camera": {
+  //  "identity": "1/2/3/4", //相机编号、通道、IP -> 改用uuid
+  //  "operation": "active/deactive/position", //激活规则、禁用规则、调整预置位
+  //  "detail": "ruqinyanhuoshibie/renlian/renshutongji/1/2" //规则名、预置位编号  -> 算法ID
+  //},
+  //"sound_shield": {
+  //  "identity": "", //genbox是否存储声波盾的IP、端口号
+  //  "port": "",
+  //  "gate": "1-10-5/1-0-0/0-0-0" //1开-发声时长-静默时长、1开-0-0（一直响）、0关-0-0
+  //},
+  //"gate": {
+  //  "ip": "",
+  //  "port": "",
+  //  "instruction": "0/1" //0关、1开
+  //}
+}

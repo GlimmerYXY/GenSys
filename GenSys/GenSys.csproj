@@ -274,9 +274,13 @@
     <Content Include="Models\GensysModel.edmx.diagram">
       <DependentUpon>GensysModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\IISConfig.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap3-editable-1.5.1\bootstrap-editable.css" />
+    <Content Include="Scripts\bootstrap3-editable-1.5.1\bootstrap-editable.js" />
+    <Content Include="Scripts\bootstrap3-editable-1.5.1\bootstrap-editable.min.js" />
     <Content Include="Scripts\camera\class.js" />
     <Content Include="Scripts\camera\common.js" />
     <Content Include="Scripts\camera\jquery-1.11.1.min.js" />
@@ -331,6 +335,7 @@
     <Content Include="Source\genbox.json" />
     <Content Include="Source\ipcam.json" />
     <Content Include="Views\Home\login.cshtml" />
+    <Content Include="Source\linkage.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

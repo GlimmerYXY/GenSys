@@ -73,7 +73,7 @@ namespace AspDotNetMVCBootstrapTable.Controllers
             rng.GetBytes(saltBytes);
             string salt = Convert.ToBase64String(saltBytes);
             //string salt = ToHexString(saltBytes);   
-            ViewBag.salt = salt;
+            //ViewBag.salt = salt;
             /*属性剩余id photo salt三个属性，id自增 salt随机生成 photo路径*/
 
             if (usertype!="" && userid!= "" && password != "" && name != "" && department != "" && 
@@ -82,23 +82,35 @@ namespace AspDotNetMVCBootstrapTable.Controllers
                   department + " " + position + " " + qualification + " " + idnum + " " + phone + " "+ time;
 
                 gensysEntities gensysdb = new gensysEntities();
-                sys_user useradd = new sys_user();
+                var distinctUser = (from d in gensysdb.sys_user where d.username == userid
+                                    select d);
+                if (distinctUser.Count() == 0)
+                {
+                    sys_user useradd = new sys_user();
 
-                useradd.role_id = usertype;
-                useradd.username = userid;
-                useradd.password = password;
-                useradd.salt = salt;
-                useradd.name = name;
-                useradd.dept_id = department;
-                useradd.position = position;
-                useradd.qualification = qualification;
-                useradd.id_number = idnum;
-                useradd.phone_number = phone;
-                useradd.register_date = time;
+                    useradd.role_id = usertype;
+                    useradd.username = userid;
+                    useradd.password = password;
+                    useradd.salt = salt;
+                    useradd.name = name;
+                    useradd.dept_id = department;
+                    useradd.position = position;
+                    useradd.qualification = qualification;
+                    useradd.id_number = idnum;
+                    useradd.phone_number = phone;
+                    useradd.register_date = time;
 
-                gensysdb.sys_user.Add(useradd);
+                    gensysdb.sys_user.Add(useradd);
 
-                gensysdb.SaveChanges();
+                    gensysdb.SaveChanges();
+                }
+                else
+                {
+                    var script = String.Format("<script>alert('用户名重复！');location.href='{0}'</script>", Url.Action("Index", "UserMana"));
+                    //Url.Action()用于指定跳转的路径             
+                    return Content(script, "text/html");
+                }
+                
             }
             else
             {
@@ -113,6 +125,7 @@ namespace AspDotNetMVCBootstrapTable.Controllers
 
 
             //return Json(newproduct.ToList(), JsonRequestBehavior.AllowGet);
+            
             return RedirectToAction("Index");
         }
 

@@ -12,11 +12,17 @@ namespace GenSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class dev_dict
+    public partial class sys_log
     {
         public int id { get; set; }
-        public string type { get; set; }
-        public string settable { get; set; }
-        public string model { get; set; }
+        public string log_type { get; set; }
+        public string log_name { get; set; }
+        public Nullable<int> user_id { get; set; }
+        public Nullable<int> role_id { get; set; }
+        public string controller { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> createtime { get; set; }
+        public string succeed { get; set; }
+        public string message { get; set; }
     }
 }

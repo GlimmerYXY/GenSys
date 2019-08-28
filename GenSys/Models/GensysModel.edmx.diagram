@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b0003da6540d4ac8a095f0afc74d752c" Name="Diagram1">
-        <EntityTypeShape EntityType="gensysModel.C__EFMigrationsHistory" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gensysModel.alarm" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gensysModel.dev_dict" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gensysModel.device" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
@@ -22,6 +21,7 @@
         <EntityTypeShape EntityType="gensysModel.sys_user_guns" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="gensysModel.菜单id" ManuallyRouted="false" />
         <AssociationConnector Association="gensysModel.角色id" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="gensysModel.sys_log" Width="1.5" PointX="11.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

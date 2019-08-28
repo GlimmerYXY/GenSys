@@ -25,7 +25,6 @@ namespace GenSys.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__EFMigrationsHistory> C__EFMigrationsHistory { get; set; }
         public virtual DbSet<alarm> alarm { get; set; }
         public virtual DbSet<dev_dict> dev_dict { get; set; }
         public virtual DbSet<device> device { get; set; }
@@ -40,5 +39,6 @@ namespace GenSys.Models
         public virtual DbSet<sys_role> sys_role { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
         public virtual DbSet<sys_user_guns> sys_user_guns { get; set; }
+        public virtual DbSet<sys_log> sys_log { get; set; }
     }
 }

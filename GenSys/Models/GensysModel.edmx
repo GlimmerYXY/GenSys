@@ -4,14 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="gensysModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__EFMigrationsHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-          </Key>
-          <Property Name="MigrationId" Type="varchar" MaxLength="95" Nullable="false" />
-          <Property Name="ProductVersion" Type="varchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="gensysModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="alarm">
           <Key>
             <PropertyRef Name="id" />
@@ -39,6 +32,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="type" Type="varchar" MaxLength="255" />
+          <Property Name="model" Type="varchar" MaxLength="255" />
           <Property Name="settable" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="device">
@@ -95,6 +89,21 @@
           <Property Name="ip" Type="varchar" MaxLength="255" />
           <Property Name="filename" Type="varchar" MaxLength="255" />
           <Property Name="update_time" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="sys_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="log_type" Type="varchar" MaxLength="255" />
+          <Property Name="log_name" Type="varchar" MaxLength="255" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="controller" Type="varchar" MaxLength="255" />
+          <Property Name="action" Type="varchar" MaxLength="255" />
+          <Property Name="createtime" Type="datetime" Precision="0" />
+          <Property Name="succeed" Type="varchar" MaxLength="255" />
+          <Property Name="message" Type="text" />
         </EntityType>
         <EntityType Name="sys_login_log">
           <Key>
@@ -223,7 +232,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="gensysModelStoreContainer">
-          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="alarm" EntityType="Self.alarm" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="dev_dict" EntityType="Self.dev_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="device" EntityType="Self.device" Schema="gensys" store:Type="Tables" />
@@ -231,6 +239,7 @@
           <EntitySet Name="sys_dept" EntityType="Self.sys_dept" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_dict" EntityType="Self.sys_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_link" EntityType="Self.sys_link" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="sys_log" EntityType="Self.sys_log" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_login_log" EntityType="Self.sys_login_log" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_menu" EntityType="Self.sys_menu" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_operation_log" EntityType="Self.sys_operation_log" Schema="gensys" store:Type="Tables" />
@@ -247,18 +256,10 @@
             <End Role="sys_relation" EntitySet="sys_relation" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="gensysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__EFMigrationsHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="95" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="alarm">
           <Key>
             <PropertyRef Name="id" />
@@ -287,6 +288,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="settable" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="device">
           <Key>
@@ -474,7 +476,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="gensysEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
           <EntitySet Name="alarm" EntityType="Self.alarm" />
           <EntitySet Name="dev_dict" EntityType="Self.dev_dict" />
           <EntitySet Name="device" EntityType="Self.device" />
@@ -497,21 +498,29 @@
             <End Role="sys_role" EntitySet="sys_role" />
             <End Role="sys_relation" EntitySet="sys_relation" />
           </AssociationSet>
+          <EntitySet Name="sys_log" EntityType="gensysModel.sys_log" />
         </EntityContainer>
+        <EntityType Name="sys_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="log_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="log_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="controller" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createtime" Type="DateTime" />
+          <Property Name="succeed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="gensysModelStoreContainer" CdmEntityContainer="gensysEntities">
-          <EntitySetMapping Name="C__EFMigrationsHistory">
-            <EntityTypeMapping TypeName="gensysModel.C__EFMigrationsHistory">
-              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="alarm">
             <EntityTypeMapping TypeName="gensysModel.alarm">
               <MappingFragment StoreEntitySet="alarm">
@@ -537,6 +546,7 @@
           <EntitySetMapping Name="dev_dict">
             <EntityTypeMapping TypeName="gensysModel.dev_dict">
               <MappingFragment StoreEntitySet="dev_dict">
+                <ScalarProperty Name="model" ColumnName="model" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="settable" ColumnName="settable" />
@@ -709,6 +719,22 @@
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="createtime" ColumnName="createtime" />
                 <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_log">
+            <EntityTypeMapping TypeName="gensysModel.sys_log">
+              <MappingFragment StoreEntitySet="sys_log">
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="succeed" ColumnName="succeed" />
+                <ScalarProperty Name="createtime" ColumnName="createtime" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="log_name" ColumnName="log_name" />
+                <ScalarProperty Name="log_type" ColumnName="log_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

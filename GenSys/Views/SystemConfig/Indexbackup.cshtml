@@ -1,0 +1,395 @@
+﻿@{
+    ViewBag.Title = "系统配置";
+
+}
+@section css {
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-lg-3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Frontend</li>
+                    <li class="active">
+                        <a href="#">HTML 4.01</a>
+                    </li>
+                    <li>
+                        <a href="#">HTML5</a>
+                    </li>
+                    <li>
+                        <a href="#">CSS</a>
+                    </li>
+                    <li>
+                        <a href="#">JavaScript</a>
+                    </li>
+                    <li>
+                        <a href="#">Twitter Bootstrap</a>
+                    </li>
+                    <li>
+                        <a href="#">Firebug</a>
+                    </li>
+                    <li class="nav-header">Backend</li>
+                    <li>
+                        <a href="#">PHP</a>
+                    </li>
+                    <li>
+                        <a href="#">SQL</a>
+                    </li>
+                    <li>
+                        <a href="#">MySQL</a>
+                    </li>
+                    <li>
+                        <a href="#">PostgreSQL</a>
+                    </li>
+                    <li>
+                        <a href="#">MongoDB</a>
+                    </li>
+                </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+            <div class="leaderboard">
+                <h1>Learn. Practice. Develop.</h1>
+                <p>w3cschool offers web development tutorials. We believe in Open Source. Love standards. And prioritize simplicity and readability while serving content.</p>
+                <p>
+                    <a class="btn btn-success btn-large">Join w3cschool now</a>
+                </p>
+            </div>
+            <div class="row-fluid">
+                <div class="span4">
+                    <h2>Learn</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+                    <p>
+                        <a class="btn btn-success btn-large" href="#">Start Learning now</a>
+                    </p>
+                </div><!--/span-->
+                <div class="span4">
+                    <h2>Practice</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+                    <p>
+                        <a class="btn btn-success btn-large" href="#">Start percticing now</a>
+                    </p>
+                </div>
+                <!--/span-->
+                <div class="span4">
+                    <h2>Develop</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+                    <p>
+                        <a class="btn btn-success btn-large" href="#">Start developing now</a>
+                    </p>
+                </div><!--/span-->
+            </div><!--/row-->
+            <hr>
+
+        </div>
+    </div>
+</div><!--/.fluid-container-->
+
+@using (Html.BeginForm("Apply", "SystemConfig", FormMethod.Post, new { @class = "form" }))
+{
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+
+
+    <h4><b>用户信息</b></h4>
+    <div>
+        <label for="Name" style="width:90px;height:25px;min-width:90px;">系统名称</label>
+        <input type="text" name="Name" id="Name" size="18" maxlength="30" />
+    </div>
+    <br />
+    <div class="pull-left">
+        <label style="width:90px;height:25px;min-width:90px;">Logo</label>
+    </div>
+    <div class="pull-left">
+        <input type="file" id="logo" name="logo">
+    </div>
+    <br />
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>界面选择</b></h4>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="OptionsUI" id="Alarmlist" value="option1" />报警列表
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="OptionsUI" id="Traditionalmonitor" value="option2" />传统监控
+        </label>
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>APP</b></h4>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="Appsupport" id="notsupport" value="option1" />不支持
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="Appsupport" id="support" value="option2" />支持
+        </label>
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>报警提示音</b></h4>
+    <div class="pull-left">
+        <label style="width:90px;height:25px;min-width:90px;">提示音</label>
+    </div>
+    <div class="pull-left">
+        <input type="file" id="beep" name="beep">
+    </div>
+    <br />
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>事件录像源</b></h4>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="GenBox" value="option1" />GenBox
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="GIC IPC TF" value="option2" />GIC IPC TF
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="GIC VTS" value="option3" />GIC VTS
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="HIK NVR" value="option4" />HIK NVR
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="videosource" id="Dahua NVR" value="option5" />Dahua NVR
+        </label>
+    </div>
+    <br />
+
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+    <h4><b>路径设置</b></h4>
+    <div>
+        <label for="PrtScPath" style="width:90px;height:25px;min-width:90px;">抓图路径</label>
+        <input type="text" name="PrtScPath" id="PrtScPath" size="18" style="width:300px" />
+    </div>
+    <div>
+        <label for="VideoPath" style="width:90px;height:25px;min-width:90px;">录像路径</label>
+        <input type="text" name="VideoPath" id="VideoPath" size="18" style="width:300px" />
+    </div>
+    <br />
+
+    <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+
+
+    <div style="text-align:right">
+        <button id="apply" type="submit" style="width:100px;height:30px">应用</button>
+    </div>
+    <br />
+
+
+}
+<br />
+
+
+<div>
+    <p id="pLoad">Ajax之前的结果</p>
+</div>
+
+@section Scripts {
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-en-US.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#dev_dict').bootstrapTable({
+                method: 'get',
+                url: '/SystemConfig/GetDevice',
+                cache: false,
+                striped: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [10, 25, 50, 100],
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [{
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'type',
+                    title: '设备类型',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'settable',
+                    title: '可否配置算法',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Remove',
+                    title: '删除',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: RemoveDeviceFormatter,
+                    events: RemoveDeviceEvents
+                }]
+            });
+
+        });
+
+        $(function () {
+            $('#permission').bootstrapTable({
+                method: 'get',
+                url: '/SystemConfig/GetPermission',
+                cache: false,
+                striped: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [10, 25, 50, 100],
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [{
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Position',
+                    title: '职务',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'AccessiblePage',
+                    title: '允许进入的页面',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Remove',
+                    title: '删除',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: RemovePermissionFormatter,
+                    events: RemovePermissionEvents
+                }]
+            });
+
+        });
+
+        $(function () {
+            $('#add').click(function () {
+                confirm("okay?");
+                var table = ('dev_dict');
+                var dev_type = $('#type').val();
+                var dev_settable = $('#settable').val();
+
+                var count = $('#dev_dict').bootstrapTable('getData').length;
+                var data = new $('#dev_dict');
+                data={
+                    id: 7,        //count+1
+                    type: "123",    //dev_type
+                    settable: "456"   //dev_settable
+                }
+                $table.bootstrapTable('append', data);
+                //$table.bootstrapTable('insertRow', { index: count, row: data });
+                /*var table = document.getElementById("dev_dict");
+                var rows = table.insertRow(count);
+                var cell1 = rows.insertCell(0);
+                var cell2 = rows.insertCell(1);
+                var cell3 = rows.insertCell(2);
+                cell1.innerHTML = 7;
+                cell2.innerHTML = "123";
+                cell3.innerHTML = "456";*/
+                //alert(data.id + data.DeviceType + data.Settable);
+                alert(dev_type + dev_settable + count);
+                $("#dev_dict").bootstrapTable('refresh');
+                /*$.ajax({
+                    type: "POST",
+                    url: '/SystemConfig/TestAajaLoginViewResult',
+                    data: { TYPE:dev_type, SET:settable },
+                    //datatype: "html",
+                    success: function (data) {
+                        //$('#content').append(data);
+                        alert(data);
+                        var count = $('#dev_dict').bootstrapTable('getData').length;
+                        // newFlag == 1的数据为新规的数据
+                        //$('#dev_dict').bootstrapTable('insertRow', { index: count, row: data });
+                    },
+                    error: function () {
+                        alert("处理失败!");
+                    }
+                });*/
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                type: "POST",
+                url: "/SystemConfig/Test?City=北京&Name=SharpL&Age=18",
+                cache: false,
+                data: null,
+                success: function (result) {
+                    if (result) {
+                        $("#pLoad").text("ajax之后的结果为 " + result.Message + "\n");
+                    }
+                }
+            })
+        });
+
+
+        function RemoveDeviceFormatter(value, row, index) {
+            return [
+                ' <a class="remove" href="javascript:void(0)" title="Remove">删除',
+                '</a>'
+            ].join('');
+        }
+
+        window.RemoveDeviceEvents = {
+            'click .remove': function (e, value, row, index) {
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+
+                }
+                console.log(value, row, index);
+            }
+        };
+
+        function RemovePermissionFormatter(value, row, index) {
+            return [
+                ' <a class="remove" href="javascript:void(0)" title="Remove">删除',
+                '</a>'
+            ].join('');
+        }
+
+        window.RemovePermissionEvents = {
+            'click .remove': function (e, value, row, index) {
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+
+                }
+                console.log(value, row, index);
+            }
+        };
+
+    </script>
+}

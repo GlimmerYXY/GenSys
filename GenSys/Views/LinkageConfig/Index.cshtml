@@ -152,6 +152,7 @@
                         data: { ID: row.id },
                         traditional: true,
                         success: function (msg) {
+                            alert(msg);
                             if (msg == "1") {
                                 window.location.reload();
                             }

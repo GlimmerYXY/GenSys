@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "系统配置";
+
+}
+@section css {
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        @Html.Partial("~/Views/SystemConfig/_PartialPage1.cshtml")
+        <div class="col-md-9">
+            <div class="divider " style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+            <h4><b>页面权限管理</b></h4>
+            <div>
+                <label for="position" style="width:90px;height:25px;min-width:90px;">职务</label>
+                <input type="text" name="position" id="position" size="18" maxlength="30" />
+                <br />
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="Home" value="1" />主页
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="SystemConfig" value="1" />系统配置
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="DeviceMana" value="1" />设备管理
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="LinkageConfig" value="1" />联动配置
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="Report" value="1" />报表
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="Log" value="1" />日志
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="UserMana" value="1" />用户管理
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="DigitalMap" value="1" />电子地图
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="Ticket" value="1" />工单
+                </label>
+                <button id="upload" type="button" style="height:25px">添加</button>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <table id="permission"></table>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div><!--/.fluid-container-->
+<br />
+
+@section Scripts {
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-en-US.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#permission').bootstrapTable({
+                method: 'get',
+                url: '/SystemConfig/GetPermission',
+                cache: false,
+                striped: true,
+                pagination: true,
+                pageSize: 50,
+                pageList: [10, 25, 50, 100],
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [{
+                    field: 'id',
+                    title: '序号',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Position',
+                    title: '职务',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'AccessiblePage',
+                    title: '允许进入的页面',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                }, {
+                    field: 'Remove',
+                    title: '删除',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: RemovePermissionFormatter,
+                    events: RemovePermissionEvents
+                }]
+            });
+
+        });
+
+        
+
+        function RemovePermissionFormatter(value, row, index) {
+            return [
+                ' <a class="remove" href="javascript:void(0)" title="Remove">删除',
+                '</a>'
+            ].join('');
+        }
+
+        window.RemovePermissionEvents = {
+            'click .remove': function (e, value, row, index) {
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                if (confirm("您确定要删除吗？")) {
+
+                }
+                console.log(value, row, index);
+            }
+        };
+
+    </script>
+}

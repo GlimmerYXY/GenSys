@@ -50,11 +50,9 @@
         
         var $table = $('#deviceTable')
         var $button = $('#button')
-        $(function () {
-            $button.click(function () {
-                $table.bootstrapTable('refresh', { url: '/DeviceMana/GetData' })
-                //location.reload()
-            })
+        $button.click(function () {
+            $table.bootstrapTable('refresh', { url: '/DeviceMana/GetData' })
+            //location.reload()
         })
 
         function operateFormatter(value, row, index) {

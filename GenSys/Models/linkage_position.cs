@@ -15,6 +15,7 @@ namespace GenSys.Models
     public partial class linkage_position
     {
         public int id { get; set; }
-        public int number { get; set; }
+        public string name { get; set; }
+        public string value { get; set; }
     }
 }

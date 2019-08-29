@@ -1,7 +1,131 @@
 ﻿@{
     ViewBag.Title = "系统配置";
+    
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+@section css {
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+}
 
-<p>Use this area to provide additional information.</p>
+<h2>@ViewBag.Title</h2>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        @Html.Partial("~/Views/SystemConfig/_PartialPage1.cshtml")
+        <div class="col-md-9">
+            @using (Html.BeginForm("Apply", "SystemConfig", FormMethod.Post, new { @class = "form" }))
+            {
+
+                <div class="divider " style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+
+
+                <h4><b>用户信息</b></h4>
+                <div>
+                    <label for="Name" style="width:90px;height:25px;min-width:90px;">系统名称</label>
+                    <input type="text" name="Name" id="Name" size="18" maxlength="30" />
+                </div>
+                <br />
+                <div class="pull-left">
+                    <label style="width:90px;height:25px;min-width:90px;">Logo</label>
+                </div>
+                <div class="pull-left">
+                    <input type="file" id="logo" name="logo">
+                </div>
+                <br />
+                <br />
+
+                <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+                <h4><b>界面选择</b></h4>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="OptionsUI" id="Alarmlist" value="option1" />报警列表
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="OptionsUI" id="Traditionalmonitor" value="option2" />传统监控
+                    </label>
+                </div>
+                <br />
+
+                <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+                <h4><b>APP</b></h4>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="Appsupport" id="notsupport" value="option1" />不支持
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="Appsupport" id="support" value="option2" />支持
+                    </label>
+                </div>
+                <br />
+
+                <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+                <h4><b>报警提示音</b></h4>
+                <div class="pull-left">
+                    <label style="width:90px;height:25px;min-width:90px;">提示音</label>
+                </div>
+                <div class="pull-left">
+                    <input type="file" id="beep" name="beep">
+                </div>
+                <br />
+                <br />
+
+                <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+                <h4><b>事件录像源</b></h4>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="videosource" id="GenBox" value="option1" />GenBox
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="videosource" id="GIC IPC TF" value="option2" />GIC IPC TF
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="videosource" id="GIC VTS" value="option3" />GIC VTS
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="videosource" id="HIK NVR" value="option4" />HIK NVR
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="videosource" id="Dahua NVR" value="option5" />Dahua NVR
+                    </label>
+                </div>
+                <br />
+
+
+                <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+                <h4><b>路径设置</b></h4>
+                <div>
+                    <label for="PrtScPath" style="width:90px;height:25px;min-width:90px;">抓图路径</label>
+                    <input type="text" name="PrtScPath" id="PrtScPath" size="18" style="width:300px" />
+                </div>
+                <div>
+                    <label for="VideoPath" style="width:90px;height:25px;min-width:90px;">录像路径</label>
+                    <input type="text" name="VideoPath" id="VideoPath" size="18" style="width:300px" />
+                </div>
+                <br />
+
+                <div class="divider" style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
+
+
+                <br />
+                <div style="text-align:right">
+                    <button id="apply" type="submit" style="width:100px;height:30px">应用</button>
+                </div>
+                <br />
+
+
+            }
+        </div>
+    </div>
+</div><!--/.fluid-container-->
+
+
+<br />
+
+

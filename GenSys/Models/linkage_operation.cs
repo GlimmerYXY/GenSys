@@ -15,6 +15,7 @@ namespace GenSys.Models
     public partial class linkage_operation
     {
         public int id { get; set; }
-        public string type { get; set; }
+        public string name { get; set; }
+        public string value { get; set; }
     }
 }

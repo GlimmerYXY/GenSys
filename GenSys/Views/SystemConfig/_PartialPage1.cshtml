@@ -1,0 +1,24 @@
+﻿@section css {
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <style type="text/css">
+    </style>
+}
+
+<div class="col-md-3 "style="height:800px">
+    <div class="well" style="background-color:white;" >
+        <ul class="nav navbar-link">
+            <li class="nav-header">设置</li>
+            <li>
+                @Html.ActionLink("基本设置","Index","SystemConfig")
+            </li>
+            <li>
+                @Html.ActionLink("设备配置", "DeviceSettable", "SystemConfig")
+            </li>
+            <li>
+                @Html.ActionLink("权限管理", "Permission", "SystemConfig")
+            </li>
+            
+        </ul>
+    </div><!--/.well -->
+</div><!--/span-->
+

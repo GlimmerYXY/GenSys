@@ -4,6 +4,13 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
+@*<ul>
+    @foreach (string p in ViewData["color"] as IEnumerable<string>)
+    {
+        <li>The item is: @p</li>
+    }
+</ul>*@
+
 @section Scripts {
     <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
     <script src="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.js"></script>
@@ -16,123 +23,213 @@
     <link href="~/Scripts/jquery.editable-select/jquery.editable-select.min.css" rel="stylesheet" type="text/css" />
 
     <script>
+        @*var hh = @Html.Raw(ViewData["color"]);  //类型错*@
+
+        $("#detailList").editableSelect({
+            effects: 'slide',
+            filter: false // 不过滤，否则选中后其它选项消失
+        });
+
         /*向表格添加一行*/
+        var count = 0;
         let $button = $('#append');
         $button.click(function () {
-            $table.bootstrapTable('append', { uuid: '', operation: '', detail: '' });
-            $('#detail').editableSelect({
-                effects: 'slide',
-                //可选参数default、fade
-                filter: false // 不过滤，否则选中后其它选项消失
+            //reloadSlect();
+            var operationList = document.getElementById("operationList");
+            var uuidList = document.getElementById("uuidList");
+            var detailList = document.getElementById("detailList");
+            $table.bootstrapTable('append', {
+                id: count,
+                operation: operationList.options[operationList.selectedIndex].text,
+                uuid: uuidList.options[uuidList.selectedIndex].text,
+                detail: detailList.value
             });
+
+            //var hh = "#detail" + count.toString()
+            //$(hh).editableSelect({
+            //    effects: 'slide',
+            //    filter: false // 不过滤，否则选中后其它选项消失
+            //});
+
+            count++;
         });
-        
-        /*构造表格*/
-        var $table = $('#table')
-        $(function () {
-            $table.bootstrapTable({
-                data: [],
-                columns: [{
-                    field: 'uuid',
-                    title: '设备序列号',
-                    formatter: SelectUuid
-                    //editable: {
-                    //    type: 'select',
-                    //    source: [
-                    //        { value: '0', text: 'item0' },
-                    //        { value: '1', text: 'item1' },
-                    //        { value: '2', text: 'item2' }
-                    //    ],
-                    //    title: "选择设备序列号",     //编辑框的标题
-                    //    disabled: false,           //是否禁用编辑
-                    //    emptytext: "空文本",       //空值的默认文本
-                    //    mode: "inline",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    //    showbuttons: false,
-                    //    validate: function (value) { //字段验证
-                    //        if (!$.trim(value)) {
-                    //            return '不能为空';
-                    //        }
-                    //    }
-                    //}
-                }, {
-                    field: 'operation',
-                    title: '操作类型',
-                    formatter: SelectOperation
-                    //editable: {
-                    //    type: 'select',
-                    //    source: [
-                    //        { value: '3', text: 'item3' },
-                    //        { value: '4', text: 'item4' },
-                    //        { value: '5', text: 'item5' }
-                    //    ],
-                    //    title: "选择操作类型",     //编辑框的标题
-                    //    disabled: false,           //是否禁用编辑
-                    //    emptytext: "空文本",       //空值的默认文本
-                    //    mode: "inline",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    //    showbuttons: false,
-                    //    validate: function (value) { //字段验证
-                    //        if (!$.trim(value)) {
-                    //            return '不能为空';
-                    //        }
-                    //    }
-                    //}
-                }, {
-                    field: 'detail',
-                    title: '操作参数',
-                    formatter: SelectDetail
-                    //editable: {
-                    //    type: 'text',
-                    //    title: '年龄',
-                    //    disabled: false,              //是否禁用编辑
-                    //    emptytext: "空文本",          //空值的默认文本
-                    //    mode: "inline",               //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    //    validate: function (value) {
-                    //        if (!$.trim(value)) return '不能为空';
-                    //        if (isNaN(value)) return '年龄必须是数字';
-                    //        var age = parseInt(value);
-                    //        if (age <= 0) return '年龄必须是正数';
-                    //    }
-                    //}
-                }],
-                //onClickCell: function (field, value, row, $element) {
-                //    $element.attr('contenteditable', true);
-                //    $element.blur(function () {
-                //        let index = $element.parent().data('index');
-                //        let tdValue = $element.html();
 
-                //        SaveData(index, field, tdValue);
-                //    })
-                //}
-            })
-        })
+        //function reloadSlect() {
+        //    将表内数据遍历，在数据修改导致重置后，遍历和表内数据，
+        //    重新修改option的selected属性
+        //    var counts = $('#table').bootstrapTable('getData');
+        //    var len = counts.length;
+        //    console.log(counts);
+        //    console.log(len);
 
-        //function SaveData(index, field, value) {
-        //    $table.bootstrapTable('updateCell', {
-        //        index: index,       //行索引
-        //        field: field,       //列名
-        //        value: value        //cell值
+        //    var i = 0;
+        //    counts.forEach(function (item) {
+        //        i++;
+        //        var options = $("#uuid" + i + " option");
+        //        var uuid = item.uuid;
+        //        for (var j = 0; j < options.length; j++) {
+        //            options.eq(j).removeAttr("selected");
+        //            if (options.eq(j).val() == uuid) {
+        //                options.eq(j).attr("selected", "selected");
+        //            }
+        //        }
         //    })
         //}
 
-        function SelectUuid(value, row, index) {
-            return "<select id='uuid' class='form-control'><option value='1'>item1</option><option value='2'>item2</option></select>";
+        /*构造表格*/
+        var $table = $('#table')
+        //$table.bootstrapTable({
+        //    data: [],
+        //    columns: [{
+        //        field: 'uuid',
+        //        title: '设备序列号',
+        //        formatter: SelectUuid
+        //        //editable: {
+        //        //    type: 'select',
+        //        //    source: [
+        //        //        { value: '0', text: 'item0' },
+        //        //        { value: '1', text: 'item1' },
+        //        //        { value: '2', text: 'item2' }
+        //        //    ],
+        //        //    title: "选择设备序列号",     //编辑框的标题
+        //        //    disabled: false,           //是否禁用编辑
+        //        //    emptytext: "空文本",       //空值的默认文本
+        //        //    mode: "inline",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        //        //    showbuttons: false,
+        //        //    validate: function (value) { //字段验证
+        //        //        if (!$.trim(value)) {
+        //        //            return '不能为空';
+        //        //        }
+        //        //    }
+        //        //}
+        //    }, {
+        //        field: 'operation',
+        //        title: '操作类型',
+        //        formatter: SelectOperation
+        //        //editable: {
+        //        //    type: 'select',
+        //        //    source: [
+        //        //        { value: '3', text: 'item3' },
+        //        //        { value: '4', text: 'item4' },
+        //        //        { value: '5', text: 'item5' }
+        //        //    ],
+        //        //    title: "选择操作类型",     //编辑框的标题
+        //        //    disabled: false,           //是否禁用编辑
+        //        //    emptytext: "空文本",       //空值的默认文本
+        //        //    mode: "inline",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        //        //    showbuttons: false,
+        //        //    validate: function (value) { //字段验证
+        //        //        if (!$.trim(value)) {
+        //        //            return '不能为空';
+        //        //        }
+        //        //    }
+        //        //}
+        //    }, {
+        //        field: 'detail',
+        //        title: '操作参数',
+        //        formatter: SelectDetail
+        //        //editable: {
+        //        //    type: 'text',
+        //        //    title: '年龄',
+        //        //    disabled: false,              //是否禁用编辑
+        //        //    emptytext: "空文本",          //空值的默认文本
+        //        //    mode: "inline",               //编辑框的模式：支持popup和inline两种模式，默认是popup
+        //        //    validate: function (value) {
+        //        //        if (!$.trim(value)) return '不能为空';
+        //        //        if (isNaN(value)) return '年龄必须是数字';
+        //        //        var age = parseInt(value);
+        //        //        if (age <= 0) return '年龄必须是正数';
+        //        //    }
+        //        //}
+        //    }],
+        //    //onClickCell: function (field, value, row, $element) {
+        //    //    //$element.attr('contenteditable', true);
+        //    //    $element.blur(function () {
+        //    //        let index = $element.parent().data('index');
+        //    //        let tdValue = $element.html();
+
+        //    //        $table.bootstrapTable('updateCell', {
+        //    //            index: index,       //行索引
+        //    //            field: field,       //列名
+        //    //            value: value        //cell值
+        //    //        })
+        //    //    })
+        //    //}
+        //})
+
+        @*function SelectUuid(value, row, index) {
+            console.log("value: " + value + "row: " + row + "index: " + index);
+            var htm = "<select id='uuid" + count.toString() + "' class='form-control'>";
+
+            var objList = @Html.Raw(ViewBag.uuid); //防止HTML转义
+            for (var obj in objList) {
+                htm += "<option value='" + objList[obj].uuid + "'>" + objList[obj].alias + "</option>";
+            }
+            //var data = ViewData["operation"];
+            //for (var int = 0; int < data.Count; int++) {
+            //    htm += "<option value='" + data[int].name + "'>" + data[int].name + "</option>";
+            //}
+
+            return "<select id='uuid' class='form-control'><option value='item1'>item1</option><option value='item2'>item2</option></select>";
         }
+
         function SelectOperation(value, row, index) {
-            ready = true;
-            return "<select id='operation' class='form-control'><option value='1'>item1</option><option value='2'>item2</option></select>";
+            var htm = "<select id='operation" + count.toString() + "' class='form-control'>";
+
+            var objList = @Html.Raw(ViewBag.operation); //防止HTML转义
+            for (var obj in objList) {
+                htm += "<option value='" + objList[obj].value + "'>" + objList[obj].name + "</option>";
+            }
+
+            return "<select id='operation' class='form-control'><option value='active'>激活策略</option><option value='deactive'>禁用策略</option><option value='delay'>延时</option><option value='position'>调整预置位</option></select>";
         }
+
         function SelectDetail(value, row, index) {
-            return "<select id='detail' class='form-control'><option value='1'>item1</option><option value='2'>item2</option></select>";
+            var htm = "<select id='detail" + count.toString() + "' class='form-control'>";
+
+            var objList = @Html.Raw(ViewBag.algorithm); //防止HTML转义
+            for (var obj in objList) {
+                htm += "<option value='" + objList[obj].value + "'>" + objList[obj].name + "</option>";
+            }
+
+            objList = @Html.Raw(ViewBag.position); //防止HTML转义
+            for (var obj in objList) {
+                htm += "<option value='" + objList[obj].value + "'>" + objList[obj].name + "</option>";
+            }
+
+            return "<select id='detail' class='form-control'><option value='SSC'>物品遗留与遗失</option><option value='OPA3T/4T'>入侵检测</option><option value='FSD'>烟火检测</option><option value='PFR'>人脸识别</option><option value='EBD'>电动自行车监测</option><option value='WCA'>工装检测</option><option value='1'>预置位1</option><option value='2'>预置位2</option></select>";
+        }*@
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="like" href="javascript:void(0)" title="Like">',
+                '<i class="glyphicon glyphicon-heart"></i>',
+                '</a>',
+                ' <a class="edit ml10" href="javascript:void(0)" title="编辑">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>',
+                ' <a class="remove ml10" href="javascript:void(0)" title="移除">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
         }
-        
-        /*封装表格，提交表单*/
-        //$('#btnSubmit').click(function () {
-        //    var tableData = GetTableData();
-        //    console.log("before: " + $('#hidTD').val())
-        //    $('#hidTD').val(JSON.stringify(tableData));
-        //    console.log("after: " + $('#hidTD').val())
-        //    $('#form').submit();
-        //});
+
+        window.operateEvents = {
+            'click .like': function (e, value, row, index) {
+                alert('You click like icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            },
+            'click .edit': function (e, value, row, index) {
+                alert('You click edit icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            },
+            'click .remove': function (e, value, row, index) {
+                $table.bootstrapTable('remove', {
+                    field: 'id',
+                    values: [row.id]
+                })
+            }
+        };
 
         /*封装表格，提交表单*/
         function SubmitMe() {
@@ -155,9 +252,8 @@
             //console.log(result);
             return result;
         }
-    </script>
+    </script> 
 }
-
 
 @using (Html.BeginForm("Generate", "LinkageConfig", FormMethod.Post, htmlAttributes: new { id = "form", onsubmit = "SubmitMe()" }))
 {
@@ -199,7 +295,7 @@
 
     <div class="form-group">
         @Html.Label("触发事件", htmlAttributes: new { @class = "control-label" })
-        @Html.DropDownList("event", ViewData["event"] as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "event" })
+        @Html.DropDownList("eventList", ViewData["event"] as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "event" })
     </div>
 
     <div class="form-group">
@@ -208,8 +304,26 @@
     </div>
 
     <div class="form-group">
-        <button id="append" type="button" class="btn btn-default">添加命令</button>
-        <table id="table"></table>
+        <div class="form-inline">
+            @Html.Label("类型", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("operationList", ViewBag.operation as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "operationList" })
+            @Html.Label("设备", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("uuidList", ViewBag.uuid as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "uuidList" })
+            @Html.Label("参数", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("detailList", ViewBag.detail as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "detailList" })
+            <button id="append" type="button" class="btn btn-default">添加命令</button>
+        </div>
+        <table id="table" data-toggle="table">
+            <thead>
+                <tr>
+                    <th data-field="id"></th>
+                    <th data-field="operation">操作类型</th>
+                    <th data-field="uuid">设备</th>
+                    <th data-field="detail">参数</th>
+                    <th data-field="delete" data-formatter="operateFormatter" data-events="operateEvents">删除</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 
     <div>
@@ -219,18 +333,18 @@
 }
 
 @*<datalist id="url_list">
-    <option label="HZ赫兹工作室" value="http://weibo.com/hz421247910" />
-    <option label="提示1" value="列表项1" />
-    <option label="提示2" value="列表项2" />
-    <option label="" value="列表项3" />
-</datalist>
+        <option label="HZ赫兹工作室" value="http://weibo.com/hz421247910" />
+        <option label="提示1" value="列表项1" />
+        <option label="提示2" value="列表项2" />
+        <option label="" value="列表项3" />
+    </datalist>
 
-<input type="text" name="dayLimit" style="width:45px;POSITION: absolute">
-<select id="choose"
-        onchange="document.all['dayLimit'].value=this.options[this.selectedIndex].value"
-        style="width:62px; clip: rect(auto auto auto 45px); position: absolute">
-    <option value=""></option>
-    <option value="5">5</option>
-    <option value="10">10</option>
-    <option value="15">15</option>
-</select>*@
+    <input type="text" name="dayLimit" style="width:45px;POSITION: absolute">
+    <select id="choose"
+            onchange="document.all['dayLimit'].value=this.options[this.selectedIndex].value"
+            style="width:62px; clip: rect(auto auto auto 45px); position: absolute">
+        <option value=""></option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+    </select>*@

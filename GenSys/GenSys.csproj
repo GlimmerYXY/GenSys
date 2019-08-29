@@ -333,7 +333,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Privacy.cshtml" />
-    <Content Include="Views\SystemConfig\Index.cshtml" />
     <Content Include="Views\LinkageConfig\Index.cshtml" />
     <Content Include="Views\DigitalMap\Index.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
@@ -351,6 +350,10 @@
     <Content Include="Source\ipcam.json" />
     <Content Include="Views\Home\login.cshtml" />
     <Content Include="Source\linkage.json" />
+    <Content Include="Views\SystemConfig\DeviceSettable.cshtml" />
+    <Content Include="Views\SystemConfig\Index.cshtml" />
+    <Content Include="Views\SystemConfig\Permission.cshtml" />
+    <Content Include="Views\SystemConfig\_PartialPage1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

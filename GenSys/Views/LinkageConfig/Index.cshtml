@@ -234,23 +234,18 @@
         /*封装表格，提交表单*/
         function SubmitMe() {
             //alert("hahaha");
-            var tableData = GetTableData();
-            console.log("before: " + $('#hidTD').val())
-            $('#hidTD').val(JSON.stringify(tableData));
-            console.log("after: " + $('#hidTD').val())
-        }
-
-        function GetTableData() {
             var tr = $('#table tr');
-            var result = [];
+            //alert(tr.length);
+            //$('#hidNum').val(JSON.stringify(tr.length));
+
+            var tableData = [];
             for (i = 0; i < tr.length; i++) {
                 var tds = $(tr[i]).find('td');
                 if (tds.length > 0) {
-                    result.push({ 'uuid': $(tds[0]).find('a').html(), 'operation': $(tds[1]).find('a').html(), 'detail': $(tds[2]).find('a').html() })
+                    tableData.push({ 'operation': $(tds[1]).html(), 'uuid': $(tds[2]).html(), 'detail': $(tds[3]).html() })
                 }
             }
-            //console.log(result);
-            return result;
+            $('#hidInstruction').val(JSON.stringify(tableData));
         }
     </script> 
 }
@@ -327,7 +322,8 @@
     </div>
 
     <div>
-        <input id="hidTD" type="hidden" name="table_data" value="" />
+        @*<input id="hidNum" type="hidden" name="num" value="" />*@
+        <input id="hidInstruction" type="hidden" name="instruction" value="" />
         <button id="btnSubmit" type="submit" class="btn btn-default">提交</button>
     </div>
 }

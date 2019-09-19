@@ -150,6 +150,7 @@
     <Compile Include="Models\alarm.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GenboxHelper.cs" />
     <Compile Include="Models\device.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
@@ -172,6 +173,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GensysModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ipcam.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LinkageObj.cs" />
     <Compile Include="Models\linkage_algorithm.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
@@ -290,6 +295,7 @@
       <DependentUpon>GensysModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\IISConfig.pubxml" />
+    <Content Include="Public\json.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -345,11 +351,11 @@
     <Content Include="Views\dev_dict\Details.cshtml" />
     <Content Include="Views\dev_dict\Edit.cshtml" />
     <Content Include="Views\dev_dict\Index.cshtml" />
-    <Content Include="Source\alarm.json" />
-    <Content Include="Source\genbox.json" />
-    <Content Include="Source\ipcam.json" />
+    <Content Include="Public\alarm.json" />
+    <Content Include="Public\genbox.json" />
+    <Content Include="Public\ipcam.json" />
     <Content Include="Views\Home\login.cshtml" />
-    <Content Include="Source\linkage.json" />
+    <Content Include="Public\linkage.json" />
     <Content Include="Views\SystemConfig\DeviceSettable.cshtml" />
     <Content Include="Views\SystemConfig\Index.cshtml" />
     <Content Include="Views\SystemConfig\Permission.cshtml" />
@@ -358,6 +364,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Public\AlarmSnap\" />
+    <Folder Include="Public\Linkage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

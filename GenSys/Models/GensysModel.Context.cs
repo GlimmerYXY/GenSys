@@ -25,10 +25,17 @@ namespace GenSys.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<device> device { get; set; }
+        public virtual DbSet<alarm> alarm { get; set; }
+        public virtual DbSet<dev_dict> dev_dict { get; set; }
+        public virtual DbSet<linkage_algorithm> linkage_algorithm { get; set; }
+        public virtual DbSet<linkage_event> linkage_event { get; set; }
+        public virtual DbSet<linkage_operation> linkage_operation { get; set; }
+        public virtual DbSet<linkage_position> linkage_position { get; set; }
         public virtual DbSet<site> site { get; set; }
         public virtual DbSet<sys_dept> sys_dept { get; set; }
         public virtual DbSet<sys_dict> sys_dict { get; set; }
+        public virtual DbSet<sys_link> sys_link { get; set; }
+        public virtual DbSet<sys_log> sys_log { get; set; }
         public virtual DbSet<sys_login_log> sys_login_log { get; set; }
         public virtual DbSet<sys_menu> sys_menu { get; set; }
         public virtual DbSet<sys_operation_log> sys_operation_log { get; set; }
@@ -36,13 +43,7 @@ namespace GenSys.Models
         public virtual DbSet<sys_role> sys_role { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
         public virtual DbSet<sys_user_guns> sys_user_guns { get; set; }
-        public virtual DbSet<sys_link> sys_link { get; set; }
-        public virtual DbSet<alarm> alarm { get; set; }
-        public virtual DbSet<dev_dict> dev_dict { get; set; }
-        public virtual DbSet<linkage_algorithm> linkage_algorithm { get; set; }
-        public virtual DbSet<linkage_operation> linkage_operation { get; set; }
-        public virtual DbSet<linkage_position> linkage_position { get; set; }
-        public virtual DbSet<sys_log> sys_log { get; set; }
-        public virtual DbSet<linkage_event> linkage_event { get; set; }
+        public virtual DbSet<ipcam> ipcam { get; set; }
+        public virtual DbSet<device> device { get; set; }
     }
 }

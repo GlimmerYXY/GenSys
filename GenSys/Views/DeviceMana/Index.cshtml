@@ -55,20 +55,20 @@
             //location.reload()
         })
 
-        function operateFormatter(value, row, index) {
+        function editFormatter(value, row, index) {
             return [
-                '<a class="like" href="javascript:void(0)" title="Like">',
-                '<i class="glyphicon glyphicon-heart"></i>',
-                '</a>',
                 ' <a class="edit ml10" href="javascript:void(0)" title="Edit">',
                 '<i class="glyphicon glyphicon-edit"></i>',
-                '</a>',
+                '</a>'
+            ].join('');
+        }
+        function deleteFormatter(value, row, index) {
+            return [
                 ' <a class="remove ml10" href="javascript:void(0)" title="Remove">',
                 '<i class="glyphicon glyphicon-remove"></i>',
                 '</a>'
             ].join('');
         }
-
         window.operateEvents = {
             'click .like': function (e, value, row, index) {
                 alert('You click like icon, row: ' + JSON.stringify(row));
@@ -81,7 +81,7 @@
             'click .remove': function (e, value, row, index) {
                 //alert('You click remove icon, row: ' + JSON.stringify(row));
                 //console.log(value, row, index);
-                toDelete(row.id);
+                toDelete(row.uuid);
             }
         };
 
@@ -116,6 +116,11 @@
 
     <div class="form-inline">
         <div class="form-group">
+            @Html.EditorFor(model => model.alias, new { htmlAttributes = new { @class = "form-control", @id = "alias", placeholder = "别名" } })
+            @Html.ValidationMessageFor(model => model.alias, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
             @*<select id="site" class="form-control"></select>*@
             @Html.DropDownListFor(model => model.site, ViewData["siteList"] as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "site" })
             @Html.ValidationMessageFor(model => model.site, "", new { @class = "text-danger" })
@@ -131,30 +136,39 @@
             @Html.ValidationMessageFor(model => model.dev_model, "", new { @class = "text-danger" })
         </div>
 
+        <br /><br />
+
         <div class="form-group">
-            @Html.EditorFor(model => model.alias, new { htmlAttributes = new { @class = "form-control", @id = "alias", placeholder = "请输入别名" } })
-            @Html.ValidationMessageFor(model => model.alias, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.uuid, new { htmlAttributes = new { @class = "form-control", @id = "uuid", placeholder = "识别编号" } })
+            @Html.ValidationMessageFor(model => model.uuid, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.EditorFor(model => model.ip, new { htmlAttributes = new { @class = "form-control", @id = "ip", placeholder = "请输入IP" } })
+            @Html.EditorFor(model => model.rtsp_url, new { htmlAttributes = new { @class = "form-control", @id = "rtsp_url", placeholder = "视频流地址" } })
+            @Html.ValidationMessageFor(model => model.rtsp_url, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.ip, new { htmlAttributes = new { @class = "form-control", @id = "ip", placeholder = "IP地址" } })
             @Html.ValidationMessageFor(model => model.ip, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.EditorFor(model => model.media_port, new { htmlAttributes = new { @class = "form-control", @id = "media_port", placeholder = "请输入媒体端口号" } })
+            @Html.EditorFor(model => model.media_port, new { htmlAttributes = new { @class = "form-control", @id = "media_port", placeholder = "媒体端口号" } })
             @Html.ValidationMessageFor(model => model.media_port, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @id = "username", placeholder = "请输入登录名" } })
-            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.account, new { htmlAttributes = new { @class = "form-control", @id = "account", placeholder = "账号" } })
+            @Html.ValidationMessageFor(model => model.account, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.PasswordFor(model => model.password, new { @class = "form-control", @id = "password", placeholder = "请输入密码" })@*用htmlAttributes会显示MVC风格而不是bootstrap风格*@
+            @Html.PasswordFor(model => model.password, new { @class = "form-control", @id = "password", placeholder = "密码" })@*用htmlAttributes会显示MVC风格而不是bootstrap风格*@
             @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
         </div>
+
+        <br /><br />
 
         <button type="submit" class="btn btn-default">提交</button>
         <button id="button" type="button" class="btn btn-default">刷新</button>
@@ -165,19 +179,24 @@
 
 <div class="row">
     <table id="deviceTable" data-toggle="table" data-url="/DeviceMana/GetData" data-method="get" data-silent="true" data-cache="false"
-           data-height="400" @*data-classes="table-bordered"*@ data-striped="true" data-sortable="true"
+           @*data-classes="table-bordered" data-height="400" data-striped="true" data-sortable="true"*@
            data-pagination="true" data-pageSize="20" data-pageList="[10, 25, 50, 100]"
-           data-search="true" data-show-columns="true" data-show-refresh="true">
+           @*data-search="true"*@ data-show-columns="true" data-show-refresh="true">
         <thead>
             <tr>
-                <th data-field="id">序号</th>
+                @*<th data-field="id">序号</th>*@
+                <th data-field="alias">别名</th>
                 <th data-field="site">站点</th>
                 <th data-field="dev_type">设备类型</th>
                 <th data-field="dev_model">设备型号</th>
-                <th data-field="alias">别名</th>
+                <th data-field="uuid">识别编号</th>
+                <th data-field="rtsp_url">视频流地址</th>
                 <th data-field="ip">IP</th>
-                <th data-field="alg_config" data-formatter="operateFormatter" data-events="operateEvents">算法配置</th>
-                <th data-field="delete" data-formatter="operateFormatter" data-events="operateEvents">删除</th>
+                <th data-field="media_port">媒体端口号</th>
+                <th data-field="account">账号</th>
+                <th data-field="password">密码</th>
+                <th data-field="alg_config" data-formatter="editFormatter" data-events="operateEvents">算法配置</th>
+                <th data-field="delete" data-formatter="deleteFormatter" data-events="operateEvents">删除</th>
             </tr>
         </thead>
     </table>

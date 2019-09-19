@@ -88,13 +88,15 @@ namespace GenSys.Controllers
             
             records = raw.GroupBy(l => l.site).Select(l => l.Key).Select(l => new DeviveTreeNode
             {
-                id = -1,
-                ip = null,
-                media_port = -1,
-                username = null,
-                password = null,
+                //id = -1,
                 dev_type = null,
                 dev_model = null,
+                account = null,
+                password = null,
+                uuid = null,
+                rtsp_url = null,
+                ip = null,
+                media_port = -1,
                 text = l,
                 children = GetChildren(raw, l)
             }).ToList();
@@ -106,13 +108,15 @@ namespace GenSys.Controllers
         {
             return raw.Where(l => l.site == siteKey).Select(l => new DeviveTreeNode
             {
-                id = l.id,
-                ip = l.ip,
-                media_port = l.media_port,
-                username = l.username,
-                password = l.password,
+                //id = l.id,
                 dev_type = l.dev_type,
                 dev_model = l.dev_model,
+                account = l.account,
+                password = l.password,
+                uuid = l.uuid,
+                rtsp_url = l.rtsp_url,
+                ip = l.ip,
+                media_port = l.media_port,
                 text = l.alias,
                 children = null
             }).ToList();
@@ -202,13 +206,13 @@ namespace GenSys.Controllers
                 string dir = "Public/AlarmSnap/";
                 //站点文件目录
                 string fileDir = HttpRuntime.AppDomainAppPath + dir;   // HttpContext.Current.Server.MapPath("~" + dir);
-                                                                       //文件名称
+                if (!Directory.Exists(fileDir))
+                    Directory.CreateDirectory(fileDir);
+
+                //文件名称
                 string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + timestamp.ToString() + ".jpg";
                 //保存文件所在站点位置
                 string filePath = Path.Combine(fileDir, fileName);
-
-                if (!Directory.Exists(fileDir))
-                    Directory.CreateDirectory(fileDir);
 
                 try
                 {

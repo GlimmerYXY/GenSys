@@ -16,7 +16,7 @@ namespace GenSys.Models
     {
         public int id { get; set; }
         public string type { get; set; }
-        public string settable { get; set; }
         public string model { get; set; }
+        public string settable { get; set; }
     }
 }

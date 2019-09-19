@@ -37,19 +37,117 @@
         </EntityType>
         <EntityType Name="device">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="uuid" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ip" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="media_port" Type="int" Nullable="false" />
-          <Property Name="username" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="alias" Type="varchar" MaxLength="255" />
+          <Property Name="site" Type="varchar" MaxLength="255" />
           <Property Name="dev_type" Type="varchar" MaxLength="255" />
           <Property Name="dev_model" Type="varchar" MaxLength="255" />
-          <Property Name="site" Type="varchar" MaxLength="255" />
-          <Property Name="alias" Type="varchar" MaxLength="255" />
-          <Property Name="uuid" Type="varchar" MaxLength="255" />
-          <Property Name="vedio_url" Type="varchar" MaxLength="255" />
+          <Property Name="account" Type="varchar" MaxLength="255" />
+          <Property Name="password" Type="varchar" MaxLength="255" />
+          <Property Name="uuid" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="rtsp_url" Type="varchar" MaxLength="255" />
+          <Property Name="ip" Type="varchar" MaxLength="255" />
+          <Property Name="media_port" Type="int" />
+        </EntityType>
+        <EntityType Name="ipcam">
+          <Key>
+            <PropertyRef Name="uuid" />
+          </Key>
+          <Property Name="algo_h" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="algo_w" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="alias_name" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_ebikeThre" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_enable" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_fps" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_fri" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_mon" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_personThre" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_sat" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_sun" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_trigmodel" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_tue" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_tur" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ebd_wed" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_enable" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_fps" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_fri" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_mon" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_sat" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_sun" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_tue" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_tur" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="fsd_wed" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="manual" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_enable" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_fps" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_fri" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_mon" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_enable" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_id" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt0_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt0_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt1_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt1_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt2_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt2_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt3_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_pt3_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_ptnum" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi0_sensitivity" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_roi_num" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_sat" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_sun" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_trigmodel" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_tue" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_tur" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="opa4t_wed" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_enable" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_fps" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_fri" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_mon" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_sat" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_sun" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_tue" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_tur" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="pfr_wed" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="post_alarm" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="pre_alarm" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="rtsp_account" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="rtsp_passwd" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="rtspurl" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_abnormalthr" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_enable" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_fps" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_fri" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_mon" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_enable" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt0_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt0_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt1_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt1_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt2_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt2_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt3_x" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_pt3_y" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi0_ptnum" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_roi_num" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_sat" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_sun" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_tue" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_tur" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="ssc_wed" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="uuid" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="wca_enable" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_fps" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_fri" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_mon" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_sat" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_sun" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_tue" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_tur" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="wca_wed" Type="varchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="whitelist" Type="float" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="linkage_algorithm">
           <Key>
@@ -269,6 +367,7 @@
           <EntitySet Name="alarm" EntityType="Self.alarm" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="dev_dict" EntityType="Self.dev_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="device" EntityType="Self.device" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="ipcam" EntityType="Self.ipcam" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="linkage_algorithm" EntityType="Self.linkage_algorithm" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="linkage_event" EntityType="Self.linkage_event" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="linkage_operation" EntityType="Self.linkage_operation" Schema="gensys" store:Type="Tables" />
@@ -298,27 +397,103 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="gensysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="device">
+        <EntityContainer Name="gensysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="alarm" EntityType="gensysModel.alarm" />
+          <EntitySet Name="dev_dict" EntityType="gensysModel.dev_dict" />
+          <EntitySet Name="linkage_algorithm" EntityType="gensysModel.linkage_algorithm" />
+          <EntitySet Name="linkage_event" EntityType="gensysModel.linkage_event" />
+          <EntitySet Name="linkage_operation" EntityType="gensysModel.linkage_operation" />
+          <EntitySet Name="linkage_position" EntityType="gensysModel.linkage_position" />
+          <EntitySet Name="site" EntityType="gensysModel.site" />
+          <EntitySet Name="sys_dept" EntityType="gensysModel.sys_dept" />
+          <EntitySet Name="sys_dict" EntityType="gensysModel.sys_dict" />
+          <EntitySet Name="sys_link" EntityType="gensysModel.sys_link" />
+          <EntitySet Name="sys_log" EntityType="gensysModel.sys_log" />
+          <EntitySet Name="sys_login_log" EntityType="gensysModel.sys_login_log" />
+          <EntitySet Name="sys_menu" EntityType="gensysModel.sys_menu" />
+          <EntitySet Name="sys_operation_log" EntityType="gensysModel.sys_operation_log" />
+          <EntitySet Name="sys_relation" EntityType="gensysModel.sys_relation" />
+          <EntitySet Name="sys_role" EntityType="gensysModel.sys_role" />
+          <EntitySet Name="sys_user" EntityType="gensysModel.sys_user" />
+          <EntitySet Name="sys_user_guns" EntityType="gensysModel.sys_user_guns" />
+          <AssociationSet Name="菜单id" Association="gensysModel.菜单id">
+            <End Role="sys_menu" EntitySet="sys_menu" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
+          <AssociationSet Name="角色id" Association="gensysModel.角色id">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_relation" EntitySet="sys_relation" />
+          </AssociationSet>
+          <EntitySet Name="ipcam" EntityType="gensysModel.ipcam" />
+          <EntitySet Name="device" EntityType="gensysModel.device" />
+        </EntityContainer>
+        <EntityType Name="alarm">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="media_port" Type="Int32" Nullable="false" />
-          <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dev_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="dev_model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="device_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="p2p_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="algorithm_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="Int64" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="appendix" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="uuid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="vedio_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="datetime" Type="DateTime" />
+          <Property Name="confirmed" Type="Int32" />
+        </EntityType>
+        <EntityType Name="dev_dict">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="settable" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_algorithm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="site">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_dept">
@@ -338,12 +513,37 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="num" Type="Int32" />
           <Property Name="pid" Type="Int32" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="tips" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_link">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="filename" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="update_time" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="sys_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="log_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="log_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="controller" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createtime" Type="DateTime" />
+          <Property Name="succeed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_login_log">
           <Key>
@@ -395,8 +595,6 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="menu_id" Type="Int64" />
-          <Property Name="role_id" Type="Int32" />
           <NavigationProperty Name="sys_menu" Relationship="gensysModel.菜单id" FromRole="sys_relation" ToRole="sys_menu" />
           <NavigationProperty Name="sys_role" Relationship="gensysModel.角色id" FromRole="sys_relation" ToRole="sys_role" />
         </EntityType>
@@ -451,323 +649,134 @@
           <Property Name="createtime" Type="DateTime" />
           <Property Name="version" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="gensysEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="device" EntityType="Self.device" />
-          <EntitySet Name="site" EntityType="Self.site" />
-          <EntitySet Name="sys_dept" EntityType="Self.sys_dept" />
-          <EntitySet Name="sys_dict" EntityType="Self.sys_dict" />
-          <EntitySet Name="sys_login_log" EntityType="Self.sys_login_log" />
-          <EntitySet Name="sys_menu" EntityType="Self.sys_menu" />
-          <EntitySet Name="sys_operation_log" EntityType="Self.sys_operation_log" />
-          <EntitySet Name="sys_relation" EntityType="Self.sys_relation" />
-          <EntitySet Name="sys_role" EntityType="Self.sys_role" />
-          <EntitySet Name="sys_user" EntityType="Self.sys_user" />
-          <EntitySet Name="sys_user_guns" EntityType="Self.sys_user_guns" />
-          <EntitySet Name="sys_link" EntityType="gensysModel.sys_link" />
-          <EntitySet Name="alarm" EntityType="gensysModel.alarm" />
-          <EntitySet Name="dev_dict" EntityType="gensysModel.dev_dict" />
-          <EntitySet Name="linkage_algorithm" EntityType="gensysModel.linkage_algorithm" />
-          <EntitySet Name="linkage_operation" EntityType="gensysModel.linkage_operation" />
-          <EntitySet Name="linkage_position" EntityType="gensysModel.linkage_position" />
-          <EntitySet Name="sys_log" EntityType="gensysModel.sys_log" />
-          <AssociationSet Name="菜单id" Association="gensysModel.菜单id">
-            <End Role="sys_menu" EntitySet="sys_menu" />
-            <End Role="sys_relation" EntitySet="sys_relation" />
-          </AssociationSet>
-          <AssociationSet Name="角色id" Association="gensysModel.角色id">
-            <End Role="sys_role" EntitySet="sys_role" />
-            <End Role="sys_relation" EntitySet="sys_relation" />
-          </AssociationSet>
-          <EntitySet Name="linkage_event" EntityType="gensysModel.linkage_event" />
-        </EntityContainer>
-        <EntityType Name="sys_link">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="filename" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="update_time" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="alarm">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="device_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="p2p_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="token" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="algorithm_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="timestamp" Type="Int64" Nullable="false" />
-          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="message" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="appendix" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="datetime" Type="DateTime" />
-          <Property Name="confirmed" Type="Int32" />
-        </EntityType>
-        <EntityType Name="dev_dict">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="settable" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="linkage_algorithm">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="linkage_operation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="linkage_position">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="sys_log">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="log_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="log_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="role_id" Type="Int32" />
-          <Property Name="controller" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="action" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="createtime" Type="DateTime" />
-          <Property Name="succeed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-        </EntityType>
         <Association Name="菜单id">
           <End Type="gensysModel.sys_menu" Role="sys_menu" Multiplicity="0..1" />
           <End Type="gensysModel.sys_relation" Role="sys_relation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sys_menu">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="sys_relation">
-              <PropertyRef Name="menu_id" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         <Association Name="角色id">
           <End Type="gensysModel.sys_role" Role="sys_role" Multiplicity="0..1" />
           <End Type="gensysModel.sys_relation" Role="sys_relation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sys_role">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="sys_relation">
-              <PropertyRef Name="role_id" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
-        <EntityType Name="linkage_event">
+        <EntityType Name="ipcam">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="uuid" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="algo_h" Type="Single" />
+          <Property Name="algo_w" Type="Single" />
+          <Property Name="alias_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ebd_ebikeThre" Type="Single" />
+          <Property Name="ebd_enable" Type="Single" />
+          <Property Name="ebd_fps" Type="Single" />
+          <Property Name="ebd_fri" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ebd_mon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ebd_personThre" Type="Single" />
+          <Property Name="ebd_sat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ebd_sun" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ebd_trigmodel" Type="Single" />
+          <Property Name="ebd_tue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ebd_tur" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ebd_wed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fsd_enable" Type="Single" />
+          <Property Name="fsd_fps" Type="Single" />
+          <Property Name="fsd_fri" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fsd_mon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fsd_sat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fsd_sun" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fsd_tue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fsd_tur" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fsd_wed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="manual" Type="Single" />
+          <Property Name="opa4t_enable" Type="Single" />
+          <Property Name="opa4t_fps" Type="Single" />
+          <Property Name="opa4t_fri" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="opa4t_mon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="opa4t_roi0_enable" Type="Single" />
+          <Property Name="opa4t_roi0_id" Type="Single" />
+          <Property Name="opa4t_roi0_pt0_x" Type="Single" />
+          <Property Name="opa4t_roi0_pt0_y" Type="Single" />
+          <Property Name="opa4t_roi0_pt1_x" Type="Single" />
+          <Property Name="opa4t_roi0_pt1_y" Type="Single" />
+          <Property Name="opa4t_roi0_pt2_x" Type="Single" />
+          <Property Name="opa4t_roi0_pt2_y" Type="Single" />
+          <Property Name="opa4t_roi0_pt3_x" Type="Single" />
+          <Property Name="opa4t_roi0_pt3_y" Type="Single" />
+          <Property Name="opa4t_roi0_ptnum" Type="Single" />
+          <Property Name="opa4t_roi0_sensitivity" Type="Single" />
+          <Property Name="opa4t_roi_num" Type="Single" />
+          <Property Name="opa4t_sat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="opa4t_sun" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="opa4t_trigmodel" Type="Single" />
+          <Property Name="opa4t_tue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="opa4t_tur" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="opa4t_wed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pfr_enable" Type="Single" />
+          <Property Name="pfr_fps" Type="Single" />
+          <Property Name="pfr_fri" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pfr_mon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pfr_sat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pfr_sun" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pfr_tue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pfr_tur" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pfr_wed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="post_alarm" Type="Single" />
+          <Property Name="pre_alarm" Type="Single" />
+          <Property Name="rtsp_account" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="rtsp_passwd" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="rtspurl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ssc_abnormalthr" Type="Single" />
+          <Property Name="ssc_enable" Type="Single" />
+          <Property Name="ssc_fps" Type="Single" />
+          <Property Name="ssc_fri" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ssc_mon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ssc_roi0_enable" Type="Single" />
+          <Property Name="ssc_roi0_pt0_x" Type="Single" />
+          <Property Name="ssc_roi0_pt0_y" Type="Single" />
+          <Property Name="ssc_roi0_pt1_x" Type="Single" />
+          <Property Name="ssc_roi0_pt1_y" Type="Single" />
+          <Property Name="ssc_roi0_pt2_x" Type="Single" />
+          <Property Name="ssc_roi0_pt2_y" Type="Single" />
+          <Property Name="ssc_roi0_pt3_x" Type="Single" />
+          <Property Name="ssc_roi0_pt3_y" Type="Single" />
+          <Property Name="ssc_roi0_ptnum" Type="Single" />
+          <Property Name="ssc_roi_num" Type="Single" />
+          <Property Name="ssc_sat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ssc_sun" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ssc_tue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ssc_tur" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ssc_wed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uuid" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_enable" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_fps" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_fri" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_mon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_sat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_sun" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_tue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_tur" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="wca_wed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="whitelist" Type="Single" />
         </EntityType>
-      </Schema>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="uuid" />
+          </Key>
+          <Property Name="alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="dev_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="dev_model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="account" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uuid" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="rtsp_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="media_port" Type="Int32" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="gensysModelStoreContainer" CdmEntityContainer="gensysEntities">
-          <EntitySetMapping Name="device">
-            <EntityTypeMapping TypeName="gensysModel.device">
-              <MappingFragment StoreEntitySet="device">
-                <ScalarProperty Name="vedio_url" ColumnName="vedio_url" />
-                <ScalarProperty Name="uuid" ColumnName="uuid" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="ip" ColumnName="ip" />
-                <ScalarProperty Name="media_port" ColumnName="media_port" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="dev_type" ColumnName="dev_type" />
-                <ScalarProperty Name="dev_model" ColumnName="dev_model" />
-                <ScalarProperty Name="site" ColumnName="site" />
-                <ScalarProperty Name="alias" ColumnName="alias" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="site">
-            <EntityTypeMapping TypeName="gensysModel.site">
-              <MappingFragment StoreEntitySet="site">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_dept">
-            <EntityTypeMapping TypeName="gensysModel.sys_dept">
-              <MappingFragment StoreEntitySet="sys_dept">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="pids" ColumnName="pids" />
-                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="tips" ColumnName="tips" />
-                <ScalarProperty Name="version" ColumnName="version" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_dict">
-            <EntityTypeMapping TypeName="gensysModel.sys_dict">
-              <MappingFragment StoreEntitySet="sys_dict">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="tips" ColumnName="tips" />
-                <ScalarProperty Name="code" ColumnName="code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_login_log">
-            <EntityTypeMapping TypeName="gensysModel.sys_login_log">
-              <MappingFragment StoreEntitySet="sys_login_log">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="log_name" ColumnName="log_name" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="createtime" ColumnName="createtime" />
-                <ScalarProperty Name="succeed" ColumnName="succeed" />
-                <ScalarProperty Name="message" ColumnName="message" />
-                <ScalarProperty Name="ip" ColumnName="ip" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_menu">
-            <EntityTypeMapping TypeName="gensysModel.sys_menu">
-              <MappingFragment StoreEntitySet="sys_menu">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="pcode" ColumnName="pcode" />
-                <ScalarProperty Name="pcodes" ColumnName="pcodes" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="icon" ColumnName="icon" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="levels" ColumnName="levels" />
-                <ScalarProperty Name="ismenu" ColumnName="ismenu" />
-                <ScalarProperty Name="tips" ColumnName="tips" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="isopen" ColumnName="isopen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_operation_log">
-            <EntityTypeMapping TypeName="gensysModel.sys_operation_log">
-              <MappingFragment StoreEntitySet="sys_operation_log">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="log_type" ColumnName="log_type" />
-                <ScalarProperty Name="log_name" ColumnName="log_name" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="class_name" ColumnName="class_name" />
-                <ScalarProperty Name="method" ColumnName="method" />
-                <ScalarProperty Name="createtime" ColumnName="createtime" />
-                <ScalarProperty Name="succeed" ColumnName="succeed" />
-                <ScalarProperty Name="message" ColumnName="message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_relation">
-            <EntityTypeMapping TypeName="gensysModel.sys_relation">
-              <MappingFragment StoreEntitySet="sys_relation">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
-                <ScalarProperty Name="role_id" ColumnName="role_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_role">
-            <EntityTypeMapping TypeName="gensysModel.sys_role">
-              <MappingFragment StoreEntitySet="sys_role">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
-                <ScalarProperty Name="tips" ColumnName="tips" />
-                <ScalarProperty Name="version" ColumnName="version" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_user">
-            <EntityTypeMapping TypeName="gensysModel.sys_user">
-              <MappingFragment StoreEntitySet="sys_user">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="salt" ColumnName="salt" />
-                <ScalarProperty Name="role_id" ColumnName="role_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
-                <ScalarProperty Name="position" ColumnName="position" />
-                <ScalarProperty Name="qualification" ColumnName="qualification" />
-                <ScalarProperty Name="id_number" ColumnName="id_number" />
-                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
-                <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="register_date" ColumnName="register_date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_user_guns">
-            <EntityTypeMapping TypeName="gensysModel.sys_user_guns">
-              <MappingFragment StoreEntitySet="sys_user_guns">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="avatar" ColumnName="avatar" />
-                <ScalarProperty Name="account" ColumnName="account" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="salt" ColumnName="salt" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="sex" ColumnName="sex" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="roleid" ColumnName="roleid" />
-                <ScalarProperty Name="deptid" ColumnName="deptid" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="createtime" ColumnName="createtime" />
-                <ScalarProperty Name="version" ColumnName="version" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_link">
-            <EntityTypeMapping TypeName="gensysModel.sys_link">
-              <MappingFragment StoreEntitySet="sys_link">
-                <ScalarProperty Name="update_time" ColumnName="update_time" />
-                <ScalarProperty Name="filename" ColumnName="filename" />
-                <ScalarProperty Name="ip" ColumnName="ip" />
-                <ScalarProperty Name="site" ColumnName="site" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="alarm">
             <EntityTypeMapping TypeName="gensysModel.alarm">
               <MappingFragment StoreEntitySet="alarm">
@@ -793,8 +802,8 @@
           <EntitySetMapping Name="dev_dict">
             <EntityTypeMapping TypeName="gensysModel.dev_dict">
               <MappingFragment StoreEntitySet="dev_dict">
-                <ScalarProperty Name="model" ColumnName="model" />
                 <ScalarProperty Name="settable" ColumnName="settable" />
+                <ScalarProperty Name="model" ColumnName="model" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
@@ -803,6 +812,15 @@
           <EntitySetMapping Name="linkage_algorithm">
             <EntityTypeMapping TypeName="gensysModel.linkage_algorithm">
               <MappingFragment StoreEntitySet="linkage_algorithm">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_event">
+            <EntityTypeMapping TypeName="gensysModel.linkage_event">
+              <MappingFragment StoreEntitySet="linkage_event">
                 <ScalarProperty Name="value" ColumnName="value" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -827,6 +845,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="site">
+            <EntityTypeMapping TypeName="gensysModel.site">
+              <MappingFragment StoreEntitySet="site">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_dept">
+            <EntityTypeMapping TypeName="gensysModel.sys_dept">
+              <MappingFragment StoreEntitySet="sys_dept">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="tips" ColumnName="tips" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
+                <ScalarProperty Name="pids" ColumnName="pids" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_dict">
+            <EntityTypeMapping TypeName="gensysModel.sys_dict">
+              <MappingFragment StoreEntitySet="sys_dict">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="tips" ColumnName="tips" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_link">
+            <EntityTypeMapping TypeName="gensysModel.sys_link">
+              <MappingFragment StoreEntitySet="sys_link">
+                <ScalarProperty Name="update_time" ColumnName="update_time" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sys_log">
             <EntityTypeMapping TypeName="gensysModel.sys_log">
               <MappingFragment StoreEntitySet="sys_log">
@@ -843,12 +906,244 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="linkage_event">
-            <EntityTypeMapping TypeName="gensysModel.linkage_event">
-              <MappingFragment StoreEntitySet="linkage_event">
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="name" ColumnName="name" />
+          <EntitySetMapping Name="sys_login_log">
+            <EntityTypeMapping TypeName="gensysModel.sys_login_log">
+              <MappingFragment StoreEntitySet="sys_login_log">
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="succeed" ColumnName="succeed" />
+                <ScalarProperty Name="createtime" ColumnName="createtime" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="log_name" ColumnName="log_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_menu">
+            <EntityTypeMapping TypeName="gensysModel.sys_menu">
+              <MappingFragment StoreEntitySet="sys_menu">
+                <ScalarProperty Name="isopen" ColumnName="isopen" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="tips" ColumnName="tips" />
+                <ScalarProperty Name="ismenu" ColumnName="ismenu" />
+                <ScalarProperty Name="levels" ColumnName="levels" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pcodes" ColumnName="pcodes" />
+                <ScalarProperty Name="pcode" ColumnName="pcode" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_operation_log">
+            <EntityTypeMapping TypeName="gensysModel.sys_operation_log">
+              <MappingFragment StoreEntitySet="sys_operation_log">
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="succeed" ColumnName="succeed" />
+                <ScalarProperty Name="createtime" ColumnName="createtime" />
+                <ScalarProperty Name="method" ColumnName="method" />
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="log_name" ColumnName="log_name" />
+                <ScalarProperty Name="log_type" ColumnName="log_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_relation">
+            <EntityTypeMapping TypeName="gensysModel.sys_relation">
+              <MappingFragment StoreEntitySet="sys_relation">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_role">
+            <EntityTypeMapping TypeName="gensysModel.sys_role">
+              <MappingFragment StoreEntitySet="sys_role">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="tips" ColumnName="tips" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_user">
+            <EntityTypeMapping TypeName="gensysModel.sys_user">
+              <MappingFragment StoreEntitySet="sys_user">
+                <ScalarProperty Name="register_date" ColumnName="register_date" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="id_number" ColumnName="id_number" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_user_guns">
+            <EntityTypeMapping TypeName="gensysModel.sys_user_guns">
+              <MappingFragment StoreEntitySet="sys_user_guns">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="createtime" ColumnName="createtime" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="deptid" ColumnName="deptid" />
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="菜单id" TypeName="gensysModel.菜单id" StoreEntitySet="sys_relation">
+            <EndProperty Name="sys_relation">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="sys_menu">
+              <ScalarProperty Name="id" ColumnName="menu_id" />
+            </EndProperty>
+            <Condition ColumnName="menu_id" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="角色id" TypeName="gensysModel.角色id" StoreEntitySet="sys_relation">
+            <EndProperty Name="sys_relation">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="sys_role">
+              <ScalarProperty Name="id" ColumnName="role_id" />
+            </EndProperty>
+            <Condition ColumnName="role_id" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="ipcam">
+            <EntityTypeMapping TypeName="gensysModel.ipcam">
+              <MappingFragment StoreEntitySet="ipcam">
+                <ScalarProperty Name="whitelist" ColumnName="whitelist" />
+                <ScalarProperty Name="wca_wed" ColumnName="wca_wed" />
+                <ScalarProperty Name="wca_tur" ColumnName="wca_tur" />
+                <ScalarProperty Name="wca_tue" ColumnName="wca_tue" />
+                <ScalarProperty Name="wca_sun" ColumnName="wca_sun" />
+                <ScalarProperty Name="wca_sat" ColumnName="wca_sat" />
+                <ScalarProperty Name="wca_mon" ColumnName="wca_mon" />
+                <ScalarProperty Name="wca_fri" ColumnName="wca_fri" />
+                <ScalarProperty Name="wca_fps" ColumnName="wca_fps" />
+                <ScalarProperty Name="wca_enable" ColumnName="wca_enable" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="ssc_wed" ColumnName="ssc_wed" />
+                <ScalarProperty Name="ssc_tur" ColumnName="ssc_tur" />
+                <ScalarProperty Name="ssc_tue" ColumnName="ssc_tue" />
+                <ScalarProperty Name="ssc_sun" ColumnName="ssc_sun" />
+                <ScalarProperty Name="ssc_sat" ColumnName="ssc_sat" />
+                <ScalarProperty Name="ssc_roi_num" ColumnName="ssc_roi_num" />
+                <ScalarProperty Name="ssc_roi0_ptnum" ColumnName="ssc_roi0_ptnum" />
+                <ScalarProperty Name="ssc_roi0_pt3_y" ColumnName="ssc_roi0_pt3_y" />
+                <ScalarProperty Name="ssc_roi0_pt3_x" ColumnName="ssc_roi0_pt3_x" />
+                <ScalarProperty Name="ssc_roi0_pt2_y" ColumnName="ssc_roi0_pt2_y" />
+                <ScalarProperty Name="ssc_roi0_pt2_x" ColumnName="ssc_roi0_pt2_x" />
+                <ScalarProperty Name="ssc_roi0_pt1_y" ColumnName="ssc_roi0_pt1_y" />
+                <ScalarProperty Name="ssc_roi0_pt1_x" ColumnName="ssc_roi0_pt1_x" />
+                <ScalarProperty Name="ssc_roi0_pt0_y" ColumnName="ssc_roi0_pt0_y" />
+                <ScalarProperty Name="ssc_roi0_pt0_x" ColumnName="ssc_roi0_pt0_x" />
+                <ScalarProperty Name="ssc_roi0_enable" ColumnName="ssc_roi0_enable" />
+                <ScalarProperty Name="ssc_mon" ColumnName="ssc_mon" />
+                <ScalarProperty Name="ssc_fri" ColumnName="ssc_fri" />
+                <ScalarProperty Name="ssc_fps" ColumnName="ssc_fps" />
+                <ScalarProperty Name="ssc_enable" ColumnName="ssc_enable" />
+                <ScalarProperty Name="ssc_abnormalthr" ColumnName="ssc_abnormalthr" />
+                <ScalarProperty Name="rtspurl" ColumnName="rtspurl" />
+                <ScalarProperty Name="rtsp_passwd" ColumnName="rtsp_passwd" />
+                <ScalarProperty Name="rtsp_account" ColumnName="rtsp_account" />
+                <ScalarProperty Name="pre_alarm" ColumnName="pre_alarm" />
+                <ScalarProperty Name="post_alarm" ColumnName="post_alarm" />
+                <ScalarProperty Name="pfr_wed" ColumnName="pfr_wed" />
+                <ScalarProperty Name="pfr_tur" ColumnName="pfr_tur" />
+                <ScalarProperty Name="pfr_tue" ColumnName="pfr_tue" />
+                <ScalarProperty Name="pfr_sun" ColumnName="pfr_sun" />
+                <ScalarProperty Name="pfr_sat" ColumnName="pfr_sat" />
+                <ScalarProperty Name="pfr_mon" ColumnName="pfr_mon" />
+                <ScalarProperty Name="pfr_fri" ColumnName="pfr_fri" />
+                <ScalarProperty Name="pfr_fps" ColumnName="pfr_fps" />
+                <ScalarProperty Name="pfr_enable" ColumnName="pfr_enable" />
+                <ScalarProperty Name="opa4t_wed" ColumnName="opa4t_wed" />
+                <ScalarProperty Name="opa4t_tur" ColumnName="opa4t_tur" />
+                <ScalarProperty Name="opa4t_tue" ColumnName="opa4t_tue" />
+                <ScalarProperty Name="opa4t_trigmodel" ColumnName="opa4t_trigmodel" />
+                <ScalarProperty Name="opa4t_sun" ColumnName="opa4t_sun" />
+                <ScalarProperty Name="opa4t_sat" ColumnName="opa4t_sat" />
+                <ScalarProperty Name="opa4t_roi_num" ColumnName="opa4t_roi_num" />
+                <ScalarProperty Name="opa4t_roi0_sensitivity" ColumnName="opa4t_roi0_sensitivity" />
+                <ScalarProperty Name="opa4t_roi0_ptnum" ColumnName="opa4t_roi0_ptnum" />
+                <ScalarProperty Name="opa4t_roi0_pt3_y" ColumnName="opa4t_roi0_pt3_y" />
+                <ScalarProperty Name="opa4t_roi0_pt3_x" ColumnName="opa4t_roi0_pt3_x" />
+                <ScalarProperty Name="opa4t_roi0_pt2_y" ColumnName="opa4t_roi0_pt2_y" />
+                <ScalarProperty Name="opa4t_roi0_pt2_x" ColumnName="opa4t_roi0_pt2_x" />
+                <ScalarProperty Name="opa4t_roi0_pt1_y" ColumnName="opa4t_roi0_pt1_y" />
+                <ScalarProperty Name="opa4t_roi0_pt1_x" ColumnName="opa4t_roi0_pt1_x" />
+                <ScalarProperty Name="opa4t_roi0_pt0_y" ColumnName="opa4t_roi0_pt0_y" />
+                <ScalarProperty Name="opa4t_roi0_pt0_x" ColumnName="opa4t_roi0_pt0_x" />
+                <ScalarProperty Name="opa4t_roi0_id" ColumnName="opa4t_roi0_id" />
+                <ScalarProperty Name="opa4t_roi0_enable" ColumnName="opa4t_roi0_enable" />
+                <ScalarProperty Name="opa4t_mon" ColumnName="opa4t_mon" />
+                <ScalarProperty Name="opa4t_fri" ColumnName="opa4t_fri" />
+                <ScalarProperty Name="opa4t_fps" ColumnName="opa4t_fps" />
+                <ScalarProperty Name="opa4t_enable" ColumnName="opa4t_enable" />
+                <ScalarProperty Name="manual" ColumnName="manual" />
+                <ScalarProperty Name="fsd_wed" ColumnName="fsd_wed" />
+                <ScalarProperty Name="fsd_tur" ColumnName="fsd_tur" />
+                <ScalarProperty Name="fsd_tue" ColumnName="fsd_tue" />
+                <ScalarProperty Name="fsd_sun" ColumnName="fsd_sun" />
+                <ScalarProperty Name="fsd_sat" ColumnName="fsd_sat" />
+                <ScalarProperty Name="fsd_mon" ColumnName="fsd_mon" />
+                <ScalarProperty Name="fsd_fri" ColumnName="fsd_fri" />
+                <ScalarProperty Name="fsd_fps" ColumnName="fsd_fps" />
+                <ScalarProperty Name="fsd_enable" ColumnName="fsd_enable" />
+                <ScalarProperty Name="ebd_wed" ColumnName="ebd_wed" />
+                <ScalarProperty Name="ebd_tur" ColumnName="ebd_tur" />
+                <ScalarProperty Name="ebd_tue" ColumnName="ebd_tue" />
+                <ScalarProperty Name="ebd_trigmodel" ColumnName="ebd_trigmodel" />
+                <ScalarProperty Name="ebd_sun" ColumnName="ebd_sun" />
+                <ScalarProperty Name="ebd_sat" ColumnName="ebd_sat" />
+                <ScalarProperty Name="ebd_personThre" ColumnName="ebd_personThre" />
+                <ScalarProperty Name="ebd_mon" ColumnName="ebd_mon" />
+                <ScalarProperty Name="ebd_fri" ColumnName="ebd_fri" />
+                <ScalarProperty Name="ebd_fps" ColumnName="ebd_fps" />
+                <ScalarProperty Name="ebd_enable" ColumnName="ebd_enable" />
+                <ScalarProperty Name="ebd_ebikeThre" ColumnName="ebd_ebikeThre" />
+                <ScalarProperty Name="alias_name" ColumnName="alias_name" />
+                <ScalarProperty Name="algo_w" ColumnName="algo_w" />
+                <ScalarProperty Name="algo_h" ColumnName="algo_h" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="device">
+            <EntityTypeMapping TypeName="gensysModel.device">
+              <MappingFragment StoreEntitySet="device">
+                <ScalarProperty Name="media_port" ColumnName="media_port" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="rtsp_url" ColumnName="rtsp_url" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="dev_model" ColumnName="dev_model" />
+                <ScalarProperty Name="dev_type" ColumnName="dev_type" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -867,7 +1162,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>

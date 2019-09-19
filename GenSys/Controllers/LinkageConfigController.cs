@@ -7,25 +7,12 @@ using GenSys.Models;
 using System.Net;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace GenSys.Controllers
 {
-    public static class JSONHelper
-    {
-        public static string ToJSON(this object obj)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            return serializer.Serialize(obj);
-        }
-
-        public static string ToJSON(object obj, int recursionDepth)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            serializer.RecursionLimit = recursionDepth;
-            return serializer.Serialize(obj);
-        }
-    }
-
     public class LinkageConfigController : Controller
     {
         private gensysEntities db = new gensysEntities();
@@ -51,7 +38,7 @@ namespace GenSys.Controllers
             //                      device.alias,
             //                      device.uuid
             //                  };
-            //var uuidJson = linkageUuid.ToJSON();
+            //var uuidJson = linkageUuid.ToJson();
             //ViewBag.uuid = uuidJson;
 
             var linkageUuid = from device in db.device
@@ -100,6 +87,7 @@ namespace GenSys.Controllers
 
         public ActionResult Generate(FormCollection collection)
         {
+            //生成repeat
             var Mon = collection["Mon"];
             var Tues = collection["Tues"];
             var Wed = collection["Wed"];
@@ -107,13 +95,114 @@ namespace GenSys.Controllers
             var Fri = collection["Fri"];
             var Sat = collection["Sat"];
             var Sun = collection["Sun"];
-            var Mon0 = collection["table_data"];
-            var Mon1 = collection["uuid"];
-            var Mon2 = collection["option"];
-            var Mon3 = collection["detail"];
-            
+            //过滤 hidden false
+            var repeat = "";
+            if (Mon.Contains("true")) repeat += "1";
+            else repeat += "0";
+            if (Tues.Contains("true")) repeat += "1";
+            else repeat += "0";
+            if (Wed.Contains("true")) repeat += "1";
+            else repeat += "0";
+            if (Thur.Contains("true")) repeat += "1";
+            else repeat += "0";
+            if (Fri.Contains("true")) repeat += "1";
+            else repeat += "0";
+            if (Sat.Contains("true")) repeat += "1";
+            else repeat += "0";
+            if (Sun.Contains("true")) repeat += "1";
+            else repeat += "0";
+
+            //生成trigger
+            var trigger = collection["eventList"];
+            //name转value
+            var triggerList = db.linkage_event.Where(u => u.name == trigger).Select(u => u.value).ToList();
+            trigger = "";//.ToJson();
+            if (triggerList.Count > 0)
+                trigger = triggerList[0];//.ToJson();
+
+            //生成instruction
+            var instruction = collection["instruction"];
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            List<Instruction> instructionObj = js.Deserialize<List<Instruction>>(instruction);
+            //name转value
+            var operationDict = (from linkage_operation in db.linkage_operation
+                                 select new { linkage_operation.name, linkage_operation.value }).ToDictionary(a => a.name, a => a.value);
+            var uuid = (from linkage_operation in db.linkage_operation
+                            select new { linkage_operation.name, linkage_operation.value });
+            var algorithmDict = (from linkage_algorithm in db.linkage_algorithm
+                                 select new { linkage_algorithm.name, linkage_algorithm.value }).ToDictionary(a => a.name, a => a.value);
+            var positionDict = (from linkage_position in db.linkage_position
+                                select new { linkage_position.name, linkage_position.value }).ToDictionary(a => a.name, a => a.value);
+            foreach (var item in instructionObj)
+            {
+                item.operation = operationDict[item.operation];
+                if (! Regex.IsMatch(item.detail, @"^[+-]?\d*[.]?\d*$")) //判断是否为数字字符串注意斜杠转义
+                {
+                    try
+                    {
+                        item.detail = algorithmDict[item.detail];
+                    }
+                    catch (Exception ex)    //替换算法名失败，则应替换预置位编号
+                    {
+                        item.detail = positionDict[item.detail];
+                    }
+                }
+            }
+
+            //int numInt = (instruction.Length - instruction.Replace("detail", "").Length) / "detail".Length;
+
+            //整合为联动对象
+            LinkageObj linkageObj = new LinkageObj();
+            linkageObj.repeat = repeat;
+            linkageObj.trigger = trigger;
+            linkageObj.delay = collection["delay"];
+            linkageObj.sequence = new Sequence();
+            linkageObj.sequence.num = instructionObj.Count;
+            linkageObj.sequence.instruction = instructionObj;
+            linkageObj.ToJson();
+
+            //整合json字符串
+            //StringBuilder linkageJson = new StringBuilder();
+            //linkageJson.Append("{\"repeat\":" + repeat);
+            //linkageJson.Append(",\"trigger\":" + trigger);
+            //linkageJson.Append(",\"delay\":" + delay);
+            //linkageJson.Append(",\"sequence\":{\"num\":" + num);
+            //linkageJson.Append(",\"instructin\": " + instruction + "}}");
+
+            //将linkageJson发送到genbox接口
+            MyLinkage(js.Serialize(linkageObj));    //linkageJson.ToString()
+
             return RedirectToAction("Index");
         }
-        
+
+        public void MyLinkage(string linkageJson)
+        {
+            ////保存目录
+            //string dir = "Public\\Linkage\\";
+            ////站点文件目录
+            //string fileDir = HttpRuntime.AppDomainAppPath + dir;
+
+            //if (!Directory.Exists(fileDir))
+            //    Directory.CreateDirectory(fileDir);
+
+            ////文件名称
+            //string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_linkage.json";
+            ////保存文件所在站点位置
+            //string filePath = Path.Combine(fileDir, fileName);
+
+            try
+            {
+                using (StreamWriter sw = new StreamWriter("D:\\linkage.json"))
+                {
+                    sw.WriteLine(linkageJson);
+                    sw.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message + ex.StackTrace);
+            }
+
+        }
     }
 }

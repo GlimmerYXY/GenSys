@@ -48,6 +48,40 @@
           <Property Name="dev_model" Type="varchar" MaxLength="255" />
           <Property Name="site" Type="varchar" MaxLength="255" />
           <Property Name="alias" Type="varchar" MaxLength="255" />
+          <Property Name="uuid" Type="varchar" MaxLength="255" />
+          <Property Name="vedio_url" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="linkage_algorithm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="linkage_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="linkage_operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="linkage_position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="site">
           <Key>
@@ -55,6 +89,20 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sys_basicconfig">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="logo" Type="varchar" MaxLength="255" />
+          <Property Name="ui_type" Type="varchar" MaxLength="255" />
+          <Property Name="app_support" Type="varchar" MaxLength="255" />
+          <Property Name="beep" Type="varchar" MaxLength="255" />
+          <Property Name="video_src" Type="varchar" MaxLength="255" />
+          <Property Name="prtsc_path" Type="varchar" MaxLength="255" />
+          <Property Name="video_path" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="sys_dept">
           <Key>
@@ -235,7 +283,12 @@
           <EntitySet Name="alarm" EntityType="Self.alarm" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="dev_dict" EntityType="Self.dev_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="device" EntityType="Self.device" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_algorithm" EntityType="Self.linkage_algorithm" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_event" EntityType="Self.linkage_event" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_operation" EntityType="Self.linkage_operation" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="linkage_position" EntityType="Self.linkage_position" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="site" EntityType="Self.site" Schema="gensys" store:Type="Tables" />
+          <EntitySet Name="sys_basicconfig" EntityType="Self.sys_basicconfig" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_dept" EntityType="Self.sys_dept" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_dict" EntityType="Self.sys_dict" Schema="gensys" store:Type="Tables" />
           <EntitySet Name="sys_link" EntityType="Self.sys_link" Schema="gensys" store:Type="Tables" />
@@ -303,6 +356,8 @@
           <Property Name="dev_model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uuid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="vedio_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="site">
           <Key>
@@ -499,6 +554,11 @@
             <End Role="sys_relation" EntitySet="sys_relation" />
           </AssociationSet>
           <EntitySet Name="sys_log" EntityType="gensysModel.sys_log" />
+          <EntitySet Name="linkage_algorithm" EntityType="gensysModel.linkage_algorithm" />
+          <EntitySet Name="linkage_event" EntityType="gensysModel.linkage_event" />
+          <EntitySet Name="linkage_operation" EntityType="gensysModel.linkage_operation" />
+          <EntitySet Name="linkage_position" EntityType="gensysModel.linkage_position" />
+          <EntitySet Name="sys_basicconfig" EntityType="gensysModel.sys_basicconfig" />
         </EntityContainer>
         <EntityType Name="sys_log">
           <Key>
@@ -514,6 +574,52 @@
           <Property Name="createtime" Type="DateTime" />
           <Property Name="succeed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_algorithm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="linkage_position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_basicconfig">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="logo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ui_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="app_support" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="beep" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="video_src" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="prtsc_path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="video_path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -556,6 +662,8 @@
           <EntitySetMapping Name="device">
             <EntityTypeMapping TypeName="gensysModel.device">
               <MappingFragment StoreEntitySet="device">
+                <ScalarProperty Name="vedio_url" ColumnName="vedio_url" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ip" ColumnName="ip" />
                 <ScalarProperty Name="media_port" ColumnName="media_port" />
@@ -734,6 +842,57 @@
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="log_name" ColumnName="log_name" />
                 <ScalarProperty Name="log_type" ColumnName="log_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_algorithm">
+            <EntityTypeMapping TypeName="gensysModel.linkage_algorithm">
+              <MappingFragment StoreEntitySet="linkage_algorithm">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_event">
+            <EntityTypeMapping TypeName="gensysModel.linkage_event">
+              <MappingFragment StoreEntitySet="linkage_event">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_operation">
+            <EntityTypeMapping TypeName="gensysModel.linkage_operation">
+              <MappingFragment StoreEntitySet="linkage_operation">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkage_position">
+            <EntityTypeMapping TypeName="gensysModel.linkage_position">
+              <MappingFragment StoreEntitySet="linkage_position">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_basicconfig">
+            <EntityTypeMapping TypeName="gensysModel.sys_basicconfig">
+              <MappingFragment StoreEntitySet="sys_basicconfig">
+                <ScalarProperty Name="video_path" ColumnName="video_path" />
+                <ScalarProperty Name="prtsc_path" ColumnName="prtsc_path" />
+                <ScalarProperty Name="video_src" ColumnName="video_src" />
+                <ScalarProperty Name="beep" ColumnName="beep" />
+                <ScalarProperty Name="app_support" ColumnName="app_support" />
+                <ScalarProperty Name="ui_type" ColumnName="ui_type" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

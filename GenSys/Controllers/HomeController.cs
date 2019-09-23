@@ -1,4 +1,4 @@
-﻿using AspDotNetMVCBootstrapTable.Models;
+﻿using GenSys.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,15 +7,123 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using GenSys.Models;
 using System.Drawing;
-
+ 
 namespace GenSys.Controllers
 {
     public class HomeController : Controller
     {
         private gensysEntities db = new gensysEntities();
 
+
+        public ActionResult About()
+        {
+            return View();
+        }
+        
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel loginModel )//string username, string password
+        {
+            if (! ModelState.IsValid)
+            {
+                //用户输入服务端验证,此处处理验证不通过的提示代码 本例略过             
+                return View();
+            }
+
+            string result = loginModel.Login();
+
+            if(result == "验证通过！")
+                return RedirectToAction("Index");
+            else
+            {
+                Response.Write("<script>alert('" + result + "')</script>");
+                return View("Login");
+            }
+
+            //var un = from sys_user in db.sys_user
+            //         where sys_user.username == username
+            //         select sys_user.password;
+            //var ul = un.ToList();
+
+            //if(ul.Count == 0)
+            //{
+            //    return Content("该用户名不存在！");
+            //}
+            //else if(ul[0] == password)
+            //{
+            //    return RedirectToAction("Index");
+            //}
+            //else
+            //    return Content("密码错误！");
+
+        }
+
+        public ActionResult Index()
+        {
+            ViewData["alarm"] = db.alarm.ToList();
+            return View();
+        }
+
+
+        /* 报警信息列表 */
+        public JsonResult GetAlarm()
+        {
+            return Json(db.alarm.ToList(), JsonRequestBehavior.AllowGet);
+        }
+ 
+
+        /* 树形菜单 */
+        public JsonResult GetTree()
+        {
+            List<device> raw;
+            List<DeviveTreeNode> records;
+
+            raw = db.device.ToList();
+            
+            records = raw.GroupBy(l => l.site).Select(l => l.Key).Select(l => new DeviveTreeNode
+            {
+                //id = -1,
+                dev_type = null,
+                dev_model = null,
+                account = null,
+                password = null,
+                uuid = null,
+                rtsp_url = null,
+                ip = null,
+                media_port = -1,
+                text = l,
+                children = GetChildren(raw, l)
+            }).ToList();
+
+            return Json(records, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<DeviveTreeNode> GetChildren(List<device> raw, string siteKey)
+        {
+            return raw.Where(l => l.site == siteKey).Select(l => new DeviveTreeNode
+            {
+                //id = l.id,
+                dev_type = l.dev_type,
+                dev_model = l.dev_model,
+                account = l.account,
+                password = l.password,
+                uuid = l.uuid,
+                rtsp_url = l.rtsp_url,
+                ip = l.ip,
+                media_port = l.media_port,
+                text = l.alias,
+                children = null
+            }).ToList();
+        }
+
+
+        /* 相机报警接口 */
         public JObject RecvRegister()
         {
             Request.InputStream.Position = 0;
@@ -26,12 +134,12 @@ namespace GenSys.Controllers
 
                 string deviceID = null;
                 string p2pID = null;
-                
+
                 try { deviceID = jo["deviceID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { p2pID = jo["p2pID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
-                
+
                 JObject postedJObject = new JObject();
                 if ((deviceID == null || deviceID == "") && (p2pID == null || p2pID == ""))
                 {
@@ -74,7 +182,7 @@ namespace GenSys.Controllers
                 JObject jo = (JObject)JsonConvert.DeserializeObject(str);
 
                 try { deviceID = jo["deviceID"].ToString(); }
-                catch(Exception ex) { Console.WriteLine(ex.Message); }
+                catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { p2pID = jo["p2pID"].ToString(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 try { token = jo["token"].ToString(); }
@@ -98,13 +206,13 @@ namespace GenSys.Controllers
                 string dir = "Public/AlarmSnap/";
                 //站点文件目录
                 string fileDir = HttpRuntime.AppDomainAppPath + dir;   // HttpContext.Current.Server.MapPath("~" + dir);
-                                                                       //文件名称
+                if (!Directory.Exists(fileDir))
+                    Directory.CreateDirectory(fileDir);
+
+                //文件名称
                 string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + timestamp.ToString() + ".jpg";
                 //保存文件所在站点位置
                 string filePath = Path.Combine(fileDir, fileName);
-
-                if (!Directory.Exists(fileDir))
-                    Directory.CreateDirectory(fileDir);
 
                 try
                 {
@@ -137,11 +245,11 @@ namespace GenSys.Controllers
 
                     alarm.state = "red";
                     var query = from device in db.device
-                               where device.ip == ip
-                               select new
-                               { device.site, device.alias };
+                                where device.ip == ip
+                                select new
+                                { device.site, device.alias };
                     var queryList = query.ToList();
-                    if(queryList.Count > 0)
+                    if (queryList.Count > 0)
                     {
                         alarm.site = queryList[0].site;  //tostring
                         alarm.alias = queryList[0].alias;  //tostring
@@ -175,19 +283,9 @@ namespace GenSys.Controllers
             }
             return postedJObject;
         }
-        
-        public ActionResult Index()
-        {
-            ViewData["alarm"] = db.alarm.ToList();
-            return View();
-        }
 
 
-        public ActionResult About()
-        {
-            return View();
-        }
-
+        /* 测试数据 */
         private class Product
         {
             public string Id { get; set; }
@@ -233,6 +331,5 @@ namespace GenSys.Controllers
             return Json(products.ToList(), JsonRequestBehavior.AllowGet);
 
         }
-        
     }
 }

@@ -1,0 +1,300 @@
+﻿@{
+    ViewBag.Title = "监控页面测试";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+
+
+
+<!doctype html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="Expires" content="0" />
+</head>
+<body>
+    <div class="col-md-12">
+        <div id="divPlugin" class="plugin" style="width:100%;height:100%"></div>
+        <fieldset class="login">
+            <legend>登录</legend>
+            <table cellpadding="0" cellspacing="3" border="0">
+                <tr>
+                    <td>
+                        窗口分割数&nbsp;
+                        <select class="sel2" onchange="changeWndNum(this.value);">
+                            <option value="1">1x1</option>
+                            <option value="2" selected>2x2</option>
+                            <option value="3">3x3</option>
+                            <option value="4">4x4</option>
+                        </select>
+                    </td>
+                </tr>
+                
+            </table>
+        </fieldset>
+    </div>
+    
+    
+</body>
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script id="videonode" src="~/Scripts/webVideoCtrl.js"></script>
+<script src="~/Scripts/demo.js"></script> 
+
+
+
+<!--
+<script>
+    var deviceListArray = [{
+        szIP: '192.168.1.104',
+        szPort:'80',
+        szUsername: 'admin',
+        szPassword:'hy123456'
+    }
+
+    //---------------------------------------------------可添加设备
+
+    ]
+
+    var g_iWndIndex = 0;
+    var iWndType = 2;
+    $(function () {
+        if (WebVideoCtrl.I_CheckPluginInstall() == -1) {
+            alert("您还未安装过插件，双击开发包目录里的WebComponentsKit.exe安装！")
+            return;
+        }
+        WebVideoCtrl.I_InitPlugin('100%', '100%', {
+            iWndowType: iWndType,
+            cbSelWnd: function (xmlDoc) {
+                g_iWndIndex = $(xmlDoc).find("SelectWnd").eq(0).text();
+
+            }
+        });
+        WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
+        if (-1 == WebVideoCtrl.I_CheckPluginVersion()) {
+            alert("D检测到新的插件版本，双击开发包目录里的WebComponentsKit.exe升级！");
+            return;
+        }
+
+        // 将一维数组按区块个数分割成二维数组
+        let deviceList = oneArrayToTwoArray(deviceListArray)
+        let key = 0
+        // 自动登陆
+        clickLogin(deviceList[key])
+        // 定时器轮播
+        setInterval(() => {
+            key++
+            if (key >= deviceList.length) {
+                key = 0
+            }
+            clickLogin(deviceList[key])
+        }, 9000)
+
+    });
+    function oneArrayToTwoArray (deviceListArray) {
+        let twoArray = []
+        let oneArray = []
+        let len = iWndowType * iWndowType
+        for (let b = 0; b < deviceListArray.length; b++) {
+            if (b % len == 0) {
+                oneArray = []
+            }
+            oneArray.push(deviceListArray[b])
+            if (b % len == (len - 1)) {
+                twoArray.push(oneArray)
+            }
+        }
+        return twoArray
+    }
+
+    // login
+    function clickLogin(deviceList) {
+        for (let i = 0; i < deviceList.length; i++) {
+            let index = deviceList[i]
+            if ("" == index.szIP || "" == index.szPort) {
+                continue;
+            }
+
+            var iRet = WebVideoCtrl.I_Login(index.szIP, 1, index.szPort, index.szUsername, index.szPassword, {
+                success: function (xmlDoc) {
+                    console.log(index.szIP + " login success！");
+                    setTimeout(function () {
+                        clickStartRealPlay(index.szIP, i);
+                    }, 100);
+                },
+                error: function () {
+                    console.log(index.szIP + " login failed！");
+                }
+            });
+	
+            if (-1 == iRet) {
+                console.log(index.szIP + " login already !");
+                setTimeout(() => {
+                    clickStartRealPlay(index.szIP, i);
+                }, 100);
+            }
+        }
+    }
+
+    // strat real play
+    function clickStartRealPlay(szIP, g_iWndIndex) {
+        let oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex)
+
+        if ("" == szIP) {
+            return;
+        }
+
+        if (oWndInfo != null) {// stop first
+            WebVideoCtrl.I_Stop(g_iWndIndex);
+        }
+
+        let iRet = WebVideoCtrl.I_StartRealPlay(szIP, {
+            iWndIndex: g_iWndIndex
+        });
+
+        if (0 == iRet) {
+            console.log("start real play success！");
+        } else {
+            console.log("start real play failed！");
+        }
+    }
+
+</script>
+-->
+
+<script>
+    $(function() {
+	    initialValue = new Object();
+	    initialValue.g_iWndIndex = 0;
+	    initialValue.szDeviceIdentify = '';
+	    initialValue.deviceport = '';
+	    initialValue.rtspport = '';
+	    initialValue.channels = [];
+	    initialValue.ip = '192.168.1.104';
+	    initialValue.port = '80';
+	    initialValue.username = 'admin';
+	    initialValue.password = 'hy123456';
+	    t_init(initialValue);
+	    t_login(initialValue);
+    })
+
+    // 初始化
+    function t_init(initialValue) {
+	    // 检查插件是否已经安装过
+	    var iRet = WebVideoCtrl.I_CheckPluginInstall();
+	    if (-1 == iRet) {
+		    alert("您还未安装过插件，双击开发包目录里的WebComponentsKit.exe安装！");
+		    return;
+	    }
+	    // 初始化插件参数及插入插件
+	    WebVideoCtrl.I_InitPlugin('100%', '100%', {
+		    bWndFull: true,
+		    iPackageType: 2,
+		    iWndowType: 1,
+		    cbInitPluginComplete: function() {
+			    WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
+		    }
+	    });
+    }
+
+    function t_login(initialValue) {
+	    if ("" == initialValue.ip || "" == initialValue.port) {
+		    return;
+	    }
+	    initialValue.szDeviceIdentify = initialValue.ip + "_" + initialValue.port;
+	    WebVideoCtrl.I_Login(initialValue.ip, 1, initialValue.port, initialValue.username, initialValue.password, {
+		    success: function(xmlDoc) {
+			    setTimeout(function() {
+				    t_getChannelInfo(initialValue);
+				    t_getDevicePort(initialValue);
+			    }, 10);
+			    setTimeout(function() {
+				    t_StartRealPlay(initialValue);
+			    }, 500)
+		    },
+		    error: function(status, xmlDoc) {}
+	    });
+    }
+
+    // 获取通道
+    function t_getChannelInfo(initialValue) {
+	    initialValue.channels = []
+	    if (null == initialValue.szDeviceIdentify) {
+		    return;
+	    }
+	    // 模拟通道
+	    WebVideoCtrl.I_GetAnalogChannelInfo(initialValue.szDeviceIdentify, {
+		    async: false,
+		    success: function(xmlDoc) {
+			    var oChannels = $(xmlDoc).find("VideoInputChannel");
+			    $.each(oChannels, function(i) {
+				    var id = $(this).find("id").eq(0).text(),
+					    name = $(this).find("name").eq(0).text();
+				    if ("" == name) {
+					    name = "Camera " + (i < 9 ? "0" + (i + 1) : (i + 1));
+				    }
+				    initialValue.channels.push({
+					    id: id,
+					    name: name
+				    })
+			    });
+		    },
+		    error: function(status, xmlDoc) {}
+	    });
+    }
+
+    // 获取端口
+    function t_getDevicePort(initialValue) {
+	    if (null == initialValue.szDeviceIdentify) {
+		    return;
+	    }
+	    var oPort = WebVideoCtrl.I_GetDevicePort(initialValue.szDeviceIdentify);
+	    if (oPort != null) {
+		    initialValue.deviceport = oPort.iDevicePort;
+		    initialValue.rtspport = oPort.iRtspPort;
+	    }
+    }
+
+    // 开始预览
+    function t_StartRealPlay(initialValue) {
+	    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(initialValue.g_iWndIndex),
+		    iChannelID = initialValue.channels[0].value
+
+	    if (null == initialValue.szDeviceIdentify) {
+		    return;
+	    }
+
+	    var startRealPlay = function() {
+		    WebVideoCtrl.I_StartRealPlay(initialValue.szDeviceIdentify, {
+			    iRtspPort: initialValue.rtspport,
+			    iStreamType: 1,
+			    iChannelID: iChannelID,
+			    bZeroChannel: false,
+			    success: function() {},
+			    error: function(status, xmlDoc) {
+				    if (403 === status) {} else {}
+			    }
+		    });
+	    };
+
+	    if (oWndInfo != null) { // 已经在播放了，先停止
+		    WebVideoCtrl.I_Stop({
+			    success: function() {
+				    startRealPlay();
+			    }
+		    });
+	    } else {
+		    startRealPlay();
+	    }
+    }
+</script>
+
+
+
+</html>
+
+
+

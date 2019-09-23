@@ -12,18 +12,16 @@ namespace GenSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class sys_basicconfig
     {
         public int id { get; set; }
-        public string ip { get; set; }
-        public int media_port { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string dev_type { get; set; }
-        public string dev_model { get; set; }
-        public string site { get; set; }
-        public string alias { get; set; }
-        public string uuid { get; set; }
-        public string vedio_url { get; set; }
+        public string name { get; set; }
+        public string logo { get; set; }
+        public string ui_type { get; set; }
+        public string app_support { get; set; }
+        public string beep { get; set; }
+        public string video_src { get; set; }
+        public string prtsc_path { get; set; }
+        public string video_path { get; set; }
     }
 }

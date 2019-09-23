@@ -285,6 +285,7 @@
     <Compile Include="Models\device.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeviveTreeNode.cs" />
     <Compile Include="Models\dev_dict.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
@@ -303,10 +304,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GensysModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\linkage_algorithm.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\linkage_event.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\linkage_operation.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\linkage_position.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\site.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\STU.cs" />
+    <Compile Include="Models\sys_basicconfig.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sys_dept.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
@@ -349,6 +365,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\demo.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -363,6 +380,7 @@
       <DependentUpon>GensysModel.edmx</DependentUpon>
       <LastGenOutput>GensysModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\adapter.js" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\bootstrap-table.min.css" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\bootstrap-table.min.js" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\extensions\editable\bootstrap-table-editable.min.js" />
@@ -413,11 +431,20 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="Scripts\demo.js" />
+    <Content Include="Scripts\h5splayer.js" />
+    <Content Include="Scripts\h5splayerhelper.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jsPlugin-1.0.0.min.js" />
+    <Content Include="Scripts\platform.js" />
+    <Content Include="Scripts\webVideoCtrl.js" />
     <Content Include="Views\SystemConfig\TestAajaLoginViewResult.cshtml" />
     <Content Include="Views\SystemConfig\DeviceSettable.cshtml" />
     <Content Include="Views\SystemConfig\_PartialPage1.cshtml" />
     <Content Include="Views\SystemConfig\Indexbackup.cshtml" />
     <Content Include="Views\SystemConfig\Permission.cshtml" />
+    <Content Include="Views\Home\videotest.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

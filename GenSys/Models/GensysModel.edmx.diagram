@@ -22,6 +22,11 @@
         <AssociationConnector Association="gensysModel.菜单id" ManuallyRouted="false" />
         <AssociationConnector Association="gensysModel.角色id" ManuallyRouted="false" />
         <EntityTypeShape EntityType="gensysModel.sys_log" Width="1.5" PointX="11.375" PointY="5.75" />
+        <EntityTypeShape EntityType="gensysModel.linkage_algorithm" Width="1.5" PointX="5.75" PointY="11.75" />
+        <EntityTypeShape EntityType="gensysModel.linkage_event" Width="1.5" PointX="11.75" PointY="9.75" />
+        <EntityTypeShape EntityType="gensysModel.linkage_operation" Width="1.5" PointX="11.75" PointY="12.75" />
+        <EntityTypeShape EntityType="gensysModel.linkage_position" Width="1.5" PointX="13.75" PointY="0.75" />
+        <EntityTypeShape EntityType="gensysModel.sys_basicconfig" Width="1.5" PointX="0.75" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

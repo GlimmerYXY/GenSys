@@ -12,18 +12,10 @@ namespace GenSys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class linkage_event
     {
         public int id { get; set; }
-        public string ip { get; set; }
-        public int media_port { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string dev_type { get; set; }
-        public string dev_model { get; set; }
-        public string site { get; set; }
-        public string alias { get; set; }
-        public string uuid { get; set; }
-        public string vedio_url { get; set; }
+        public string name { get; set; }
+        public string value { get; set; }
     }
 }

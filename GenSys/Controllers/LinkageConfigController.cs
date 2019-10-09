@@ -126,26 +126,35 @@ namespace GenSys.Controllers
             List<Instruction> instructionObj = js.Deserialize<List<Instruction>>(instruction);
             //name转value
             var operationDict = (from linkage_operation in db.linkage_operation
-                                 select new { linkage_operation.name, linkage_operation.value }).ToDictionary(a => a.name, a => a.value);
-            var uuid = (from linkage_operation in db.linkage_operation
-                            select new { linkage_operation.name, linkage_operation.value });
+                                 select new { linkage_operation.name, linkage_operation.value }
+                                 ).ToDictionary(a => a.name, a => a.value);
+            var uuidDict = (from device in db.device
+                        select new { device.alias, device.uuid }
+                        ).ToDictionary(a => a.alias, a => a.uuid);
             var algorithmDict = (from linkage_algorithm in db.linkage_algorithm
-                                 select new { linkage_algorithm.name, linkage_algorithm.value }).ToDictionary(a => a.name, a => a.value);
+                                 select new { linkage_algorithm.name, linkage_algorithm.value }
+                                 ).ToDictionary(a => a.name, a => a.value);
             var positionDict = (from linkage_position in db.linkage_position
-                                select new { linkage_position.name, linkage_position.value }).ToDictionary(a => a.name, a => a.value);
+                                select new { linkage_position.name, linkage_position.value }
+                                ).ToDictionary(a => a.name, a => a.value);
             foreach (var item in instructionObj)
             {
-                item.operation = operationDict[item.operation];
-                if (! Regex.IsMatch(item.detail, @"^[+-]?\d*[.]?\d*$")) //判断是否为数字字符串注意斜杠转义
+                if(item.operation != null && item.detail != null && item.uuid != null)  //前端未添加命令，提交到后台，instructionObj有一个null
                 {
-                    try
+                    item.operation = operationDict[item.operation];
+                    if (!Regex.IsMatch(item.detail, @"^[+-]?\d*[.]?\d*$")) //判断是否为数字字符串注意斜杠转义
                     {
-                        item.detail = algorithmDict[item.detail];
+                        try
+                        {
+                            item.detail = algorithmDict[item.detail];
+                        }
+                        catch (Exception ex)    //替换算法名失败，则应替换预置位编号
+                        {
+                            item.detail = positionDict[item.detail];
+                        }
                     }
-                    catch (Exception ex)    //替换算法名失败，则应替换预置位编号
-                    {
-                        item.detail = positionDict[item.detail];
-                    }
+                    item.uuid = uuidDict[item.uuid];
+
                 }
             }
 
@@ -170,12 +179,12 @@ namespace GenSys.Controllers
             //linkageJson.Append(",\"instructin\": " + instruction + "}}");
 
             //将linkageJson发送到genbox接口
-            MyLinkage(js.Serialize(linkageObj));    //linkageJson.ToString()
+            MyLinkage(trigger, js.Serialize(linkageObj));    //linkageJson.ToString()
 
             return RedirectToAction("Index");
         }
 
-        public void MyLinkage(string linkageJson)
+        public void MyLinkage(string trigger, string linkageJson)
         {
             ////保存目录
             //string dir = "Public\\Linkage\\";
@@ -192,7 +201,7 @@ namespace GenSys.Controllers
 
             try
             {
-                using (StreamWriter sw = new StreamWriter("D:\\linkage.json"))
+                using (StreamWriter sw = new StreamWriter("D:\\GensysLinkage\\" + trigger + "_linkage.json"))
                 {
                     sw.WriteLine(linkageJson);
                     sw.Close();

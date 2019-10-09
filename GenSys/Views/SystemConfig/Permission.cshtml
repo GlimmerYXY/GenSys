@@ -17,41 +17,45 @@
             <div class="divider " style="background-color:black;height:1px;max-height:1px;min-height:1px"></div>
             <h4><b>页面权限管理</b></h4>
             <div>
-                <label for="position" style="width:90px;height:25px;min-width:90px;">职务</label>
-                <input type="text" name="position" id="position" size="18" maxlength="30" />
-                <br />
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="Home" value="1" />主页
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="SystemConfig" value="1" />系统配置
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="DeviceMana" value="1" />设备管理
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="LinkageConfig" value="1" />联动配置
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="Report" value="1" />报表
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="Log" value="1" />日志
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="UserMana" value="1" />用户管理
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="DigitalMap" value="1" />电子地图
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="Ticket" value="1" />工单
-                </label>
-                <button id="upload" type="button" style="height:25px">添加</button>
+                @using (Html.BeginForm("AddPermission", "SystemConfig", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <label for="position" style="width:90px;height:25px;min-width:90px;">职务</label>
+                    <input type="text" class="form-control" name="position" id="position" size="18" maxlength="30" />
+                    <br />
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="Home" name="Home" value="1" />主页
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="SystemConfig" name="SystemConfig" value="1" />系统配置
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="DeviceMana" name="DeviceMana" value="1" />设备管理
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="LinkageConfig" name="LinkageConfig" value="1" />联动配置
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="Report" name="Report" value="1" />报表
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="Log" name="Log" value="1" />日志
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="UserMana" name="UserMana" value="1" />用户管理
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="DigitalMap" name="DigitalMap" value="1" />电子地图
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="Ticket" name="Ticket" value="1" />工单
+                    </label>
+                    <button id="upload" type="submit" class="btn btn-default" style="height:30px">添加</button>
+                }
+                
             </div>
             <br />
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-11">
                     <table id="permission"></table>
                 </div>
             </div>
@@ -79,29 +83,34 @@
                 pageList: [10, 25, 50, 100],
                 minimumCountColumns: 2,
                 clickToSelect: true,
+                width:2000,
                 columns: [{
                     field: 'id',
                     title: '序号',
                     align: 'center',
                     valign: 'middle',
-                    sortable: true
+                    sortable: true,
+                    visible: false
                 }, {
                     field: 'Position',
                     title: '职务',
                     align: 'center',
                     valign: 'middle',
+                    width:200,
                     sortable: true
                 }, {
                     field: 'AccessiblePage',
                     title: '允许进入的页面',
                     align: 'center',
                     valign: 'middle',
+                    width:1000,
                     sortable: true
                 }, {
                     field: 'Remove',
                     title: '删除',
                     align: 'center',
                     valign: 'middle',
+                    width:150,
                     clickToSelect: false,
                     formatter: RemovePermissionFormatter,
                     events: RemovePermissionEvents
@@ -110,20 +119,34 @@
 
         });
 
-        
-
         function RemovePermissionFormatter(value, row, index) {
-            return [
-                ' <a class="remove" href="javascript:void(0)" title="Remove">删除',
+            if (row.Position != "系统管理员") {
+                return [
+                ' <a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove-sign"></i>',
                 '</a>'
-            ].join('');
+                ].join('');
+            }
+            else {
+                return "不可删除";
+            }
         }
 
         window.RemovePermissionEvents = {
             'click .remove': function (e, value, row, index) {
                 //alert('You click remove icon, row: ' + JSON.stringify(row));
                 if (confirm("您确定要删除吗？")) {
-
+                    $.ajax({
+                        url: "/SystemConfig/DeletePermission", /*使用ajax向后面传递参数，传递这一行的id*/
+                        type: "POST",
+                        data: { ID: row.id ,position:row.Position },
+                        traditional: true,
+                        success: function (msg) {
+                            if (msg == "1") {
+                                window.location.reload();
+                            }
+                        }
+                    });
                 }
                 console.log(value, row, index);
             }

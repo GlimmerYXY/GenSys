@@ -150,14 +150,14 @@
     <Compile Include="Models\alarm.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GenboxHelper.cs" />
     <Compile Include="Models\device.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DeviveTreeNode.cs" />
     <Compile Include="Models\dev_dict.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GenboxHelper.cs" />
+    <Compile Include="Models\DeviveTreeNode.cs" />
     <Compile Include="Models\GensysModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,6 +191,9 @@
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\site.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sys_basicconfig.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sys_dept.cs">
@@ -294,9 +297,10 @@
     <Content Include="Models\GensysModel.edmx.diagram">
       <DependentUpon>GensysModel.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\IISConfig.pubxml" />
-    <Content Include="Public\json.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap-tree\gijgo.min.css" />
+    <Content Include="Scripts\bootstrap-tree\gijgo.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap3-editable-1.5.1\bootstrap-editable.css" />
@@ -310,9 +314,11 @@
     <Content Include="Scripts\camera\main.js" />
     <Content Include="Scripts\camera\plugin.js" />
     <Content Include="Scripts\camera\pluginVersion.js" />
+    <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery.editable-select\jquery.editable-select.min.css" />
     <Content Include="Scripts\jquery.editable-select\jquery.editable-select.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -322,6 +328,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\webVideoCtrl.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -360,6 +367,7 @@
     <Content Include="Views\SystemConfig\Index.cshtml" />
     <Content Include="Views\SystemConfig\Permission.cshtml" />
     <Content Include="Views\SystemConfig\_PartialPage1.cshtml" />
+    <Content Include="Views\Home\Index0.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

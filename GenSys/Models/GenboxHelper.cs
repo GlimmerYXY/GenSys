@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Script.Serialization;
 
@@ -25,7 +26,7 @@ namespace GenSys.Models
             return serializer.Serialize(obj);
         }
 
-        public static string ToPost(string url, string content, string contentType)
+        public static string HttpPost(string url, string content, string contentType)
         {
             //配置Http协议头
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -52,7 +53,7 @@ namespace GenSys.Models
             return result;
         }
 
-        public static string ToGet(string url)
+        public static string HttpGet(string url)
         {
             //配置Http协议头
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -74,16 +75,35 @@ namespace GenSys.Models
             //生成json格式参数
             var ipcamJson = (from ipcam in db.ipcam select ipcam).ToList().ToJson();
             ipcamJson = "{\"ipcams\":" + ipcamJson + "}";
+
             //发送给genbox
-            string result;
-            result = GenboxHelper.ToPost("http://192.168.1.105:9999/cgi-bin/ipcam_setup_set.cgi", ipcamJson, "application/json");
+            string result = "";
+            string ipcam_get = "0";
+            try
+            {
+
+                result = HttpPost("http://173.23.29.233:9999/cgi-bin/ipcam_setup_set.cgi", ipcamJson, "application/json");
+                ipcam_get = HttpGet("http://173.23.29.233:9999/cgi-bin/ipcam_setup_get.cgi");
+
+                while (ipcam_get == "0")
+                {
+                    Thread.Sleep(1000);
+                    result = HttpPost("http://173.23.29.233:9999/cgi-bin/ipcam_setup_set.cgi", ipcamJson, "application/json");
+                    ipcam_get = HttpGet("http://173.23.29.233:9999/cgi-bin/ipcam_setup_get.cgi");
+                }
+                //return result;
+            }
+            catch (Exception ex)
+            {
+                //return ex.Message + ex.StackTrace;
+            }
 
         }
 
         public static void ipcam_setup_get()
         {
             string result;
-            result = GenboxHelper.ToGet("http://192.168.1.105:9999/cgi-bin/ipcam_setup_get.cgi");
+            result = GenboxHelper.HttpGet("http://173.23.29.233:9999/cgi-bin/ipcam_setup_get.cgi");
 
         }
     }

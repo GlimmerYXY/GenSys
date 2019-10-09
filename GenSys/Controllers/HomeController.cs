@@ -69,6 +69,11 @@ namespace GenSys.Controllers
             ViewData["alarm"] = db.alarm.ToList();
             return View();
         }
+        public ActionResult Index0()
+        {
+            ViewData["alarm"] = db.alarm.ToList();
+            return View();
+        }
 
 
         /* 报警信息列表 */

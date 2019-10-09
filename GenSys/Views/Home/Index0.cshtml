@@ -1,0 +1,211 @@
+﻿@model GenSys.Models.alarm
+
+@{
+    ViewBag.Title = "风格2 传统监控";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+<hr />
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="/Scripts/camera/LAB.min.js"></script>
+    <script type="text/javascript" for="ipcocx" event="SendMsgToWeb(strMsg)">SendMsgToWeb(strMsg);</script>
+
+    <link href="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/Bootstrap-Table-1.5.0/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <script>
+        //$(function () {
+        //    $(function () { $("[data-toggle='popover']").popover(); });
+        //});
+
+        var tree = $('#tree').tree({
+            dataSource: '/Home/GetTree'//[{ text: '磨溪', children: [{ text: '井口区' }, { text: '装置区' }, { text: '大门口' }] }],
+        });
+        tree.on('select', function (e, node, id) {
+            var data = tree.getDataById(id);
+            //alert('select is fired for node with id=' + id + '\t' + 'ip=' + data.ip + '\t' + 'media_port=' + data.media_port + '\t' + 'username=' + data.username + '\t' + 'password=' + data.password);
+            GensysLogin(data.ip, data.media_port, data.username, data.password);
+        });
+
+
+        $LAB.script("/Scripts/camera/pluginVersion.js?version=" + (new Date).getTime())
+            .wait(function () {
+                $LAB.script("/Scripts/camera/jquery-1.11.1.min.js")
+                    //.script("~/js/json.js?version=" + version_web)
+                    .wait(function () {
+                        $LAB.script("/Scripts/camera/common.js?version=" + version_web)
+                            .script("/Scripts/camera/class.js?version=" + version_web)
+                            .script("/Scripts/camera/plugin.js?version=" + version_web)
+                            .wait(function () {
+                                $LAB.script("/Scripts/camera/main.js?version=" + version_web)
+                            })
+                    })
+            })
+
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="like" href="javascript:void(0)" title="Like">',
+                '<i class="glyphicon glyphicon-heart"></i>',
+                '</a>',
+                ' <a class="edit ml10" href="javascript:void(0)" title="Edit">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>',
+                ' <a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+        }
+
+        window.operateEvents = {
+            'click .like': function (e, value, row, index) {
+                alert('You click like icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            },
+            'click .edit': function (e, value, row, index) {
+                alert('You click edit icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            },
+            'click .remove': function (e, value, row, index) {
+                alert('You click remove icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            }
+        };
+
+        var $table = $('#alarmTable')
+        function myRefreshAlarm() {
+            //在本函数内定义table变量，会提示不支持bootstrapTable方法
+            $table.bootstrapTable('refresh', { url: '/Home/GetAlarm' });
+        }
+        //setInterval(myRefreshAlarm, 3000);
+
+    </script>
+}
+
+
+<div class="row">
+    <div class="col-md-2">
+        <div id="tree" style="width:150px"></div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="row">
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios1" value="option1"> 1画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios2" value="option2"> 4画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option3"> 8画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="option4"> 8画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios5" value="option5"> 16画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios6" value="option6"> 25画面
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="optionsRadiosinline" id="optionsRadios7" value="option7"> 36画面
+            </label>
+        </div><br>
+
+        <div class="row">
+            @*<button type="button" class="btn btn-default" onclick="GensysLogin('yuanxxn.vicp.net', 18915, 'admin', 'admin')">reload</button>*@
+            @*<div id="logout">
+                <button type="button" class="btn btn-default" onclick="logout()">reload</button>
+                <button type="button" class="btn btn-warning" title="Popover title"
+                        data-container="body" data-toggle="popover" data-placement="left"
+                        data-content="右侧的 Popover 中的一些内容">
+                    右侧的 Popover
+                </button>
+                <button type="button" class="btn btn-default" title="Popover title"
+                        data-container="body" data-html="true"
+                        data-toggle="popover" data-placement="right"
+                        data-content="<img src='https://b-ssl.duitang.com/uploads/item/201601/13/20160113153414_JcvW3.jpeg' class='img-rounded'>">
+                    显示
+                </button>
+                <a title="" aria-describedby="popover741762" data-original-title="Popover title" data-toggle="popover"
+                    data-content="<img src='D:\CSharp\Gensys\GenSys\Public/AlarmSnap/20190702_101038_1423532192865.jpg' class='img-rounded'>"
+                    data-placement="left" data-container="body" data-html="true">
+                    显示
+                </a>
+            </div>*@
+
+            <br>
+
+            <div class="liveCenter" id="liveOcx"></div>
+        </div><br>
+
+        <div class="row">
+            @*<table id="table-javascript"></table>*@
+
+            <table id="alarmTable" data-toggle="table" data-url="/Home/GetAlarm" data-method="get" data-silent="true" data-cache="false"
+                       data-height="520" @*data-classes="table-bordered"*@ data-striped="true"
+                       data-sortable="true" data-sort-name="id" data-sort-order="desc"
+                       data-pagination="true" data-pageSize="20" data-pageList="[10, 25, 50, 100]"
+                       data-search="true" data-show-columns="true" data-show-refresh="true">
+                <thead>
+                    <tr>
+                        <th data-field="id" data-sortable="true">序号</th>
+                        <th data-field="state" data-sortable="true">状态</th>
+                        <th data-field="site" data-sortable="true">站点</th>
+                        <th data-field="alias" data-sortable="true">摄像机名称</th>
+                        <th data-field="algorithm_id" data-sortable="true">事件类型</th>
+                        <th data-field="datetime" data-sortable="true">报警时间</th>
+                        <th data-field="show_image" data-formatter="operateFormatter" data-events="operateEvents">事件录像</th>
+                        <th data-field="alg_config" data-formatter="operateFormatter" data-events="operateEvents">确认</th>
+                    </tr>
+                </thead>
+            </table>
+
+            @*<table class="table">
+                <tr>
+                    <th>序号</th>
+                    <th>状态</th>
+                    <th>站点</th>
+                    <th>摄像机名称/ID</th>
+                    <th>事件类型</th>
+                    <th>报警时间</th>
+                    <th>事件录像</th>
+                    <th>确认</th>
+                </tr>
+
+                @foreach (var item in ViewData["alarm"] as IEnumerable<GenSys.Models.alarm>)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.state)</td>
+                        <td>@Html.DisplayFor(modelItem => item.site)</td>
+                        <td>@Html.DisplayFor(modelItem => item.alias)</td>
+                        <td>@Html.DisplayFor(modelItem => item.algorithm_id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.datetime)</td>
+                        <td>
+                            <a title="Popover title"
+                                data-container="body" data-html="true"
+                                data-toggle="popover" data-placement="left"
+                                data-content="<img src='@Html.DisplayFor(modelItem => item.image)' class='img-rounded'>">
+                                显示
+                            </a>
+                        </td>
+                        <td>@Html.ActionLink("确认", "Edit", new { id = item.id })</td>
+                    </tr>
+                }
+            </table>*@
+        </div>
+    </div>
+</div>
+
+

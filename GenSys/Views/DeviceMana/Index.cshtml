@@ -47,7 +47,7 @@
             filter: false
         });
 
-        
+
         var $table = $('#deviceTable')
         var $button = $('#button')
         $button.click(function () {
@@ -59,11 +59,15 @@
             return [
                 ' <a class="edit ml10" href="javascript:void(0)" title="Edit">',
                 '<i class="glyphicon glyphicon-edit"></i>',
-                '</a>'
+                '</a>',
+                '<a data-toggle="modal" data-target="#editModal">删除</a>'
             ].join('');
         }
-        function deleteFormatter(value, row, index) {
+        function operateFormatter(value, row, index) {
             return [
+                ' <a class="edit ml10" href="javascript:void(0)" title="Edit" onclick="edit_customer(this)">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>',
                 ' <a class="remove ml10" href="javascript:void(0)" title="Remove">',
                 '<i class="glyphicon glyphicon-remove"></i>',
                 '</a>'
@@ -75,8 +79,9 @@
                 console.log(value, row, index);
             },
             'click .edit': function (e, value, row, index) {
-                alert('You click edit icon, row: ' + JSON.stringify(row));
-                console.log(value, row, index);
+                $('#editModal').modal("show");
+                //alert('You click edit icon, row: ' + JSON.stringify(row));
+                //console.log(value, row, index);
             },
             'click .remove': function (e, value, row, index) {
                 //alert('You click remove icon, row: ' + JSON.stringify(row));
@@ -84,6 +89,31 @@
                 toDelete(row.uuid);
             }
         };
+
+        function edit_customer(obj) {
+            var $td = $(obj).parents('tr').children('td');
+            var alias = $td.eq(0).text();
+            var site = $td.eq(1).text();
+            var dev_type = $td.eq(2).text();
+            var dev_model = $td.eq(3).text();
+            var uuid = $td.eq(4).text();
+            var rtsp_url = $td.eq(5).text();
+            var ip = $td.eq(6).text();
+            var media_port = $td.eq(7).text();
+            var account = $td.eq(8).text();
+            var password = $td.eq(9).text();
+
+            $("#alias2").val(alias);
+            $("#site2").val(site);
+            $("#dev_type2").val(dev_type);
+            $("#dev_model2").val(dev_model);
+            $("#uuid2").val(uuid);
+            $("#rtsp_url2").val(rtsp_url);
+            $("#ip2").val(ip);
+            $("#media_port2").val(media_port);
+            $("#account2").val(account);
+            $("#password2").val(password);
+        }
 
         function toDelete(id) {
             console.log(id);
@@ -164,7 +194,8 @@
         </div>
 
         <div class="form-group">
-            @Html.PasswordFor(model => model.password, new { @class = "form-control", @id = "password", placeholder = "密码" })@*用htmlAttributes会显示MVC风格而不是bootstrap风格*@
+            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @id = "password", placeholder = "密码" } })
+            @*@Html.PasswordFor(model => model.password, new { @class = "form-control", @id = "password", placeholder = "密码" })@*用htmlAttributes会显示MVC风格而不是bootstrap风格*@
             @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
         </div>
 
@@ -195,12 +226,93 @@
                 <th data-field="media_port">媒体端口号</th>
                 <th data-field="account">账号</th>
                 <th data-field="password">密码</th>
-                <th data-field="alg_config" data-formatter="editFormatter" data-events="operateEvents">算法配置</th>
-                <th data-field="delete" data-formatter="deleteFormatter" data-events="operateEvents">删除</th>
+                @*<th data-field="alg_config" data-formatter="editFormatter" data-events="operateEvents">算法配置</th>*@
+                <th data-field="delete" data-formatter="operateFormatter" data-events="operateEvents">操作</th>
             </tr>
         </thead>
     </table>
 </div>
+
+<div class="modal fade" id="editModal" role="dialog" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="editModalLabel">编辑</h4>
+            </div>
+            @using (Html.BeginForm("UpdateDev", "DeviceMana"))
+            {
+                 <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                     <div class="form-inline">
+                         <div class="form-group">
+                             @Html.EditorFor(model => model.alias, new { htmlAttributes = new { @class = "form-control", @id = "alias2", placeholder = "别名" } })
+                             @Html.ValidationMessageFor(model => model.alias, "", new { @class = "text-danger" })
+                         </div>
+
+                         <div class="form-group">
+                             @*<select id="site" class="form-control"></select>*@
+                             @Html.DropDownListFor(model => model.site, ViewData["siteList"] as IEnumerable<SelectListItem>, new { @class = "form-control select", @id = "site2" })
+                             @Html.ValidationMessageFor(model => model.site, "", new { @class = "text-danger" })
+                         </div>
+
+                         <div class="form-group">
+                             @Html.DropDownListFor(model => model.dev_type, ViewData["dev_typeList"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "dev_type2" })
+                             @Html.ValidationMessageFor(model => model.dev_type, "", new { @class = "text-danger" })
+                         </div>
+
+                         <div class="form-group">
+                             @Html.DropDownListFor(model => model.dev_model, ViewData["dev_modelList"] as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "dev_model2" })
+                             @Html.ValidationMessageFor(model => model.dev_model, "", new { @class = "text-danger" })
+                         </div>
+
+                         <br /><br />
+
+                         <div class="form-group">
+                             @Html.EditorFor(model => model.uuid, new { htmlAttributes = new { @class = "form-control", @id = "uuid2", placeholder = "识别编号", @style= "display:none" } })
+                             @Html.ValidationMessageFor(model => model.uuid, "", new { @class = "text-danger" })
+                         </div>
+
+                         <div class="form-group">
+                             @Html.EditorFor(model => model.rtsp_url, new { htmlAttributes = new { @class = "form-control", @id = "rtsp_url2", placeholder = "视频流地址" } })
+                             @Html.ValidationMessageFor(model => model.rtsp_url, "", new { @class = "text-danger" })
+                         </div>
+
+                         <br /><br />
+
+                         <div class="form-group">
+                             @Html.EditorFor(model => model.ip, new { htmlAttributes = new { @class = "form-control", @id = "ip2", placeholder = "IP地址" } })
+                             @Html.ValidationMessageFor(model => model.ip, "", new { @class = "text-danger" })
+                         </div>
+
+                         <div class="form-group">
+                             @Html.EditorFor(model => model.media_port, new { htmlAttributes = new { @class = "form-control", @id = "media_port2", placeholder = "媒体端口号" } })
+                             @Html.ValidationMessageFor(model => model.media_port, "", new { @class = "text-danger" })
+                         </div>
+
+                         <br /><br />
+
+                         <div class="form-group">
+                             @Html.EditorFor(model => model.account, new { htmlAttributes = new { @class = "form-control", @id = "account2", placeholder = "账号" } })
+                             @Html.ValidationMessageFor(model => model.account, "", new { @class = "text-danger" })
+                         </div>
+
+                         <div class="form-group">
+                             @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @id = "password2", placeholder = "密码" } })
+                             @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="modal-footer">
+                     <button type="submit" class="btn btn-default">提交</button>
+                 </div>
+            }
+            </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!--
 @*<table class="table">

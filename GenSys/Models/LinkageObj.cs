@@ -8,9 +8,9 @@ namespace GenSys.Models
     
     public class LinkageObj
     {
-        public string repeat { get; set; }
         public string trigger { get; set; }
-        public string delay { get; set; }
+        public int delay { get; set; }
+        public string repeat { get; set; }
         public Sequence sequence;
     }
 

@@ -8,7 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Drawing;
- 
+using System.Net;
+
 namespace GenSys.Controllers
 {
     public class HomeController : Controller
@@ -79,9 +80,29 @@ namespace GenSys.Controllers
         /* 报警信息列表 */
         public JsonResult GetAlarm()
         {
-            return Json(db.alarm.ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.genbox_alarm.ToList(), JsonRequestBehavior.AllowGet);
         }
- 
+
+        // POST: Home/Confirm//5
+        [HttpPost]
+        public ActionResult Confirm(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            genbox_alarm alarm = db.genbox_alarm.Find(int.Parse(id));   //要和数据库字段的类型一致
+            if (alarm == null)
+            {
+                return HttpNotFound();
+            }
+            alarm.is_confirmed = 1;
+            //db.Entry(alarm).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
         /* 树形菜单 */
         public JsonResult GetTree()

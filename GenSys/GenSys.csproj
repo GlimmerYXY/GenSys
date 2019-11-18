@@ -158,6 +158,12 @@
     </Compile>
     <Compile Include="Models\GenboxHelper.cs" />
     <Compile Include="Models\DeviveTreeNode.cs" />
+    <Compile Include="Models\genbox_alarm.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\genbox_cpu.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GensysModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,10 +189,16 @@
     <Compile Include="Models\linkage_event.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\linkage_instruction.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\linkage_operation.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\linkage_position.cs">
+      <DependentUpon>GensysModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\linkage_trigger.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
@@ -226,9 +238,6 @@
     <Compile Include="Models\sys_user.cs">
       <DependentUpon>GensysModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sys_user_guns.cs">
-      <DependentUpon>GensysModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TokenGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -251,6 +260,19 @@
       <DependentUpon>GensysModel.edmx</DependentUpon>
       <LastGenOutput>GensysModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\bootstrap-table-1.15.5\bootstrap-table.min.css" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\bootstrap-table.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\editable\bootstrap-table-editable.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\export\bootstrap-table-export.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\filter-control\bootstrap-table-filter-control.min.css" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\filter-control\bootstrap-table-filter-control.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\filter\bootstrap-table-filter.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\flatJSON\bootstrap-table-flatJSON.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\reorder-rows\bootstrap-table-reorder-rows.min.css" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\reorder-rows\bootstrap-table-reorder-rows.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\extensions\reorder-rows\jquery.tablednd.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\locale\bootstrap-table-en-US.min.js" />
+    <Content Include="Scripts\bootstrap-table-1.15.5\locale\bootstrap-table-zh-CN.min.js" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\bootstrap-table.min.css" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\bootstrap-table.min.js" />
     <Content Include="Scripts\Bootstrap-Table-1.5.0\extensions\editable\bootstrap-table-editable.min.js" />
@@ -346,7 +368,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Privacy.cshtml" />
-    <Content Include="Views\LinkageConfig\Index.cshtml" />
+    <Content Include="Views\LinkageConfig\Index_old.cshtml" />
     <Content Include="Views\DigitalMap\Index.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
@@ -368,6 +390,8 @@
     <Content Include="Views\SystemConfig\Permission.cshtml" />
     <Content Include="Views\SystemConfig\_PartialPage1.cshtml" />
     <Content Include="Views\Home\Index0.cshtml" />
+    <Content Include="Views\LinkageConfig\Index.cshtml" />
+    <Content Include="Views\LinkageConfig\Index0.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

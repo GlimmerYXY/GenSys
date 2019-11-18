@@ -108,5 +108,11 @@ namespace GenSys.Models
         public string wca_tur { get; set; }
         public string wca_wed { get; set; }
         public Nullable<double> whitelist { get; set; }
+        public Nullable<int> ebd_cpu { get; set; }
+        public Nullable<int> fsd_cpu { get; set; }
+        public Nullable<int> opa4t_cpu { get; set; }
+        public Nullable<int> pfr_cpu { get; set; }
+        public Nullable<int> ssc_cpu { get; set; }
+        public Nullable<int> wca_cpu { get; set; }
     }
 }

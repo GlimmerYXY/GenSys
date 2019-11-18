@@ -23,19 +23,29 @@ namespace GenSys.Controllers
             List<SelectListItem> siteList = new SelectList(site.Distinct()).ToList();
             siteList.Insert(0, new SelectListItem { Text = "站点", Selected = true, Disabled = true });
             ViewData["siteList"] = siteList;
+            List<string> siteList1 = new List<string>(site.Distinct()).ToList();
+            siteList1.Insert(0, "站点");
+            ViewBag.sitename = siteList1;
 
             var dev_type = from dev_dict in db.dev_dict
                            select dev_dict.type;
             List<SelectListItem> dev_typeList = new SelectList(dev_type.Distinct()).ToList();
-            dev_typeList.Insert(0, new SelectListItem { Text = "设备类型",  Selected = true, Disabled = true });
+            dev_typeList.Insert(0, new SelectListItem { Text = "设备类型", Selected = true, Disabled = true });
             ViewData["dev_typeList"] = dev_typeList;
+            List<string> dev_typeList1 = new List<string>(dev_type.Distinct()).ToList();
+            dev_typeList1.Insert(0, "设备类型");
+            ViewBag.devname = dev_typeList1;
 
             var dev_model = from device in db.device
                             select device.dev_model;
             List<SelectListItem> dev_modelList = new SelectList(dev_model.Distinct()).ToList();
             dev_modelList.Insert(0, new SelectListItem { Text = "设备型号", Selected = true, Disabled = true });
             ViewData["dev_modelList"] = dev_modelList;
-            
+            List<string> dev_modelList1 = new List<string>(dev_model.Distinct()).ToList();
+            dev_modelList1.Insert(0, "设备型号");
+            ViewBag.devmodelname = dev_modelList1;
+
+
             //ViewData["device"] = JsonConvert.SerializeObject(db.device.ToList());
             return View();
         }
@@ -45,16 +55,40 @@ namespace GenSys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddDevice(device device)    //[Bind(Include = "alias, site, dev_type, dev_model, uuid, rtsp_url, account, password")
         {
+            
             if (ModelState.IsValid)
             {
-                //添加到device
-                int count = db.device.Count();
-                //device.id = count + 1;
-                db.device.Add(device);
-                //db.SaveChanges();
+                if (device.uuid == null)
+                {
+                    var script = string.Format("<script>alert('识别编号未填写！');location.href='{0}'</script>", Url.Action("Index", "DeviceMana"));
+                    //Url.Action()用于指定跳转的路径             
+                    return Content(script, "text/html");
+                }
+                else {
+                    var distinctdev = (from d in db.device
+                                         where d.uuid == device.uuid
+                                         select d);
+                    if (distinctdev.Count() != 0)
+                    {
+                        var script = string.Format("<script>alert('识别编号重复！');location.href='{0}'</script>", Url.Action("Index", "DeviceMana"));
+                        //Url.Action()用于指定跳转的路径             
+                        return Content(script, "text/html");
+                    }
+                    else
+                    {
+                        //添加到device
+                        int count = db.device.Count();
+                        //device.id = count + 1;
+                        db.device.Add(device);
 
-                AddIpcam(device.uuid, device.rtsp_url, device.account, device.password);
-                GenboxHelper.ipcam_setup_set(db);
+                        if (device.dev_type != "GenBox" && device.dev_type != "声波盾")
+                        {
+                            AddIpcam(device.uuid, device.rtsp_url, device.account, device.password);
+                        }
+                        db.SaveChanges();
+                        //GenboxHelper.ipcam_setup_set(db);
+                    }
+                }
             }
             return RedirectToAction("Index");//return Redirect("index");//return Json("fsdfds");// return JavaScript("location.reload()");
         }
@@ -157,9 +191,15 @@ namespace GenSys.Controllers
             cam.wca_tur = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
             cam.wca_wed = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
             cam.whitelist = 1;
+            cam.ebd_cpu = 0;
+            cam.fsd_cpu = 0;
+            cam.opa4t_cpu = 0;
+            cam.pfr_cpu = 0;
+            cam.ssc_cpu = 0;
+            cam.wca_cpu = 0;
 
             db.ipcam.Add(cam);
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         [HttpPost]
@@ -183,14 +223,184 @@ namespace GenSys.Controllers
                 }
                 db.SaveChanges();
 
-                GenboxHelper.ipcam_setup_set(db);
+                //GenboxHelper.ipcam_setup_set(db);
             }
             return RedirectToAction("Index");//return Redirect("index");//return Json("fsdfds");// return JavaScript("location.reload()");
         }
 
-        // POST: DeviceMana/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id)
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateGB(FormCollection formcollection, device device)    //[Bind(Include = "alias, site, dev_type, dev_model, uuid, rtsp_url, account, password")
+        {
+            gensysEntities gensysdb = new gensysEntities();
+            if (ModelState.IsValid)
+            {
+
+                device device_old = gensysdb.device.Find(device.uuid);
+                if (device == null)
+                {
+                    return HttpNotFound();
+                }
+                gensysdb.device.Remove(device_old);
+                gensysdb.device.Add(device);
+
+            }
+
+            string camuuid1 = formcollection["cam_uuid1"];
+            string algo1 = formcollection["algo1"];
+            string cpunum1 = formcollection["cpu_num1"];
+
+            string camuuid2 = formcollection["cam_uuid2"];
+            string algo2 = formcollection["algo2"];
+            string cpunum2 = formcollection["cpu_num2"];
+
+            string camuuid3 = formcollection["cam_uuid3"];
+            string algo3 = formcollection["algo3"];
+            string cpunum3 = formcollection["cpu_num3"];
+
+            device availableuuid1 = gensysdb.device.Find(camuuid1);
+            device availableuuid2 = gensysdb.device.Find(camuuid2);
+            device availableuuid3 = gensysdb.device.Find(camuuid3);
+
+            ipcam cam1, cam2, cam3;
+            //判断，如果三个输入的uuid不是空，且查询device表，不存在这个uuid或者不是ipcam的话就不添加
+            if (camuuid1 != "" && (availableuuid1 == null || availableuuid1.dev_type == "GenBox" || availableuuid1.dev_type == "声波盾")
+                || camuuid2 != "" && (availableuuid2 == null || availableuuid2.dev_type == "GenBox" || availableuuid2.dev_type == "声波盾")
+                || camuuid3 != "" && (availableuuid3 == null || availableuuid3.dev_type == "GenBox" || availableuuid3.dev_type == "声波盾"))
+            {
+                var script = string.Format("<script>alert('添加的uuid有问题，请检查后重新输入！');location.href='{0}'</script>", Url.Action("Index", "DeviceMana"));
+                //Url.Action()用于指定跳转的路径             
+                return Content(script, "text/html");
+            }
+            else
+            {
+                if (camuuid1 != "" && cpunum1 != "")
+                {
+                    genbox_cpu add1 = new genbox_cpu();
+                    add1.ipcam_uuid = camuuid1;
+                    add1.genbox_uuid = device.uuid;
+                    add1.algo_value = algo1;
+                    add1.cpu_num = cpunum1;
+                    gensysdb.genbox_cpu.Add(add1);
+
+                    cam1 = gensysdb.ipcam.Find(camuuid1);   //要和数据库字段的类型一致
+                    if (cam1 == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    switch (algo1)
+                    {
+                        case "ebd":
+                            cam1.ebd_cpu = int.Parse(cpunum1); break;
+                        case "fsd":
+                            cam1.fsd_cpu = int.Parse(cpunum1); break;
+                        case "opa4t":
+                            cam1.opa4t_cpu = int.Parse(cpunum1); break;
+                        case "pfr":
+                            cam1.pfr_cpu = int.Parse(cpunum1); break;
+                        case "ssc":
+                            cam1.ssc_cpu = int.Parse(cpunum1); break;
+                        case "wca":
+                            cam1.wca_cpu = int.Parse(cpunum1); break;
+                    }
+                    gensysdb.Entry(cam1).State = System.Data.Entity.EntityState.Modified;
+                    gensysdb.SaveChanges();
+                }
+                else if (camuuid1 == "" && cpunum1 == "") { }
+                else
+                {
+                    var script = string.Format("<script>alert('有表格项未填写完整！');location.href='{0}'</script>", Url.Action("Index", "DeviceMana"));
+                    //Url.Action()用于指定跳转的路径             
+                    return Content(script, "text/html");
+                }
+                if (camuuid2 != "" && cpunum2 != "")
+                {
+                    genbox_cpu add2 = new genbox_cpu();
+                    add2.ipcam_uuid = camuuid2;
+                    add2.genbox_uuid = device.uuid;
+                    add2.algo_value = algo2;
+                    add2.cpu_num = cpunum2;
+                    gensysdb.genbox_cpu.Add(add2);
+
+                    cam2 = gensysdb.ipcam.Find(camuuid2);   //要和数据库字段的类型一致
+                    if (cam2 == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    switch (algo2)
+                    {
+                        case "ebd":
+                            cam2.ebd_cpu = int.Parse(cpunum2); break;
+                        case "fsd":
+                            cam2.fsd_cpu = int.Parse(cpunum2); break;
+                        case "opa4t":
+                            cam2.opa4t_cpu = int.Parse(cpunum2); break;
+                        case "pfr":
+                            cam2.pfr_cpu = int.Parse(cpunum2); break;
+                        case "ssc":
+                            cam2.ssc_cpu = int.Parse(cpunum2); break;
+                        case "wca":
+                            cam2.wca_cpu = int.Parse(cpunum2); break;
+                    }
+                    //gensysdb.Entry(cam2).State = System.Data.Entity.EntityState.Modified;
+                    gensysdb.SaveChanges();
+                }
+                else if (camuuid2 == "" && cpunum2 == "") { }
+                else
+                {
+                    var script = string.Format("<script>alert('有表格项未填写完整！');location.href='{0}'</script>", Url.Action("Index", "DeviceMana"));
+                    //Url.Action()用于指定跳转的路径             
+                    return Content(script, "text/html");
+                }
+                if (camuuid3 != "" && cpunum3 != "")
+                {
+                    genbox_cpu add3 = new genbox_cpu();
+                    add3.ipcam_uuid = camuuid3;
+                    add3.genbox_uuid = device.uuid;
+                    add3.algo_value = algo3;
+                    add3.cpu_num = cpunum3;
+                    gensysdb.genbox_cpu.Add(add3);
+
+                    cam3 = gensysdb.ipcam.Find(camuuid3);   //要和数据库字段的类型一致
+                    if (cam3 == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    switch (algo3)
+                    {
+                        case "ebd":
+                            cam3.ebd_cpu = int.Parse(cpunum3); break;
+                        case "fsd":
+                            cam3.fsd_cpu = int.Parse(cpunum3);break;
+                        case "opa4t":
+                            cam3.opa4t_cpu = int.Parse(cpunum3); break;
+                        case "pfr":
+                            cam3.pfr_cpu = int.Parse(cpunum3); break;
+                        case "ssc":
+                            cam3.ssc_cpu = int.Parse(cpunum3); break;
+                        case "wca":
+                            cam3.wca_cpu = int.Parse(cpunum3); break;
+                    }
+                    //gensysdb.Entry(cam3).State = System.Data.Entity.EntityState.Modified;
+                    gensysdb.SaveChanges();
+                }
+                else if (camuuid3 == "" && cpunum3 == "") { }
+                else
+                {
+                    var script = string.Format("<script>alert('有表格项未填写完整！');location.href='{0}'</script>", Url.Action("Index", "DeviceMana"));
+                    //Url.Action()用于指定跳转的路径             
+                    return Content(script, "text/html");
+                }
+            }
+            gensysdb.SaveChanges();
+            
+            GenboxHelper.ipcam_setup_set(db, device);
+
+            return RedirectToAction("Index");//return Redirect("index");//return Json("fsdfds");// return JavaScript("location.reload()");
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string id,string type)   
         {
             if (id == null)
             {
@@ -204,18 +414,67 @@ namespace GenSys.Controllers
             }
             db.device.Remove(device);
 
-            ipcam ipcam = db.ipcam.Find(id);
-            if (ipcam == null)
+            if(type=="HIK IPC")
             {
-                return HttpNotFound();
+                ipcam ipcam = db.ipcam.Find(id);
+                if (ipcam == null)
+                {
+                    return HttpNotFound();
+                }
+                db.ipcam.Remove(ipcam);
             }
-            db.ipcam.Remove(ipcam);
+            else if (type == "GenBox")
+            {
+                var sql = @"delete from genbox_cpu WHERE genbox_uuid = @Id";
+
+                db.Database.ExecuteSqlCommand(
+                    sql,
+
+                    new MySqlParameter("@Id", id));
+            }
 
             db.SaveChanges();
 
-            GenboxHelper.ipcam_setup_set(db);
+            //GenboxHelper.ipcam_setup_set(db);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Delete_tbcpu(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var sql = @"delete from genbox_cpu WHERE genbox_uuid = @Id";
+
+            db.Database.ExecuteSqlCommand(
+                sql,
+
+                new MySqlParameter("@Id", id));
+            
+            db.SaveChanges();
+
+            //GenboxHelper.ipcam_setup_set(db);
+
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult GenboxDetail(string id)
+        {
+            var detailquery = (from t in db.genbox_cpu
+                               where t.genbox_uuid == id
+                               select /*t.ipcam_uuid + t.algo_value + t.cpu_num*/
+                               new
+                               {
+                                   a = t.ipcam_uuid,
+                                   b = t.algo_value,
+                                   c = t.cpu_num
+                               }).ToList();
+
+            return Json(detailquery.ToJson(), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
